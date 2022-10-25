@@ -1,0 +1,112 @@
+/* Variables */
+:root {
+  --element-box-size: 32px;
+}
+
+.ptable_outer {
+  /* width: 95%; */
+  /* margin: 0 auto; */
+  /*margin-top: -4vw;*/
+  /* max-width: 1700px; */
+  /* transform: scale(0.8); */
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ptable {
+  display: grid;
+  grid-template-columns: repeat(17, auto) 1fr;
+  grid-template-rows: repeat(10, auto) 1fr;
+}
+
+.element {
+  background: rgb(163, 215, 245);
+  border: 2px solid #999;
+  height: var(--element-box-size);
+  width: var(--element-box-size);
+  margin: 1px;
+  /* margin-right: -2px; */
+  /* margin-bottom: -2px; */
+  user-select: none; /* don't select text upon clicking */
+  position: relative;
+  border-radius: 20%;
+  cursor: pointer;
+  /*cursor: default; /* don't charge cursor into a bar when hovering over text */
+  display: flex;
+  flex-direction: column; /* make main axis vertical */
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center;
+  /* text inside the a element */
+  color: rgb(0, 0, 0);
+  text-decoration: none; /* no underline */
+}
+
+.element-disabled {
+  /* background: rgb(226, 226, 226); */
+  pointer-events: none; /* no hover on disabled elements */
+}
+
+.element-selected {
+  background: rgb(39, 71, 253);
+  color: rgb(255, 255, 255);
+}
+
+.element:hover {
+  filter: brightness(85%);
+  transform: scale(1.2);
+  z-index: 10;
+}
+
+.elem_sym {
+  font-size: calc(0.5 * var(--element-box-size));
+  line-height: 1;
+  /* border: 1px solid blue; */
+}
+
+.elem_num {
+  font-size: 13px;
+  line-height: 1;
+  /* border: 1px solid red; */
+}
+
+/* ----------------------------- */
+/* element locations in the grid */
+
+.element-2 {
+  grid-column-start: 18;
+}
+
+.element-5 {
+  grid-column-start: 13;
+}
+
+.element-13 {
+  grid-column-start: 13;
+}
+
+/* Lanthanoids and Actonoids */
+
+.element-58 {
+  grid-column-start: 4;
+}
+
+.element-90 {
+  grid-column-start: 4;
+}
+
+.lanthanide {
+  margin-top: 14px;
+}
+
+/* ----------------------------- */
+
+@media screen and (max-width: 1000px) {
+  :root {
+    --element-box-size: 26px;
+  }
+  .elem_num {
+    display: none;
+  }
+}

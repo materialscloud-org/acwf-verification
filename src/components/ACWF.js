@@ -10,6 +10,11 @@ import Example from "./HeatMap";
 
 import BarGraph from "./VisxExample";
 
+import CodeSelector from "./CodeSelector";
+import MeasureSelector from "./MeasureSelector";
+
+import "./ACWF.css";
+
 class ACWF extends React.Component {
   constructor(props) {
     super(props);
@@ -30,23 +35,13 @@ class ACWF extends React.Component {
     var selectedData = allData[this.state.datasetLabel];
 
     return (
-      <div>
-        <select
-          name="dataset"
-          id="dataset"
-          onChange={this.datasetChange}
-          value={this.state.value}
-        >
-          <option value="oxides-verification-PBE-v1">
-            oxides-verification-PBE-v1
-          </option>
-          <option value="unaries-verification-PBE-v1">
-            unaries-verification-PBE-v1
-          </option>
-        </select>
+      <div style={{ border: "1px solid #999" }}>
         <PTable />
-
-        <div style={{ display: "flex" }}>
+        <div className="selector_container">
+          <CodeSelector />
+          <MeasureSelector />
+        </div>
+        <div style={{ display: "flex", border: "1px solid #999" }}>
           <div>
             {Object.keys(selectedData).map((code, i) => (
               <EOSGraph

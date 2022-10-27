@@ -1,0 +1,6 @@
+.selector_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid #999;
+}

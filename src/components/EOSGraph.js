@@ -69,7 +69,6 @@ class EOSGraph extends React.Component {
     this.xticks = range(Math.ceil(this.v_min), Math.floor(this.v_max) + 1);
     this.e_max = Math.max(...this.bm_arr.map((x) => x["bm"])) + 0.005;
     this.yticks = range(0.0, this.e_max, 0.01);
-    console.log(this.yticks);
   }
 
   render() {

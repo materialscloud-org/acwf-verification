@@ -23,7 +23,7 @@
 
 .element {
   background: rgb(163, 215, 245);
-  border: 2px solid #999;
+  border: 1px solid #999;
   height: var(--element-box-size);
   width: var(--element-box-size);
   margin: 1px;

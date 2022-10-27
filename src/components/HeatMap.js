@@ -65,7 +65,7 @@ const Example = () => {
   const binWidth = xMax / binData.length;
   const binHeight = yMax / bucketSizeMax;
 
-  console.log(binData);
+  //console.log(binData);
 
   return (
     <svg width={width} height={height}>

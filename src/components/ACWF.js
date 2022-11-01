@@ -2,16 +2,19 @@ import React from "react";
 
 import PTable from "./PTable";
 
-import EOSGraph from "./EOSGraph";
-
-import Example from "./HeatMap";
-
-import BarGraph from "./VisxExample";
+import UnifiedGraph from "./UnifiedGraph";
 
 import CodeSelector from "./CodeSelector";
 import MeasureSelector from "./MeasureSelector";
 
 import "./ACWF.css";
+
+// each element should have 6 oxide and 4 unaries structures, define them here
+// some code might be missing some of them
+const crystalTypes = {
+  oxides: ["X2O", "X2O3", "X2O5", "XO", "XO2", "XO3"],
+  unaries: ["X/BCC", "X/Diamond", "X/FCC", "X/SC"],
+};
 
 async function loadData() {
   var final_data_folder = "extra_scripts/final_boxplot_all_codes/data/";
@@ -61,40 +64,79 @@ class ACWF extends React.Component {
 
     this.state = {
       data: {},
+      allCodes: [],
+      selectedCodes: new Set(),
+      selectedElement: null,
     };
+
+    this.handleCodeSelectionChange = this.handleCodeSelectionChange.bind(this);
+    this.changeElementSelection = this.changeElementSelection.bind(this);
   }
 
   componentDidMount() {
     loadData().then((loadedData) => {
       this.setState({
         data: loadedData,
+        allCodes: Object.keys(loadedData),
+        selectedCodes: new Set(Object.keys(loadedData)),
       });
-      console.log(this.state.data);
+      console.log("LOADED:", loadedData);
     });
+  }
+
+  handleCodeSelectionChange(newSelectedCodes) {
+    if (newSelectedCodes !== this.state.selectedCodes) {
+      this.setState({ selectedCodes: newSelectedCodes });
+    }
+  }
+
+  changeElementSelection(newElement) {
+    if (newElement !== this.state.selectedElement) {
+      this.setState({ selectedElement: newElement });
+    }
   }
 
   render() {
     return (
       <div style={{ border: "1px solid #999" }}>
-        <PTable />
-        <div className="selector_container">
-          <CodeSelector />
-          <MeasureSelector />
-        </div>
-        <div style={{ display: "flex", border: "1px solid #999" }}>
+        <center>Select an element:</center>
+        <PTable
+          onElementSelect={this.changeElementSelection}
+          selection={this.state.selectedElement}
+        />
+        {this.state.selectedElement != null ? (
           <div>
-            {/* {Object.keys(selectedData).map((code, i) => (
-              <EOSGraph
-                key={i}
-                eos_data={selectedData[code]["eos_data"]["Ag-X2O"]}
-                bm_fit={selectedData[code]["BM_fit_data"]["Ag-X2O"]}
+            <div className="selector_container">
+              <CodeSelector
+                allCodes={this.state.allCodes}
+                selectedCodes={this.state.selectedCodes}
+                onCodeSelectionChange={this.handleCodeSelectionChange}
               />
-            ))} */}
+              <MeasureSelector />
+            </div>
+            <div style={{ display: "flex", border: "1px solid #999" }}>
+              <div>
+                {Object.keys(crystalTypes).map((type) =>
+                  crystalTypes[type].map((crystalLabel) => {
+                    let label = "Ag-X2O3";
+                    return (
+                      <UnifiedGraph
+                        key={this.state.selectedElement + "-" + crystalLabel}
+                        data={this.state.data}
+                        type={type}
+                        crystal={
+                          this.state.selectedElement + "-" + crystalLabel
+                        }
+                        allCodes={this.state.allCodes}
+                        selectedCodes={this.state.selectedCodes}
+                      />
+                    );
+                  })
+                )}
+              </div>
+            </div>
           </div>
-          <div>
-            <Example />
-          </div>
-        </div>
+        ) : null}
       </div>
     );
   }

@@ -8,14 +8,12 @@ class Element extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
-
     this.handleOnClick = this.handleOnClick.bind(this);
   }
 
   handleOnClick() {
     //if (this.props.disabled) return;
-    this.props.onSelectionChange(this.props.num);
+    this.props.onSelectionChange(this.props.symbol);
   }
 
   render() {
@@ -25,15 +23,12 @@ class Element extends React.Component {
       e_class += " lanthanide";
     }
 
-    if (this.props.num === this.props.selected_id) {
+    if (this.props.symbol === this.props.selected_symbol) {
       e_class += " element-selected";
     }
 
     return (
-      <div
-        className={e_class}
-        onClick={this.handleOnClick}
-      >
+      <div className={e_class} onClick={this.handleOnClick}>
         <div className="elem_sym">{this.props.symbol}</div>
       </div>
     );
@@ -43,16 +38,6 @@ class Element extends React.Component {
 class PTable extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      selected: 0,
-    };
-
-    this.onSelectionChange = this.onSelectionChange.bind(this);
-  }
-
-  onSelectionChange(new_sel) {
-    this.setState({ selected: new_sel });
   }
 
   makeElements = (start, end) => {
@@ -65,8 +50,8 @@ class PTable extends React.Component {
           key={i}
           num={i}
           symbol={symbol}
-          selected_id={this.state.selected}
-          onSelectionChange={this.onSelectionChange}
+          selected_symbol={this.props.selection}
+          onSelectionChange={this.props.onElementSelect}
         />
       );
     }

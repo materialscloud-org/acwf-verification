@@ -8,26 +8,11 @@ class MeasureSelector extends React.Component {
   }
 
   render() {
-    var listOfMeasures = [
-      "abinit",
-      "ae",
-      "bigdft",
-      "castep",
-      "cp2k",
-      "fleur",
-      "gpaw",
-      "quantum_espresso",
-      "siesta",
-      "vasp",
-      "wien2k",
-    ];
-
     return (
       <div>
-        <Form.Label>Select measure</Form.Label>
+        <Form.Label>Select comparison measure</Form.Label>
         <Form.Select aria-label="Default select example">
-          <option value="1">nu</option>
-          <option value="1">other</option>
+          <option value="1">1000 * nu</option>
         </Form.Select>
       </div>
     );

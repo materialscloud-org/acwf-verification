@@ -1,6 +1,6 @@
 /* Variables */
 :root {
-  --element-box-size: 32px;
+  --element-box-size: 30px;
 }
 
 .ptable_outer {
@@ -102,7 +102,7 @@
 
 /* ----------------------------- */
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
   :root {
     --element-box-size: 26px;
   }

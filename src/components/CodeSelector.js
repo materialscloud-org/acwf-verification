@@ -9,23 +9,24 @@ import Col from "react-bootstrap/Col";
 class CodeSelector extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleToggle = this.handleToggle.bind(this);
   }
 
-  render() {
-    var listOfCodes = [
-      "abinit",
-      "ae",
-      "bigdft",
-      "castep",
-      "cp2k",
-      "fleur",
-      "gpaw",
-      "quantum_espresso",
-      "siesta",
-      "vasp",
-      "wien2k",
-    ];
+  handleToggle = (e) => {
+    var newSelectedCodes = new Set(this.props.selectedCodes);
+    // if code was unchecked, remove it from the array
+    if (!e.target.checked && newSelectedCodes.has(e.target.id)) {
+      newSelectedCodes.delete(e.target.id);
+    }
+    // if code was checked, add it to the array
+    if (e.target.checked && !newSelectedCodes.has(e.target.id)) {
+      newSelectedCodes.add(e.target.id);
+    }
+    this.props.onCodeSelectionChange(newSelectedCodes);
+  };
 
+  render() {
     return (
       <div>
         <Container>
@@ -35,10 +36,10 @@ class CodeSelector extends React.Component {
               display: "grid",
               gridTemplateColumns: "auto auto",
               marginBottom: "30px",
-              backgroundColor: "lightblue",
+              backgroundColor: "#dde8f6",
             }}
           >
-            {listOfCodes.map((code, i) => {
+            {this.props.allCodes.map((code, i) => {
               return (
                 <Form.Check
                   style={{ gridColumnStart: { i } }}
@@ -47,6 +48,8 @@ class CodeSelector extends React.Component {
                   id={code}
                   label={code}
                   key={code}
+                  defaultChecked={true}
+                  onChange={this.handleToggle}
                 />
               );
             })}

@@ -6,6 +6,8 @@ Built with React, using
 - recharts
 - visx
 
+Published via GitHub pages to https://materialscloud-org.github.io/acwf-web-app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

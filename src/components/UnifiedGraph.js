@@ -4,10 +4,24 @@ import EOSGraph from "./EOSGraph";
 
 import HeatMap from "./HeatMap";
 
+// from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12
+const colorList = [
+  "#a6cee3",
+  "#1f78b4",
+  "#b2df8a",
+  "#33a02c",
+  "#fb9a99",
+  "#e31a1c",
+  "#fdbf6f",
+  "#ff7f00",
+  "#cab2d6",
+  "#6a3d9a",
+  "#b15928",
+  "#ffff99",
+];
+
 // Unified graph consisting of the EOS plot and the heatmap
 // Specific to one single crystal
-
-const colorList = ["green", "blue", "orange", "red", "black"];
 
 class UnifiedGraph extends React.Component {
   constructor(props) {
@@ -25,7 +39,7 @@ class UnifiedGraph extends React.Component {
         continue;
       }
       inputData[code] = {
-        color: colorList[i % 5],
+        color: colorList[i % colorList.length],
         eos_data:
           this.props.data[code][this.props.type]["eos_data"][
             this.props.crystal

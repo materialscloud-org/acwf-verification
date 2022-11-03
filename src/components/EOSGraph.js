@@ -183,6 +183,7 @@ class EOSGraph extends React.Component {
               stroke={this.props.inputData[key]["color"]}
               name={key}
               isAnimationActive={false}
+              strokeWidth={2}
             />
           );
         }, this)}

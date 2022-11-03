@@ -44,7 +44,8 @@
 }
 
 .element-disabled {
-  /* background: rgb(226, 226, 226); */
+  background: rgb(238, 238, 238);
+  color: rgb(179, 178, 178);
   pointer-events: none; /* no hover on disabled elements */
 }
 
@@ -88,16 +89,26 @@
 
 /* Lanthanoids and Actonoids */
 
-.element-58 {
-  grid-column-start: 4;
+.element-57 {
+  grid-column-start: 3;
 }
 
-.element-90 {
-  grid-column-start: 4;
+.element-89 {
+  grid-column-start: 3;
 }
 
 .lanthanide {
   margin-top: 14px;
+}
+
+/* push 72 and 104 forward to make a hole in the La & Ac spot */
+
+.element-72 {
+  grid-column-start: 4;
+}
+
+.element-104 {
+  grid-column-start: 4;
 }
 
 /* ----------------------------- */

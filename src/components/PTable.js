@@ -18,8 +18,11 @@ class Element extends React.Component {
 
   render() {
     let e_class = `element element-${this.props.num}`;
+    if (this.props.disabled) {
+      e_class += " element-disabled";
+    }
 
-    if (this.props.num >= 58 && this.props.num <= 71) {
+    if (this.props.num >= 57 && this.props.num <= 71) {
       e_class += " lanthanide";
     }
 
@@ -52,6 +55,7 @@ class PTable extends React.Component {
           symbol={symbol}
           selected_symbol={this.props.selection}
           onSelectionChange={this.props.onElementSelect}
+          disabled={this.props.disabledElements.has(symbol)}
         />
       );
     }
@@ -62,11 +66,11 @@ class PTable extends React.Component {
     return (
       <div className="ptable_outer">
         <div className="ptable">
-          {this.makeElements(1, 57)}
-          {this.makeElements(72, 89)}
+          {this.makeElements(1, 56)}
+          {this.makeElements(72, 88)}
           {this.makeElements(104, 118)}
-          {this.makeElements(58, 71)}
-          {this.makeElements(90, 103)}
+          {this.makeElements(57, 71)}
+          {this.makeElements(89, 103)}
         </div>
       </div>
     );

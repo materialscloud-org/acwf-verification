@@ -16,6 +16,33 @@ const crystalTypes = {
   unaries: ["X/BCC", "X/Diamond", "X/FCC", "X/SC"],
 };
 
+// In principle we could scan all the loaded data at the start to automatically determine this,
+// but it would slow down the initial load. Hard-code this for now.
+const disabledElements = new Set([
+  "Rf",
+  "Db",
+  "Sg",
+  "Bh",
+  "Hs",
+  "Mt",
+  "Ds",
+  "Rg",
+  "Cn",
+  "Nh",
+  "Fl",
+  "Mc",
+  "Lv",
+  "Ts",
+  "Og",
+  "Bk",
+  "Cf",
+  "Es",
+  "Fm",
+  "Md",
+  "No",
+  "Lr",
+]);
+
 const codeNameFormatting = {
   abinit: "Abinit",
   bigdft: "BigDFT",
@@ -34,7 +61,7 @@ const allElectronCodes = new Set(["wien2k", "fleur"]);
 const skipCodes = new Set(["ae"]);
 
 async function loadData() {
-  // Load the JSON files that contain the following keys
+  // Load the source JSON files that contain the following keys
   // [
   //   BM_fit_data, completely_off, eos_data, failed_wfs, missing_outputs,
   //   num_atoms_in_sim_cell, script_version, set_name, stress_data, uuid_mapping
@@ -147,6 +174,7 @@ class ACWF extends React.Component {
           <PTable
             onElementSelect={this.changeElementSelection}
             selection={this.state.selectedElement}
+            disabledElements={disabledElements}
           />
         </div>
         {this.state.selectedElement != null ? (

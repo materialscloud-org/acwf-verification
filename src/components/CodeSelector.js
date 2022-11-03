@@ -28,15 +28,23 @@ class CodeSelector extends React.Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          marginBottom: "10px",
+          marginTop: "10px",
+          padding: "5px",
+          backgroundColor: "#f2f7fc",
+          borderRadius: "20px",
+        }}
+      >
         <Container>
           <Form.Label>Select codes</Form.Label>
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "auto auto",
-              marginBottom: "30px",
-              backgroundColor: "#dde8f6",
+              // marginBottom: "10px",
+              // backgroundColor: "#dde8f6",
             }}
           >
             {this.props.allCodes.map((code, i) => {
@@ -46,7 +54,7 @@ class CodeSelector extends React.Component {
                   inline={true}
                   type={"checkbox"}
                   id={code}
-                  label={code}
+                  label={this.props.codeNameFormatting[code]}
                   key={code}
                   defaultChecked={true}
                   onChange={this.handleToggle}

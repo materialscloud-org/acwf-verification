@@ -55,6 +55,7 @@ class UnifiedGraph extends React.Component {
       <div
         style={{
           border: "1px solid #999",
+          borderRadius: "20px",
         }}
       >
         <center>
@@ -85,7 +86,10 @@ class UnifiedGraph extends React.Component {
             }
           >
             <center>Difference based on the selected measure</center>
-            <HeatMap inputData={inputData} />
+            <HeatMap
+              inputData={inputData}
+              codeNameFormatting={this.props.codeNameFormatting}
+            />
           </div>
         </div>
       </div>

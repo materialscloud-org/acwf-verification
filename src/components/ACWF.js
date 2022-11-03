@@ -16,7 +16,34 @@ const crystalTypes = {
   unaries: ["X/BCC", "X/Diamond", "X/FCC", "X/SC"],
 };
 
+const codeNameFormatting = {
+  abinit: "Abinit",
+  bigdft: "BigDFT",
+  castep: "CASTEP",
+  cp2k: "CP2K",
+  fleur: "FLEUR (AE)",
+  gpaw: "GPAW",
+  quantum_espresso: "Quantum ESPRESSO",
+  siesta: "SIESTA",
+  vasp: "VASP",
+  wien2k: "WIEN2k (AE)",
+};
+
+const allElectronCodes = new Set(["wien2k", "fleur"]);
+
+const skipCodes = new Set(["ae"]);
+
 async function loadData() {
+  // Load the JSON files that contain the following keys
+  // [
+  //   BM_fit_data, completely_off, eos_data, failed_wfs, missing_outputs,
+  //   num_atoms_in_sim_cell, script_version, set_name, stress_data, uuid_mapping
+  // ]
+  // This function returns:
+  // loadedData[code][oxides/unaries] = {the loaded json}
+
+  var loadedData = {};
+
   var final_data_folder = "extra_scripts/final_boxplot_all_codes/data/";
   var root_url =
     "https://raw.githubusercontent.com/aiidateam/acwf-verification-scripts/main/";
@@ -30,8 +57,6 @@ async function loadData() {
       console.error(error);
     });
 
-  var loadedData = {}; // [code][oxides/unaries] = [the json]
-
   // 2. go through the list of files, if they're a json in the final_data_folder,
   // load it from raw.githubusercontent.com
   for (const fileobj of responseJson["tree"]) {
@@ -42,7 +67,9 @@ async function loadData() {
       let nameSplit = name.split("-");
       let type = nameSplit[1];
       let code = nameSplit[5];
-      //console.log(name);
+
+      if (skipCodes.has(code)) continue;
+
       if (!(code in loadedData)) loadedData[code] = {};
 
       // load the json file
@@ -56,6 +83,21 @@ async function loadData() {
     }
   }
   return loadedData;
+}
+
+function orderCodes(codesList) {
+  // order codes such that
+  // 1. AE codes are in front
+  // 2. alphabetical order otherwise
+
+  var sorted = codesList.sort();
+  var aeCodes = [];
+  var otherCodes = [];
+  for (var code of sorted) {
+    if (allElectronCodes.has(code)) aeCodes.push(code);
+    else otherCodes.push(code);
+  }
+  return aeCodes.concat(otherCodes);
 }
 
 class ACWF extends React.Component {
@@ -75,9 +117,10 @@ class ACWF extends React.Component {
 
   componentDidMount() {
     loadData().then((loadedData) => {
+      console.log(orderCodes(Object.keys(loadedData)));
       this.setState({
         data: loadedData,
-        allCodes: Object.keys(loadedData),
+        allCodes: orderCodes(Object.keys(loadedData)),
         selectedCodes: new Set(Object.keys(loadedData)),
       });
       console.log("LOADED:", loadedData);
@@ -98,12 +141,14 @@ class ACWF extends React.Component {
 
   render() {
     return (
-      <div style={{ border: "1px solid #999" }}>
-        <center>Select an element:</center>
-        <PTable
-          onElementSelect={this.changeElementSelection}
-          selection={this.state.selectedElement}
-        />
+      <div>
+        <div style={{ border: "1px solid #999", borderRadius: "20px" }}>
+          <center>Select an element:</center>
+          <PTable
+            onElementSelect={this.changeElementSelection}
+            selection={this.state.selectedElement}
+          />
+        </div>
         {this.state.selectedElement != null ? (
           <div>
             <div className="selector_container">
@@ -111,14 +156,14 @@ class ACWF extends React.Component {
                 allCodes={this.state.allCodes}
                 selectedCodes={this.state.selectedCodes}
                 onCodeSelectionChange={this.handleCodeSelectionChange}
+                codeNameFormatting={codeNameFormatting}
               />
               <MeasureSelector />
             </div>
-            <div style={{ display: "flex", border: "1px solid #999" }}>
+            <div style={{ display: "flex" }}>
               <div>
                 {Object.keys(crystalTypes).map((type) =>
                   crystalTypes[type].map((crystalLabel) => {
-                    let label = "Ag-X2O3";
                     return (
                       <UnifiedGraph
                         key={this.state.selectedElement + "-" + crystalLabel}
@@ -129,6 +174,7 @@ class ACWF extends React.Component {
                         }
                         allCodes={this.state.allCodes}
                         selectedCodes={this.state.selectedCodes}
+                        codeNameFormatting={codeNameFormatting}
                       />
                     );
                   })

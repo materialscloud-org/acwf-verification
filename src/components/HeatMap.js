@@ -14,10 +14,10 @@ const cool1 = "#122549";
 const cool2 = "#b4fbde";
 export const background = "#28272c";
 
-const width = 450;
+const width = 440;
 const height = 400;
 
-const margin = { top: 10, left: 135, right: 10, bottom: 100 };
+const margin = { top: 10, left: 140, right: 10, bottom: 105 };
 
 function calculateNu(bm_fit1, bm_fit2) {
   if (bm_fit1 == null || bm_fit2 == null) return -1.0;
@@ -60,11 +60,12 @@ class HeatMap extends React.Component {
   }
 
   tickFormatY = (v, index, ticks) => ({
-    name: this.codeList[index],
+    name: this.props.codeNameFormatting[this.codeList[index]],
     color: this.props.inputData[this.codeList[index]]["color"],
   });
 
-  tickFormatX = (v, index, ticks) => this.codeList[index];
+  tickFormatX = (v, index, ticks) =>
+    this.props.codeNameFormatting[this.codeList[index]];
 
   render() {
     this.codeList = Object.keys(this.props.inputData);
@@ -160,14 +161,14 @@ class HeatMap extends React.Component {
             tickComponent={({ x, y, formattedValue }) => (
               <g>
                 <rect
-                  x={x - 120}
+                  x={x - 125}
                   y={y - 5}
                   width={10}
                   height={10}
                   fill={formattedValue.color}
                 />
                 <text
-                  x={x - 103} // or 4 & textAnchor={"end"}
+                  x={x - 110} // or 4 & textAnchor={"end"}
                   y={y}
                   fontSize={12}
                   textAnchor={"start"}

@@ -46,6 +46,7 @@
 .element-disabled {
   background: rgb(238, 238, 238);
   color: rgb(179, 178, 178);
+  border: 1px solid rgb(179, 178, 178);
   pointer-events: none; /* no hover on disabled elements */
 }
 

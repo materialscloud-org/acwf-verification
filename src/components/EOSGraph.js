@@ -87,7 +87,8 @@ class EOSGraph extends React.Component {
     var v_max = -1000;
     for (const code of Object.keys(this.props.inputData)) {
       let eos_data = this.props.inputData[code]["eos_data"];
-      if (eos_data == null) continue;
+      let bm_fit = this.props.inputData[code]["bm_fit"];
+      if (eos_data == null || bm_fit == null) continue;
       let this_v_min = Math.min(...eos_data.map((x) => x[0]));
       let this_v_max = Math.max(...eos_data.map((x) => x[0]));
       if (this_v_min < v_min) v_min = this_v_min;
@@ -103,8 +104,7 @@ class EOSGraph extends React.Component {
     for (const code of Object.keys(this.props.inputData)) {
       let eos_data = this.props.inputData[code]["eos_data"];
       let bm_fit = this.props.inputData[code]["bm_fit"];
-
-      if (eos_data == null) continue;
+      if (eos_data == null || bm_fit == null) continue;
 
       var eos_points = eos_data.map((x) => ({
         v: x[0],

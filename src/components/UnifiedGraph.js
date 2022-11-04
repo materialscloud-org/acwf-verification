@@ -20,12 +20,35 @@ const colorList = [
   "#ffff99",
 ];
 
+function isCharNum(c) {
+  return c >= "0" && c <= "9";
+}
+
+function formatLabel(crystalLabel) {
+  let sp = crystalLabel.split("-");
+  console.log(sp);
+  let formula = " " + sp[1].split("X").join(sp[0]);
+  let jsx = [];
+  for (var i = 0; i < formula.length; i++) {
+    if (isCharNum(formula[i])) jsx.push(<sub key={i}>{formula[i]}</sub>);
+    else jsx.push(formula[i]);
+  }
+  return (
+    <b>
+      Compound:
+      {jsx}
+    </b>
+  );
+}
+
 // Unified graph consisting of the EOS plot and the heatmap
 // Specific to one single crystal
 
 class UnifiedGraph extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(formatLabel("Ag-X2O"));
   }
 
   render() {
@@ -58,9 +81,7 @@ class UnifiedGraph extends React.Component {
           borderRadius: "20px",
         }}
       >
-        <center>
-          <b>Compound: {this.props.crystal}</b>
-        </center>
+        <center>{formatLabel(this.props.crystal)}</center>
         <div
           style={{
             display: "flex",

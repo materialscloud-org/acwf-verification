@@ -169,7 +169,7 @@ class HeatMap extends React.Component {
                 />
                 <text
                   x={x - 110} // or 4 & textAnchor={"end"}
-                  y={y}
+                  y={y + 1}
                   fontSize={12}
                   textAnchor={"start"}
                   dominantBaseline={"middle"}

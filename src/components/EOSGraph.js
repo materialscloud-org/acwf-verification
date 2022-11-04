@@ -130,83 +130,92 @@ class EOSGraph extends React.Component {
     var yticks = tickRange(0.0, e_max, 0.01);
 
     return (
-      <ComposedChart
-        width={this.width}
-        height={this.height}
-        margin={this.margins}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="v"
-          type="number"
-          domain={[v_min, v_max]}
-          tickFormatter={(value) => value.toFixed(1)}
-          allowDuplicatedCategory={false}
-          ticks={xticks}
-          label={{ value: "Cell volume [Å]", position: "bottom", fontSize: 14 }}
-          fontSize={12}
-        />
-        <YAxis
-          type="number"
-          domain={[-0.004, e_max]}
-          tickFormatter={(value) => value.toFixed(2)}
-          ticks={yticks}
-          label={{
-            value: "Energy [eV]",
-            angle: -90,
-            position: "left",
-            fontSize: 14,
-          }}
-          fontSize={12}
-        />
-        <Tooltip
-          // content={<CustomTooltip />}
-          formatter={(value, name) => {
-            return value.toFixed(4);
-          }}
-          labelFormatter={(value) => value.toFixed(2)}
-          itemSorter={(item) => {
-            return -item.value;
-          }}
-          itemStyle={{ fontSize: 12 }}
-          labelStyle={{ fontSize: 12 }}
-        />
+      <div>
+        <ComposedChart
+          width={this.width}
+          height={this.height}
+          margin={this.margins}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="v"
+            type="number"
+            domain={[v_min, v_max]}
+            tickFormatter={(value) => value.toFixed(1)}
+            allowDuplicatedCategory={false}
+            ticks={xticks}
+            // label={{ value: "Cell volume [Å]", position: "bottom", fontSize: 14 }}
+            fontSize={12}
+          />
+          <YAxis
+            type="number"
+            domain={[-0.004, e_max]}
+            tickFormatter={(value) => value.toFixed(2)}
+            ticks={yticks}
+            label={{
+              value: "Energy per formula unit [eV]",
+              angle: -90,
+              position: "left",
+              offset: -5,
+              style: { textAnchor: "middle" },
+              fontSize: 14,
+            }}
+            fontSize={12}
+          />
+          <Tooltip
+            // content={<CustomTooltip />}
+            formatter={(value, name) => {
+              return value.toFixed(4);
+            }}
+            labelFormatter={(value) => value.toFixed(2)}
+            itemSorter={(item) => {
+              return -item.value;
+            }}
+            itemStyle={{ fontSize: 12 }}
+            labelStyle={{ fontSize: 12 }}
+          />
 
-        {Object.keys(chartDataAll).map(function (key) {
-          return (
-            <Line
-              key={key + "-fit"}
-              data={chartDataAll[key]["fit"]}
-              dataKey="e"
-              dot={false}
-              activeDot={false}
-              stroke={this.props.inputData[key]["color"]}
-              name={key}
-              isAnimationActive={false}
-              strokeWidth={2}
-            />
-          );
-        }, this)}
-        {Object.keys(chartDataAll).map(function (key) {
-          return (
-            <Line
-              key={key + "-points"}
-              data={chartDataAll[key]["points"]}
-              dataKey="e"
-              name={key}
-              strokeWidth={0}
-              stroke={this.props.inputData[key]["color"]}
-              dot={{
-                stroke: this.props.inputData[key]["color"],
-                fill: this.props.inputData[key]["color"],
-                strokeWidth: 1,
-              }}
-              activeDot={false}
-              isAnimationActive={false}
-            />
-          );
-        }, this)}
-      </ComposedChart>
+          {Object.keys(chartDataAll).map(function (key) {
+            return (
+              <Line
+                key={key + "-fit"}
+                data={chartDataAll[key]["fit"]}
+                dataKey="e"
+                dot={false}
+                activeDot={false}
+                stroke={this.props.inputData[key]["color"]}
+                name={this.props.codeNameFormatting[key]}
+                isAnimationActive={false}
+                strokeWidth={2}
+              />
+            );
+          }, this)}
+          {Object.keys(chartDataAll).map(function (key) {
+            return (
+              <Line
+                key={key + "-points"}
+                data={chartDataAll[key]["points"]}
+                dataKey="e"
+                name={this.props.codeNameFormatting[key]}
+                strokeWidth={0}
+                stroke={this.props.inputData[key]["color"]}
+                dot={{
+                  stroke: this.props.inputData[key]["color"],
+                  fill: this.props.inputData[key]["color"],
+                  strokeWidth: 1,
+                }}
+                activeDot={false}
+                isAnimationActive={false}
+              />
+            );
+          }, this)}
+        </ComposedChart>
+        <center
+          style={{ fontSize: 14, marginTop: "-25px", marginLeft: "45px" }}
+        >
+          Cell volume per formula unit [Å<sup>3</sup>]
+        </center>
+      </div>
     );
   }
 }

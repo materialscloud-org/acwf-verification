@@ -1,4 +1,5 @@
 .selector_container {
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

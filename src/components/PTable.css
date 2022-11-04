@@ -13,6 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .ptable {
@@ -114,11 +115,11 @@
 
 /* ----------------------------- */
 
-@media screen and (max-width: 800px) {
+/* @media screen and (max-width: 800px) {
   :root {
     --element-box-size: 26px;
   }
   .elem_num {
     display: none;
   }
-}
+} */

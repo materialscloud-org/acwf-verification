@@ -95,6 +95,7 @@ class UnifiedGraph extends React.Component {
         style={{
           border: "1px solid #999",
           borderRadius: "20px",
+          width: "850px",
         }}
       >
         <center>{formatLabel(this.props.crystal)}</center>
@@ -112,8 +113,13 @@ class UnifiedGraph extends React.Component {
               }
             }
           >
-            <center>Equation of State curves</center>
-            <EOSGraph inputData={inputData} />
+            <center style={{ marginLeft: "60px" }}>
+              Equation of State curves
+            </center>
+            <EOSGraph
+              inputData={inputData}
+              codeNameFormatting={this.props.codeNameFormatting}
+            />
           </div>
           <div
             style={
@@ -122,7 +128,9 @@ class UnifiedGraph extends React.Component {
               }
             }
           >
-            <center>Difference based on the selected measure</center>
+            <center style={{ marginLeft: "125px" }}>
+              Difference based on the selected measure
+            </center>
             <HeatMap
               inputData={inputData}
               codeNameFormatting={this.props.codeNameFormatting}

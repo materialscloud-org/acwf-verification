@@ -144,7 +144,6 @@ class ACWF extends React.Component {
 
   componentDidMount() {
     loadData().then((loadedData) => {
-      console.log(orderCodes(Object.keys(loadedData)));
       this.setState({
         data: loadedData,
         allCodes: orderCodes(Object.keys(loadedData)),

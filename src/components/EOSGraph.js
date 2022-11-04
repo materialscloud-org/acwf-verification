@@ -122,7 +122,7 @@ class EOSGraph extends React.Component {
       if (this_e_max > e_max) e_max = this_e_max;
     }
 
-    console.log(chartDataAll);
+    //console.log(chartDataAll);
 
     // calculate tick positions
     var xticks = tickRange(Math.ceil(v_min), Math.floor(v_max) + 1, 1.0);

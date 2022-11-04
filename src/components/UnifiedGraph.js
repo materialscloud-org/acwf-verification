@@ -26,7 +26,6 @@ function isCharNum(c) {
 
 function formatLabel(crystalLabel) {
   let sp = crystalLabel.split("-");
-  console.log(sp);
   let formula = " " + sp[1].split("X").join(sp[0]);
   let jsx = [];
   for (var i = 0; i < formula.length; i++) {
@@ -41,26 +40,43 @@ function formatLabel(crystalLabel) {
   );
 }
 
-// Unified graph consisting of the EOS plot and the heatmap
-// Specific to one single crystal
-
 class UnifiedGraph extends React.Component {
+  // Unified graph consisting of the EOS plot and the heatmap
+  // Specific to one single crystal
   constructor(props) {
     super(props);
+  }
 
-    console.log(formatLabel("Ag-X2O"));
+  checkDataOk(code) {
+    if (!(code in this.props.data)) return false;
+    var codeData = this.props.data[code];
+    if (codeData == null) return false;
+    if (codeData[this.props.type] == null) return false;
+    if (codeData[this.props.type]["eos_data"] == null) return false;
+    if (codeData[this.props.type]["eos_data"][this.props.crystal] == null)
+      return false;
+    if (codeData[this.props.type]["BM_fit_data"] == null) return false;
+    if (codeData[this.props.type]["BM_fit_data"][this.props.crystal] == null)
+      return false;
+    return true;
   }
 
   render() {
-    console.log("UnifiedGraph:", this.props.data);
+    //console.log("UnifiedGraph:", this.props.data);
 
     let inputData = {};
 
     for (const [i, code] of this.props.allCodes.entries()) {
-      if (code == "ae") continue;
+      // if the code is not selected, skip
       if (!this.props.selectedCodes.has(code)) {
         continue;
       }
+
+      if (!this.checkDataOk(code)) {
+        console.log(`Data problem for ${code} ${this.props.crystal}`);
+        continue;
+      }
+
       inputData[code] = {
         color: colorList[i % colorList.length],
         eos_data:

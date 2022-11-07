@@ -1,3 +1,19 @@
+// from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12
+const colorList = [
+  "#a6cee3",
+  "#1f78b4",
+  "#b2df8a",
+  "#33a02c",
+  "#fb9a99",
+  "#e31a1c",
+  "#fdbf6f",
+  "#ff7f00",
+  "#cab2d6",
+  "#6a3d9a",
+  "#b15928",
+  "#ffff99",
+];
+
 /**
  * Return the number of atoms per formula unit.
  *
@@ -52,4 +68,169 @@ export function scaleBMFitPerFormulaUnit(bmFit, numAtomsInCell, crystalType) {
     residuals: bmFit["residuals"],
   };
   return bmFitScaled;
+}
+
+// --------------------------------------------------
+// Processing the raw data
+// --------------------------------------------------
+
+// each element should have 6 oxide and 4 unaries structures, define them here
+// some code might be missing some of them
+const crystalTypes = {
+  oxides: ["X2O", "X2O3", "X2O5", "XO", "XO2", "XO3"],
+  unaries: ["X/BCC", "X/Diamond", "X/FCC", "X/SC"],
+};
+
+function checkDataOk(rawData, code, type, crystal) {
+  if (!(code in rawData)) return false;
+  var codeData = rawData[code];
+  if (codeData == null) return false;
+  if (codeData[type] == null) return false;
+  if (codeData[type]["eos_data"] == null) return false;
+  if (codeData[type]["eos_data"][crystal] == null) return false;
+  if (codeData[type]["BM_fit_data"] == null) return false;
+  if (codeData[type]["BM_fit_data"][crystal] == null) return false;
+  return true;
+}
+
+function processCrystalData(rawData, crystal, allCodes, type) {
+  var crystalData = {};
+
+  for (const [i, code] of allCodes.entries()) {
+    if (!checkDataOk(rawData, code, type, crystal)) {
+      console.log(`Data problem for ${code} ${crystal}`);
+      continue;
+    }
+
+    let numAtomsInSimCell =
+      rawData[code][type]["num_atoms_in_sim_cell"][crystal];
+    let eosData = rawData[code][type]["eos_data"][crystal];
+    let bmFit = rawData[code][type]["BM_fit_data"][crystal];
+    let crystalType = crystal.split("-")[1];
+
+    crystalData[code] = {
+      color: colorList[i % colorList.length],
+      eos_data_scaled: scaleEosPerFormulaUnit(
+        eosData,
+        numAtomsInSimCell,
+        crystalType
+      ),
+      bm_fit_scaled: scaleBMFitPerFormulaUnit(
+        bmFit,
+        numAtomsInSimCell,
+        crystalType
+      ),
+    };
+  }
+  return crystalData;
+}
+
+/**
+ * Function that processes all the raw data for the selected element
+ * into a format that can be nicely handled later
+ *
+ * @returns processedData[element-crystalLabel][code] = {color, eos_data_scaled, bm_fit_scaled}
+ */
+export function processData(rawData, allCodes, element) {
+  var processedData = {};
+  Object.keys(crystalTypes).map((type) => {
+    crystalTypes[type].map((crystalLabel) => {
+      var crystal = element + "-" + crystalLabel;
+      processedData[crystal] = processCrystalData(
+        rawData,
+        crystal,
+        allCodes,
+        type
+      );
+    });
+  });
+  return processedData;
+}
+
+// --------------------------------------------------
+// Routines for calculating the comparison matrix
+// --------------------------------------------------
+
+function calculateNu(bm_fit1, bm_fit2, prefactor) {
+  if (bm_fit1 == null || bm_fit2 == null) return -1.0;
+  var v0_1 = bm_fit1["min_volume"];
+  var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
+  var b01_1 = bm_fit1["bulk_deriv"];
+  var v0_2 = bm_fit2["min_volume"];
+  var b0_2 = bm_fit2["bulk_modulus_ev_ang3"];
+  var b01_2 = bm_fit2["bulk_deriv"];
+
+  var w = [1, 1 / 8, 1 / 64];
+
+  var nu2 =
+    ((w[0] * 2 * (v0_1 - v0_2)) / (v0_1 + v0_2)) ** 2 +
+    ((w[1] * 2 * (b0_1 - b0_2)) / (b0_1 + b0_2)) ** 2 +
+    ((w[2] * 2 * (b01_1 - b01_2)) / (b01_1 + b01_2)) ** 2;
+
+  return prefactor * Math.sqrt(nu2);
+}
+
+/**
+ * Calculates the comparison matrices
+ *
+ * @param {*} processedData
+ * @param {*} allCodes
+ *
+ * @returns comparisonMatrix[element-crystalLabel][measure][code1][code2] = value
+ */
+export function calcComparisonMatrices(processedData) {
+  var measureList = ["nu", "nu2"];
+  var mat = {};
+  console.log(processedData);
+  Object.keys(processedData).forEach((crystal) => {
+    mat[crystal] = {};
+    measureList.forEach((measure) => {
+      mat[crystal][measure] = {};
+      Object.keys(processedData[crystal]).forEach((c1, i1) => {
+        mat[crystal][measure][c1] = {};
+        Object.keys(processedData[crystal]).forEach((c2, i2) => {
+          var value = 0;
+          if (measure == "nu") {
+            value = calculateNu(
+              processedData[crystal][c1]["bm_fit_scaled"],
+              processedData[crystal][c2]["bm_fit_scaled"],
+              1000
+            );
+          } else if (measure == "nu2") {
+            value = calculateNu(
+              processedData[crystal][c1]["bm_fit_scaled"],
+              processedData[crystal][c2]["bm_fit_scaled"],
+              100
+            );
+          }
+          mat[crystal][measure][c1][c2] = value;
+        });
+      });
+    });
+  });
+
+  return mat;
+}
+
+/**
+ * Calculate the maximum value of the matrices of different crystals
+ * based on the selected measure and codes
+ * This will be used to set a consistent color scale.
+ * @param {*} matrix
+ * @param {*} measure
+ * @param {*} selectedCodes
+ */
+export function calcMatrixMax(matrix, measure, selectedCodes) {
+  var max = -Number.MAX_SAFE_INTEGER;
+  Object.keys(matrix).forEach((crystal) => {
+    Object.keys(matrix[crystal][measure]).forEach((c1) => {
+      if (!selectedCodes.has(c1)) return;
+      Object.keys(matrix[crystal][measure][c1]).forEach((c2) => {
+        if (!selectedCodes.has(c2)) return;
+        if (matrix[crystal][measure][c1][c2] > max)
+          max = matrix[crystal][measure][c1][c2];
+      });
+    });
+  });
+  return max;
 }

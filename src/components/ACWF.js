@@ -7,6 +7,12 @@ import UnifiedGraph from "./UnifiedGraph";
 import CodeSelector from "./CodeSelector";
 import MeasureSelector from "./MeasureSelector";
 
+import {
+  processData,
+  calcComparisonMatrices,
+  calcMatrixMax,
+} from "./DataUtilities";
+
 import "./ACWF.css";
 
 // each element should have 6 oxide and 4 unaries structures, define them here
@@ -132,20 +138,24 @@ class ACWF extends React.Component {
     super(props);
 
     this.state = {
-      data: {},
+      rawData: {},
       allCodes: [],
       selectedCodes: new Set(),
       selectedElement: null,
+      selectedMeasure: "nu",
+      processedData: null,
+      comparisonMatrices: null,
     };
 
-    this.handleCodeSelectionChange = this.handleCodeSelectionChange.bind(this);
     this.changeElementSelection = this.changeElementSelection.bind(this);
+    this.handleCodeSelectionChange = this.handleCodeSelectionChange.bind(this);
+    this.handleMeasureChange = this.handleMeasureChange.bind(this);
   }
 
   componentDidMount() {
     loadData().then((loadedData) => {
       this.setState({
-        data: loadedData,
+        rawData: loadedData,
         allCodes: orderCodes(Object.keys(loadedData)),
         selectedCodes: new Set(Object.keys(loadedData)),
       });
@@ -159,13 +169,39 @@ class ACWF extends React.Component {
     }
   }
 
+  handleMeasureChange(newMeasure) {
+    if (newMeasure !== this.state.selectedMeasure) {
+      this.setState({ selectedMeasure: newMeasure });
+    }
+  }
+
   changeElementSelection(newElement) {
     if (newElement !== this.state.selectedElement) {
-      this.setState({ selectedElement: newElement });
+      var processedData = processData(
+        this.state.rawData,
+        this.state.allCodes,
+        newElement
+      );
+      this.setState({
+        selectedElement: newElement,
+        processedData: processedData,
+        comparisonMatrices: calcComparisonMatrices(processedData),
+      });
+      console.log(processedData);
     }
   }
 
   render() {
+    // calculate the matrix maxvalue across all the crystals of the current element
+    var matrixMax = null;
+    if (this.state.selectedElement != null) {
+      matrixMax = calcMatrixMax(
+        this.state.comparisonMatrices,
+        this.state.selectedMeasure,
+        this.state.selectedCodes
+      );
+    }
+
     return (
       <div>
         <div style={{ border: "1px solid #999", borderRadius: "20px" }}>
@@ -185,27 +221,29 @@ class ACWF extends React.Component {
                 onCodeSelectionChange={this.handleCodeSelectionChange}
                 codeNameFormatting={codeNameFormatting}
               />
-              <MeasureSelector />
+              <MeasureSelector onMeasureChange={this.handleMeasureChange} />
             </div>
             <div style={{ display: "flex" }}>
               <div>
-                {Object.keys(crystalTypes).map((type) =>
-                  crystalTypes[type].map((crystalLabel) => {
-                    return (
-                      <UnifiedGraph
-                        key={this.state.selectedElement + "-" + crystalLabel}
-                        data={this.state.data}
-                        type={type}
-                        crystal={
-                          this.state.selectedElement + "-" + crystalLabel
-                        }
-                        allCodes={this.state.allCodes}
-                        selectedCodes={this.state.selectedCodes}
-                        codeNameFormatting={codeNameFormatting}
-                      />
-                    );
-                  })
-                )}
+                {Object.keys(this.state.processedData).map((crystal) => {
+                  return (
+                    <UnifiedGraph
+                      key={crystal}
+                      processedData={this.state.processedData[crystal]}
+                      comparisonMatrix={
+                        this.state.comparisonMatrices[crystal][
+                          this.state.selectedMeasure
+                        ]
+                      }
+                      matrixMax={matrixMax}
+                      // measure={this.state.selectedMeasure}
+                      crystal={crystal}
+                      allCodes={this.state.allCodes}
+                      selectedCodes={this.state.selectedCodes}
+                      codeNameFormatting={codeNameFormatting}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -52,7 +52,7 @@ function tickRange(start, stop, step) {
 class EOSGraph extends React.Component {
   constructor(props) {
     super(props);
-    // this.props.inputData[code] = { color, eos_data, bm_fit }
+    // this.props.processedData[code] = { color, eos_data_scaled, bm_fit_scaled }
 
     this.width = 400;
     this.height = 380;
@@ -66,7 +66,7 @@ class EOSGraph extends React.Component {
 
   render() {
     // if the inputData is empty, don't render anything
-    if (Object.keys(this.props.inputData).length === 0)
+    if (Object.keys(this.props.processedData).length === 0)
       return (
         <ComposedChart
           width={this.width}
@@ -83,11 +83,12 @@ class EOSGraph extends React.Component {
     //}
 
     // go through all datasets to determine v_min and v_max
-    var v_min = 1000;
-    var v_max = -1000;
-    for (const code of Object.keys(this.props.inputData)) {
-      let eos_data = this.props.inputData[code]["eos_data_scaled"];
-      let bm_fit = this.props.inputData[code]["bm_fit_scaled"];
+    var v_min = Number.MAX_SAFE_INTEGER;
+    var v_max = -Number.MAX_SAFE_INTEGER;
+    for (const code of Object.keys(this.props.processedData)) {
+      if (!this.props.selectedCodes.has(code)) continue;
+      let eos_data = this.props.processedData[code]["eos_data_scaled"];
+      let bm_fit = this.props.processedData[code]["bm_fit_scaled"];
       if (eos_data == null || bm_fit == null) continue;
       let this_v_min = Math.min(...eos_data.map((x) => x[0]));
       let this_v_max = Math.max(...eos_data.map((x) => x[0]));
@@ -101,9 +102,10 @@ class EOSGraph extends React.Component {
     var e_max = 0.0;
 
     // go through all datasets and prepare the plotting data
-    for (const code of Object.keys(this.props.inputData)) {
-      let eos_data = this.props.inputData[code]["eos_data_scaled"];
-      let bm_fit = this.props.inputData[code]["bm_fit_scaled"];
+    for (const code of Object.keys(this.props.processedData)) {
+      if (!this.props.selectedCodes.has(code)) continue;
+      let eos_data = this.props.processedData[code]["eos_data_scaled"];
+      let bm_fit = this.props.processedData[code]["bm_fit_scaled"];
       if (eos_data == null || bm_fit == null) continue;
 
       var eos_points = eos_data.map((x) => ({
@@ -183,7 +185,7 @@ class EOSGraph extends React.Component {
                 dataKey="e"
                 dot={false}
                 activeDot={false}
-                stroke={this.props.inputData[key]["color"]}
+                stroke={this.props.processedData[key]["color"]}
                 name={this.props.codeNameFormatting[key]}
                 isAnimationActive={false}
                 strokeWidth={2}
@@ -198,10 +200,10 @@ class EOSGraph extends React.Component {
                 dataKey="e"
                 name={this.props.codeNameFormatting[key]}
                 strokeWidth={0}
-                stroke={this.props.inputData[key]["color"]}
+                stroke={this.props.processedData[key]["color"]}
                 dot={{
-                  stroke: this.props.inputData[key]["color"],
-                  fill: this.props.inputData[key]["color"],
+                  stroke: this.props.processedData[key]["color"],
+                  fill: this.props.processedData[key]["color"],
                   strokeWidth: 1,
                 }}
                 activeDot={false}

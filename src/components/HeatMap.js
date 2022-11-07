@@ -1,9 +1,7 @@
 import React, { version } from "react";
 import { Group } from "@visx/group";
-import genBins, { Bin, Bins } from "@visx/mock-data/lib/generators/genBins";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapRect } from "@visx/heatmap";
-import { getSeededRandom } from "@visx/mock-data";
 import { AxisLeft, AxisBottom } from "@visx/axis";
 
 import "./HeatMap.css";
@@ -19,61 +17,44 @@ const height = 400;
 
 const margin = { top: 10, left: 140, right: 10, bottom: 105 };
 
-function calculateNu(bm_fit1, bm_fit2) {
-  if (bm_fit1 == null || bm_fit2 == null) return -1.0;
-  var v0_1 = bm_fit1["min_volume"];
-  var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
-  var b01_1 = bm_fit1["bulk_deriv"];
-  var v0_2 = bm_fit2["min_volume"];
-  var b0_2 = bm_fit2["bulk_modulus_ev_ang3"];
-  var b01_2 = bm_fit2["bulk_deriv"];
-
-  var w = [1, 1 / 8, 1 / 64];
-
-  var nu2 =
-    ((w[0] * 2 * (v0_1 - v0_2)) / (v0_1 + v0_2)) ** 2 +
-    ((w[1] * 2 * (b0_1 - b0_2)) / (b0_1 + b0_2)) ** 2 +
-    ((w[2] * 2 * (b01_1 - b01_2)) / (b01_1 + b01_2)) ** 2;
-
-  return 1000 * Math.sqrt(nu2);
-}
-
-function calculateMatrix(inputData, codeList) {
-  var difmatrix = [];
-  codeList.forEach((c1, i1) => {
+function prepMatrix(inpMatrix, selectedCodes) {
+  var outMatrix = [];
+  var codeList = [];
+  Object.keys(inpMatrix).forEach((c1, i1) => {
+    if (!selectedCodes.has(c1)) return;
+    codeList.push(c1);
     var el = { bin: { i1 }, bins: [] };
-    codeList.forEach((c2, i2) => {
+    Object.keys(inpMatrix[c1]).forEach((c2, i2) => {
+      if (!selectedCodes.has(c2)) return;
       el["bins"].push({
-        count: calculateNu(
-          inputData[c1]["bm_fit_scaled"],
-          inputData[c2]["bm_fit_scaled"]
-        ),
+        count: inpMatrix[c1][c2],
       });
     });
-    difmatrix.push(el);
+    outMatrix.push(el);
   });
-  return difmatrix;
+  return [outMatrix, codeList];
 }
 
 class HeatMap extends React.Component {
   constructor(props) {
     super(props);
     // this.props.inputData[code] = { color, eos_data, bm_fit }
-    this.codeList = Object.keys(this.props.inputData);
   }
 
   tickFormatY = (v, index, ticks) => ({
     name: this.props.codeNameFormatting[this.codeList[index]],
-    color: this.props.inputData[this.codeList[index]]["color"],
+    color: this.props.processedData[this.codeList[index]]["color"],
   });
 
   tickFormatX = (v, index, ticks) =>
     this.props.codeNameFormatting[this.codeList[index]];
 
   render() {
-    this.codeList = Object.keys(this.props.inputData);
-
-    var dataMatrix = calculateMatrix(this.props.inputData, this.codeList);
+    var [dataMatrix, cl] = prepMatrix(
+      this.props.matrix,
+      this.props.selectedCodes
+    );
+    this.codeList = cl;
 
     const xMax = width - margin.left - margin.right;
     const yMax = height - margin.bottom - margin.top;
@@ -86,7 +67,7 @@ class HeatMap extends React.Component {
     });
     const rectColorScale = scaleLinear({
       range: ["white", hot2],
-      domain: [0, 1.0],
+      domain: [0, this.props.maxValue],
     });
 
     xScale.range([0, xMax]);

@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/acwf-web-app/static/css/main.da46b1a9.css",
-    "main.js": "/acwf-web-app/static/js/main.75a806e3.js",
+    "main.css": "/acwf-web-app/static/css/main.97b2936c.css",
+    "main.js": "/acwf-web-app/static/js/main.c880ac4c.js",
     "static/js/787.17f3220b.chunk.js": "/acwf-web-app/static/js/787.17f3220b.chunk.js",
     "index.html": "/acwf-web-app/index.html",
-    "main.da46b1a9.css.map": "/acwf-web-app/static/css/main.da46b1a9.css.map",
-    "main.75a806e3.js.map": "/acwf-web-app/static/js/main.75a806e3.js.map",
+    "main.97b2936c.css.map": "/acwf-web-app/static/css/main.97b2936c.css.map",
+    "main.c880ac4c.js.map": "/acwf-web-app/static/js/main.c880ac4c.js.map",
     "787.17f3220b.chunk.js.map": "/acwf-web-app/static/js/787.17f3220b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.da46b1a9.css",
-    "static/js/main.75a806e3.js"
+    "static/css/main.97b2936c.css",
+    "static/js/main.c880ac4c.js"
   ]
 }

@@ -160,6 +160,9 @@ class ACWF extends React.Component {
         selectedCodes: new Set(Object.keys(loadedData)),
       });
       console.log("LOADED:", loadedData);
+      if (this.state.selectedElement != null) {
+        this.changeElementSelection(this.state.selectedElement);
+      }
     });
   }
 
@@ -176,19 +179,17 @@ class ACWF extends React.Component {
   }
 
   changeElementSelection(newElement) {
-    if (newElement !== this.state.selectedElement) {
-      var processedData = processData(
-        this.state.rawData,
-        this.state.allCodes,
-        newElement
-      );
-      this.setState({
-        selectedElement: newElement,
-        processedData: processedData,
-        comparisonMatrices: calcComparisonMatrices(processedData),
-      });
-      console.log(processedData);
-    }
+    var processedData = processData(
+      this.state.rawData,
+      this.state.allCodes,
+      newElement
+    );
+    this.setState({
+      selectedElement: newElement,
+      processedData: processedData,
+      comparisonMatrices: calcComparisonMatrices(processedData),
+    });
+    console.log(processedData);
   }
 
   render() {

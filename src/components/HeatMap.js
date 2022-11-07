@@ -67,7 +67,7 @@ class HeatMap extends React.Component {
     });
     const rectColorScale = scaleLinear({
       range: ["white", hot2],
-      domain: [0, this.props.maxValue],
+      domain: [0, 0.8 * this.props.maxValue],
     });
 
     xScale.range([0, xMax]);

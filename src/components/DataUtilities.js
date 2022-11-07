@@ -1,3 +1,15 @@
+import {
+  calculateNu,
+  calculateDelta,
+  calculateEpsilon,
+} from "./ComparisonMeasures";
+
+var measureList = {
+  nu: calculateNu,
+  delta: calculateDelta,
+  epsilon: calculateEpsilon,
+};
+
 // from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12
 const colorList = [
   "#a6cee3",
@@ -151,25 +163,6 @@ export function processData(rawData, allCodes, element) {
 // Routines for calculating the comparison matrix
 // --------------------------------------------------
 
-function calculateNu(bm_fit1, bm_fit2, prefactor) {
-  if (bm_fit1 == null || bm_fit2 == null) return -1.0;
-  var v0_1 = bm_fit1["min_volume"];
-  var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
-  var b01_1 = bm_fit1["bulk_deriv"];
-  var v0_2 = bm_fit2["min_volume"];
-  var b0_2 = bm_fit2["bulk_modulus_ev_ang3"];
-  var b01_2 = bm_fit2["bulk_deriv"];
-
-  var w = [1, 1 / 8, 1 / 64];
-
-  var nu2 =
-    ((w[0] * 2 * (v0_1 - v0_2)) / (v0_1 + v0_2)) ** 2 +
-    ((w[1] * 2 * (b0_1 - b0_2)) / (b0_1 + b0_2)) ** 2 +
-    ((w[2] * 2 * (b01_1 - b01_2)) / (b01_1 + b01_2)) ** 2;
-
-  return prefactor * Math.sqrt(nu2);
-}
-
 /**
  * Calculates the comparison matrices
  *
@@ -179,30 +172,21 @@ function calculateNu(bm_fit1, bm_fit2, prefactor) {
  * @returns comparisonMatrix[element-crystalLabel][measure][code1][code2] = value
  */
 export function calcComparisonMatrices(processedData) {
-  var measureList = ["nu", "nu2"];
   var mat = {};
   console.log(processedData);
   Object.keys(processedData).forEach((crystal) => {
     mat[crystal] = {};
-    measureList.forEach((measure) => {
+    Object.keys(measureList).forEach((measure) => {
       mat[crystal][measure] = {};
       Object.keys(processedData[crystal]).forEach((c1, i1) => {
         mat[crystal][measure][c1] = {};
         Object.keys(processedData[crystal]).forEach((c2, i2) => {
-          var value = 0;
-          if (measure == "nu") {
-            value = calculateNu(
+          var value =
+            100 *
+            measureList[measure](
               processedData[crystal][c1]["bm_fit_scaled"],
-              processedData[crystal][c2]["bm_fit_scaled"],
-              1000
+              processedData[crystal][c2]["bm_fit_scaled"]
             );
-          } else if (measure == "nu2") {
-            value = calculateNu(
-              processedData[crystal][c1]["bm_fit_scaled"],
-              processedData[crystal][c2]["bm_fit_scaled"],
-              100
-            );
-          }
           mat[crystal][measure][c1][c2] = value;
         });
       });

@@ -4,6 +4,11 @@ import EOSGraph from "./EOSGraph";
 
 import HeatMap from "./HeatMap";
 
+import {
+  scaleEosPerFormulaUnit,
+  scaleBMFitPerFormulaUnit,
+} from "./DataUtilities";
+
 // from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12
 const colorList = [
   "#a6cee3",
@@ -77,16 +82,30 @@ class UnifiedGraph extends React.Component {
         continue;
       }
 
+      let numAtomsInSimCell =
+        this.props.data[code][this.props.type]["num_atoms_in_sim_cell"][
+          this.props.crystal
+        ];
+      let eosData =
+        this.props.data[code][this.props.type]["eos_data"][this.props.crystal];
+      let bmFit =
+        this.props.data[code][this.props.type]["BM_fit_data"][
+          this.props.crystal
+        ];
+      let crystalType = this.props.crystal.split("-")[1];
+
       inputData[code] = {
         color: colorList[i % colorList.length],
-        eos_data:
-          this.props.data[code][this.props.type]["eos_data"][
-            this.props.crystal
-          ],
-        bm_fit:
-          this.props.data[code][this.props.type]["BM_fit_data"][
-            this.props.crystal
-          ],
+        eos_data_scaled: scaleEosPerFormulaUnit(
+          eosData,
+          numAtomsInSimCell,
+          crystalType
+        ),
+        bm_fit_scaled: scaleBMFitPerFormulaUnit(
+          bmFit,
+          numAtomsInSimCell,
+          crystalType
+        ),
       };
     }
 

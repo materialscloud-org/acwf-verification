@@ -44,7 +44,10 @@ function calculateMatrix(inputData, codeList) {
     var el = { bin: { i1 }, bins: [] };
     codeList.forEach((c2, i2) => {
       el["bins"].push({
-        count: calculateNu(inputData[c1]["bm_fit"], inputData[c2]["bm_fit"]),
+        count: calculateNu(
+          inputData[c1]["bm_fit_scaled"],
+          inputData[c2]["bm_fit_scaled"]
+        ),
       });
     });
     difmatrix.push(el);

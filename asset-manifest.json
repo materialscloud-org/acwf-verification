@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/acwf-web-app/static/css/main.97b2936c.css",
-    "main.js": "/acwf-web-app/static/js/main.c880ac4c.js",
+    "main.js": "/acwf-web-app/static/js/main.883d91a6.js",
     "static/js/787.17f3220b.chunk.js": "/acwf-web-app/static/js/787.17f3220b.chunk.js",
     "index.html": "/acwf-web-app/index.html",
     "main.97b2936c.css.map": "/acwf-web-app/static/css/main.97b2936c.css.map",
-    "main.c880ac4c.js.map": "/acwf-web-app/static/js/main.c880ac4c.js.map",
+    "main.883d91a6.js.map": "/acwf-web-app/static/js/main.883d91a6.js.map",
     "787.17f3220b.chunk.js.map": "/acwf-web-app/static/js/787.17f3220b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.97b2936c.css",
-    "static/js/main.c880ac4c.js"
+    "static/js/main.883d91a6.js"
   ]
 }

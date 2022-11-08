@@ -154,14 +154,25 @@ class ACWF extends React.Component {
 
   componentDidMount() {
     loadData().then((loadedData) => {
+      let allCodes = orderCodes(Object.keys(loadedData));
+      let selectedCodes = new Set(Object.keys(loadedData));
       this.setState({
         rawData: loadedData,
-        allCodes: orderCodes(Object.keys(loadedData)),
-        selectedCodes: new Set(Object.keys(loadedData)),
+        allCodes: allCodes,
+        selectedCodes: selectedCodes,
       });
       console.log("LOADED:", loadedData);
+      // if the user selected an element before the data was loaded
       if (this.state.selectedElement != null) {
-        this.changeElementSelection(this.state.selectedElement);
+        var processedData = processData(
+          loadedData,
+          allCodes,
+          this.state.selectedElement
+        );
+        this.setState({
+          processedData: processedData,
+          comparisonMatrices: calcComparisonMatrices(processedData),
+        });
       }
     });
   }

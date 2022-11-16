@@ -7,6 +7,8 @@ import UnifiedGraph from "./UnifiedGraph";
 import CodeSelector from "./CodeSelector";
 import MeasureSelector from "./MeasureSelector";
 
+import Spinner from "react-bootstrap/Spinner";
+
 import {
   processData,
   calcComparisonMatrices,
@@ -214,6 +216,8 @@ class ACWF extends React.Component {
       );
     }
 
+    var loading = this.state.allCodes.length == 0;
+
     return (
       <div>
         <div style={{ border: "1px solid #999", borderRadius: "20px" }}>
@@ -226,38 +230,53 @@ class ACWF extends React.Component {
         </div>
         {this.state.selectedElement != null ? (
           <div>
-            <div className="selector_container">
-              <CodeSelector
-                allCodes={this.state.allCodes}
-                selectedCodes={this.state.selectedCodes}
-                onCodeSelectionChange={this.handleCodeSelectionChange}
-                codeNameFormatting={codeNameFormatting}
-              />
-              <MeasureSelector onMeasureChange={this.handleMeasureChange} />
-            </div>
-            <div style={{ display: "flex" }}>
-              <div>
-                {Object.keys(this.state.processedData).map((crystal) => {
-                  return (
-                    <UnifiedGraph
-                      key={crystal}
-                      processedData={this.state.processedData[crystal]}
-                      comparisonMatrix={
-                        this.state.comparisonMatrices[crystal][
-                          this.state.selectedMeasure
-                        ]
-                      }
-                      matrixMax={matrixMax}
-                      // measure={this.state.selectedMeasure}
-                      crystal={crystal}
-                      allCodes={this.state.allCodes}
-                      selectedCodes={this.state.selectedCodes}
-                      codeNameFormatting={codeNameFormatting}
-                    />
-                  );
-                })}
+            {loading ? (
+              <div className="selector_container">
+                <Spinner
+                  style={{ padding: "10px", margin: "100px" }}
+                  animation="border"
+                  role="status"
+                  variant="primary"
+                >
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
               </div>
-            </div>
+            ) : (
+              <div className="selector_container">
+                <CodeSelector
+                  allCodes={this.state.allCodes}
+                  selectedCodes={this.state.selectedCodes}
+                  onCodeSelectionChange={this.handleCodeSelectionChange}
+                  codeNameFormatting={codeNameFormatting}
+                />
+                <MeasureSelector onMeasureChange={this.handleMeasureChange} />
+              </div>
+            )}
+            {!loading ? (
+              <div style={{ display: "flex" }}>
+                <div>
+                  {Object.keys(this.state.processedData).map((crystal) => {
+                    return (
+                      <UnifiedGraph
+                        key={crystal}
+                        processedData={this.state.processedData[crystal]}
+                        comparisonMatrix={
+                          this.state.comparisonMatrices[crystal][
+                            this.state.selectedMeasure
+                          ]
+                        }
+                        matrixMax={matrixMax}
+                        // measure={this.state.selectedMeasure}
+                        crystal={crystal}
+                        allCodes={this.state.allCodes}
+                        selectedCodes={this.state.selectedCodes}
+                        codeNameFormatting={codeNameFormatting}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>

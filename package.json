@@ -1,8 +1,8 @@
 {
-  "name": "acwf",
-  "version": "0.2.0",
+  "name": "acwf-verification",
+  "version": "0.3.0",
   "private": true,
-  "homepage": "http://materialscloud-org.github.io/acwf-web-app",
+  "homepage": "https://acwf-verification.materialscloud.org",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",

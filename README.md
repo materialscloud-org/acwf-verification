@@ -8,7 +8,7 @@ Built with React, using
 
 See the `python` directory on how the underlying data is obtained and prepared.
 
-Published via GitHub pages to https://materialscloud-org.github.io/acwf-web-app/
+Published via GitHub pages to https://acwf-verification.materialscloud.org
 
 # Getting Started with Create React App
 

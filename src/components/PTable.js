@@ -55,7 +55,7 @@ class PTable extends React.Component {
           symbol={symbol}
           selected_symbol={this.props.selection}
           onSelectionChange={this.props.onElementSelect}
-          disabled={this.props.disabledElements.has(symbol)}
+          disabled={!this.props.enabledElements.has(symbol)}
         />
       );
     }

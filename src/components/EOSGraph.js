@@ -52,7 +52,7 @@ function tickRange(start, stop, step) {
 class EOSGraph extends React.Component {
   constructor(props) {
     super(props);
-    // this.props.processedData[code] = { color, eos_data_scaled, bm_fit_scaled }
+    // this.props.processedData[code] = { eos_data_per_atom, bm_fit_per_atom }
 
     this.width = 400;
     this.height = 380;
@@ -75,6 +75,8 @@ class EOSGraph extends React.Component {
         ></ComposedChart>
       );
 
+    // console.log(this.props.processedData);
+
     var chartDataAll = {};
     // data will be structured as
     // chartDataAll = {
@@ -87,8 +89,8 @@ class EOSGraph extends React.Component {
     var v_max = -Number.MAX_SAFE_INTEGER;
     for (const code of Object.keys(this.props.processedData)) {
       if (!this.props.selectedCodes.has(code)) continue;
-      let eos_data = this.props.processedData[code]["eos_data_scaled"];
-      let bm_fit = this.props.processedData[code]["bm_fit_scaled"];
+      let eos_data = this.props.processedData[code]["eos_data_per_atom"];
+      let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (eos_data == null || bm_fit == null) continue;
       let this_v_min = Math.min(...eos_data.map((x) => x[0]));
       let this_v_max = Math.max(...eos_data.map((x) => x[0]));
@@ -104,8 +106,8 @@ class EOSGraph extends React.Component {
     // go through all datasets and prepare the plotting data
     for (const code of Object.keys(this.props.processedData)) {
       if (!this.props.selectedCodes.has(code)) continue;
-      let eos_data = this.props.processedData[code]["eos_data_scaled"];
-      let bm_fit = this.props.processedData[code]["bm_fit_scaled"];
+      let eos_data = this.props.processedData[code]["eos_data_per_atom"];
+      let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (eos_data == null || bm_fit == null) continue;
 
       var eos_points = eos_data.map((x) => ({
@@ -155,7 +157,7 @@ class EOSGraph extends React.Component {
             tickFormatter={(value) => value.toFixed(2)}
             ticks={yticks}
             label={{
-              value: "Energy per formula unit [eV]",
+              value: "Energy per atom [eV]",
               angle: -90,
               position: "left",
               offset: -5,
@@ -185,8 +187,8 @@ class EOSGraph extends React.Component {
                 dataKey="e"
                 dot={false}
                 activeDot={false}
-                stroke={this.props.processedData[key]["color"]}
-                name={this.props.codeNameFormatting[key]}
+                stroke={this.props.codeFormatting[key]["color"]}
+                name={this.props.codeFormatting[key]["name"]}
                 isAnimationActive={false}
                 strokeWidth={2}
               />
@@ -198,12 +200,12 @@ class EOSGraph extends React.Component {
                 key={key + "-points"}
                 data={chartDataAll[key]["points"]}
                 dataKey="e"
-                name={this.props.codeNameFormatting[key]}
+                name={this.props.codeFormatting[key]["name"]}
                 strokeWidth={0}
-                stroke={this.props.processedData[key]["color"]}
+                stroke={this.props.codeFormatting[key]["color"]}
                 dot={{
-                  stroke: this.props.processedData[key]["color"],
-                  fill: this.props.processedData[key]["color"],
+                  stroke: this.props.codeFormatting[key]["color"],
+                  fill: this.props.codeFormatting[key]["color"],
                   strokeWidth: 1,
                 }}
                 activeDot={false}
@@ -215,7 +217,7 @@ class EOSGraph extends React.Component {
         <center
           style={{ fontSize: 14, marginTop: "-25px", marginLeft: "45px" }}
         >
-          Cell volume per formula unit [Å<sup>3</sup>]
+          Cell volume per atom [Å<sup>3</sup>]
         </center>
       </div>
     );

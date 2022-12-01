@@ -50,11 +50,14 @@ class CodeSelector extends React.Component {
             {this.props.allCodes.map((code, i) => {
               return (
                 <Form.Check
-                  style={{ gridColumnStart: { i } }}
+                  style={{
+                    gridColumnStart: { i },
+                    fontWeight: this.props.codeFormatting[code]["fontw"],
+                  }}
                   inline={true}
                   type={"checkbox"}
                   id={code}
-                  label={this.props.codeNameFormatting[code]}
+                  label={this.props.codeFormatting[code]["name"]}
                   key={code}
                   defaultChecked={true}
                   onChange={this.handleToggle}

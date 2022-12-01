@@ -20,11 +20,14 @@ const margin = { top: 10, left: 140, right: 10, bottom: 105 };
 function prepMatrix(inpMatrix, selectedCodes) {
   var outMatrix = [];
   var codeList = [];
-  Object.keys(inpMatrix).forEach((c1, i1) => {
+  let matCodes = Object.keys(inpMatrix);
+  let matCodesRev = matCodes.slice().reverse();
+  // Reverse vertical axis, such that top-left is 0, 0 point
+  matCodes.forEach((c1, i1) => {
     if (!selectedCodes.has(c1)) return;
     codeList.push(c1);
     var el = { bin: { i1 }, bins: [] };
-    Object.keys(inpMatrix[c1]).forEach((c2, i2) => {
+    matCodesRev.forEach((c2, i2) => {
       if (!selectedCodes.has(c2)) return;
       el["bins"].push({
         count: inpMatrix[c1][c2],
@@ -38,16 +41,20 @@ function prepMatrix(inpMatrix, selectedCodes) {
 class HeatMap extends React.Component {
   constructor(props) {
     super(props);
-    // this.props.inputData[code] = { color, eos_data, bm_fit }
   }
 
-  tickFormatY = (v, index, ticks) => ({
-    name: this.props.codeNameFormatting[this.codeList[index]],
-    color: this.props.processedData[this.codeList[index]]["color"],
-  });
+  tickFormatY = (v, index, ticks) => {
+    let codeFormat =
+      this.props.codeFormatting[this.codeList.slice().reverse()[index]];
+    return {
+      name: codeFormat["name"],
+      color: codeFormat["color"],
+      fontw: codeFormat["fontw"],
+    };
+  };
 
   tickFormatX = (v, index, ticks) =>
-    this.props.codeNameFormatting[this.codeList[index]];
+    this.props.codeFormatting[this.codeList[index]]["name"];
 
   render() {
     var [dataMatrix, cl] = prepMatrix(
@@ -127,11 +134,13 @@ class HeatMap extends React.Component {
             tickTextFill={"#1b1a1e"}
             tickValues={tickValues}
             tickFormat={this.tickFormatX}
-            tickLabelProps={() => ({
+            tickLabelProps={(val, index) => ({
               angle: -45,
               textAnchor: "end",
               scaleToFit: "shrink-only",
               fontSize: 12,
+              fontWeight:
+                this.props.codeFormatting[this.codeList[index]]["fontw"],
             })}
           />
           <AxisLeft
@@ -155,6 +164,7 @@ class HeatMap extends React.Component {
                   x={x - 110} // or 4 & textAnchor={"end"}
                   y={y + 1}
                   fontSize={12}
+                  fontWeight={formattedValue.fontw}
                   textAnchor={"start"}
                   dominantBaseline={"middle"}
                 >

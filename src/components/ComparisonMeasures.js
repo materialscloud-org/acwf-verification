@@ -28,6 +28,17 @@ function gaussian_quadrature_7pt(func, x1, x2) {
   return res;
 }
 
+/**
+ * Calculate the nu criterion
+ *
+ * The weights are a bit arbitrary...
+ *
+ * Multiply by 100 to convert to something related to [%]
+ *
+ * @param {*} bm_fit1
+ * @param {*} bm_fit2
+ * @returns
+ */
 export function calculateNu(bm_fit1, bm_fit2) {
   if (bm_fit1 == null || bm_fit2 == null) return -1.0;
   var v0_1 = bm_fit1["min_volume"];
@@ -44,7 +55,7 @@ export function calculateNu(bm_fit1, bm_fit2) {
     ((w[1] * 2 * (b0_1 - b0_2)) / (b0_1 + b0_2)) ** 2 +
     ((w[2] * 2 * (b01_1 - b01_2)) / (b01_1 + b01_2)) ** 2;
 
-  return Math.sqrt(nu2);
+  return 100 * Math.sqrt(nu2);
 }
 
 function birch_murnaghan(v, bm_fit) {
@@ -65,6 +76,8 @@ function birch_murnaghan(v, bm_fit) {
  * Calculate the "original delta criterion" by Stefaan Cottenier
  * using gaussian quadrature.
  *
+ * Multiply by 1000 to convert to [meV]
+ *
  * @param {*} bm_fit1
  * @param {*} bm_fit2
  * @returns
@@ -80,12 +93,14 @@ export function calculateDelta(bm_fit1, bm_fit2) {
     return (birch_murnaghan(v, bm_fit1) - birch_murnaghan(v, bm_fit2)) ** 2;
   };
   let res = gaussian_quadrature_7pt(integ, v1, v2);
-  return Math.sqrt(res / (v2 - v1));
+  return 1000 * Math.sqrt(res / (v2 - v1));
 }
 
 /**
  * Calculate the "new delta" or "epsilon" criterion by Oleg Rubel
  * using gaussian quadrature.
+ *
+ * multiply by 100 to give [x 100] units.
  *
  * @param {*} bm_fit1
  * @param {*} bm_fit2

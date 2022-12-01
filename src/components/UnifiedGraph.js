@@ -4,29 +4,47 @@ import EOSGraph from "./EOSGraph";
 
 import HeatMap from "./HeatMap";
 
-import {
-  scaleEosPerFormulaUnit,
-  scaleBMFitPerFormulaUnit,
-} from "./DataUtilities";
-
 function isCharNum(c) {
   return c >= "0" && c <= "9";
 }
 
-function formatLabel(crystalLabel) {
-  let sp = crystalLabel.split("-");
-  let formula = " " + sp[1].split("X").join(sp[0]);
+function formatLabel(elem, crystalLabel) {
   let jsx = [];
-  for (var i = 0; i < formula.length; i++) {
-    if (isCharNum(formula[i])) jsx.push(<sub key={i}>{formula[i]}</sub>);
-    else jsx.push(formula[i]);
+  if (crystalLabel == "X/SC") {
+    jsx.push(` ${elem} (simple cubic)`);
+  } else if (crystalLabel == "X/BCC") {
+    jsx.push(` ${elem} (BCC)`);
+  } else if (crystalLabel == "X/FCC") {
+    jsx.push(` ${elem} (FCC)`);
+  } else if (crystalLabel == "X/Diamond") {
+    jsx.push(` ${elem} (diamond)`);
+  } else {
+    let formula = " " + crystalLabel.split("X").join(elem);
+    for (var i = 0; i < formula.length; i++) {
+      if (isCharNum(formula[i])) jsx.push(<sub key={i}>{formula[i]}</sub>);
+      else jsx.push(formula[i]);
+    }
   }
+
   return (
     <b>
       Compound:
       {jsx}
     </b>
   );
+}
+
+function heatmapTitle(measure) {
+  if (measure == "nu") {
+    return "EOS discrepancy: ν × 100";
+  }
+  if (measure == "delta") {
+    return "EOS discrepancy: Δ [meV]";
+  }
+  if (measure == "epsilon") {
+    return "EOS discrepancy: ε × 100";
+  }
+  return "error";
 }
 
 class UnifiedGraph extends React.Component {
@@ -45,7 +63,7 @@ class UnifiedGraph extends React.Component {
           width: "850px",
         }}
       >
-        <center>{formatLabel(this.props.crystal)}</center>
+        <center>{formatLabel(this.props.element, this.props.crystal)}</center>
         <div
           style={{
             display: "flex",
@@ -61,12 +79,12 @@ class UnifiedGraph extends React.Component {
             }
           >
             <center style={{ marginLeft: "60px" }}>
-              Equation of State curves
+              Equation of States (EOS)
             </center>
             <EOSGraph
               processedData={this.props.processedData}
               selectedCodes={this.props.selectedCodes}
-              codeNameFormatting={this.props.codeNameFormatting}
+              codeFormatting={this.props.codeFormatting}
             />
           </div>
           <div
@@ -77,14 +95,13 @@ class UnifiedGraph extends React.Component {
             }
           >
             <center style={{ marginLeft: "125px" }}>
-              Difference based on the selected measure
+              {heatmapTitle(this.props.measure)}
             </center>
             <HeatMap
-              processedData={this.props.processedData} // only for color
               matrix={this.props.comparisonMatrix}
               selectedCodes={this.props.selectedCodes}
               maxValue={this.props.matrixMax}
-              codeNameFormatting={this.props.codeNameFormatting}
+              codeFormatting={this.props.codeFormatting}
             />
           </div>
         </div>

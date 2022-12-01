@@ -29,9 +29,9 @@ class MeasureSelector extends React.Component {
           aria-label="Default select example"
           onChange={this.handleChange}
         >
-          <option value="nu">100 * nu</option>
-          <option value="delta">100 * delta</option>
-          <option value="epsilon">100 * epsilon</option>
+          <option value="nu">ν</option>
+          <option value="delta">Δ</option>
+          <option value="epsilon">ε </option>
         </Form.Select>
       </div>
     );

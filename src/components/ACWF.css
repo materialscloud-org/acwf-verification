@@ -1,7 +1,7 @@
 .selector_container {
-  margin: auto;
+  /* margin: auto; */
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
   border: 1px solid #999;
   border-radius: 20px;

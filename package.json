@@ -1,6 +1,6 @@
 {
   "name": "acwf-verification",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "homepage": "https://acwf-verification.materialscloud.org",
   "dependencies": {
@@ -17,6 +17,7 @@
     "react": "^18.1.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.1.0",
+    "react-materialscloud-header": "^0.1.1",
     "react-scripts": "5.0.1",
     "recharts": "^2.1.15",
     "web-vitals": "^2.1.4"

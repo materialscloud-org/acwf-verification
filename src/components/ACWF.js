@@ -115,8 +115,8 @@ class ACWF extends React.Component {
     var sel_elem = this.state.selectedElement;
 
     return (
-      <div>
-        <div style={{ border: "1px solid #999", borderRadius: "20px" }}>
+      <div className="acwf">
+        <div className="gen_container">
           <center>Select an element:</center>
           <PTable
             onElementSelect={this.changeElementSelection}
@@ -126,7 +126,7 @@ class ACWF extends React.Component {
         </div>
         {sel_elem != null ? (
           <div>
-            <div className="selector_container">
+            <div className="selector_container gen_container">
               <CodeSelector
                 allCodes={allCodes}
                 selectedCodes={this.state.selectedCodes}
@@ -135,30 +135,30 @@ class ACWF extends React.Component {
               />
               <MeasureSelector onMeasureChange={this.handleMeasureChange} />
             </div>
-            <div style={{ display: "flex" }}>
-              <div>
-                {crystalOrder.map((crystal) => {
-                  return (
-                    <UnifiedGraph
-                      key={sel_elem + crystal}
-                      element={sel_elem}
-                      processedData={allData["data"][sel_elem][crystal]}
-                      comparisonMatrix={
-                        this.comparisonMatrices[sel_elem][crystal][
-                          this.state.selectedMeasure
-                        ]
-                      }
-                      matrixMax={matrixMax}
-                      crystal={crystal}
-                      allCodes={allCodes}
-                      selectedCodes={this.state.selectedCodes}
-                      codeFormatting={codeFormatting}
-                      measure={this.state.selectedMeasure}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+            {crystalOrder.map((crystal) => {
+              return (
+                <div
+                  key={sel_elem + crystal}
+                  className="gen_container graph_container"
+                >
+                  <UnifiedGraph
+                    element={sel_elem}
+                    processedData={allData["data"][sel_elem][crystal]}
+                    comparisonMatrix={
+                      this.comparisonMatrices[sel_elem][crystal][
+                        this.state.selectedMeasure
+                      ]
+                    }
+                    matrixMax={matrixMax}
+                    crystal={crystal}
+                    allCodes={allCodes}
+                    selectedCodes={this.state.selectedCodes}
+                    codeFormatting={codeFormatting}
+                    measure={this.state.selectedMeasure}
+                  />
+                </div>
+              );
+            })}
           </div>
         ) : null}
       </div>

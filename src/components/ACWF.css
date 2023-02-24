@@ -1,8 +1,37 @@
+/* Variables */
+/* :root {
+  --font-size: 16px;
+} */
+
+.acwf {
+  /* background-color: rgb(240, 247, 176); */
+  /* margin: 10px; */
+  font-size: 16px;
+}
+
+/* common to all "containers" */
+.gen_container {
+  border: 1px solid #999;
+  border-radius: 10px;
+  width: 860px;
+  /* max-width: 900px; */
+  margin: 0 auto;
+}
+
 .selector_container {
-  /* margin: auto; */
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
-  border: 1px solid #999;
-  border-radius: 20px;
 }
+
+.graph_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* @media screen and (max-width: 700px) {
+  :root {
+    --font-size: 12px;
+  }
+} */

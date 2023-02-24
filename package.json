@@ -14,10 +14,10 @@
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",
     "bootstrap": "^5.2.2",
+    "mc-react-header": "^0.2.0",
     "react": "^18.1.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.1.0",
-    "react-materialscloud-header": "^0.1.1",
     "react-scripts": "5.0.1",
     "recharts": "^2.1.15",
     "web-vitals": "^2.1.4"

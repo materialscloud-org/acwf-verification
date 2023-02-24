@@ -4,12 +4,19 @@
     <meta charset="utf-8" />
 
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      The default responsive viewport doesn't work, as the Graph elements are fixed width and
+      difficult to make responsive. We want the page to zoom out on mobile.
+      Set the viewport manually to 874. This comes from:
+      * 860 (the width of each acwf "content box")
+      * 2x (5+2) (padding and margin due to the MC header)
+      In principle, this tag could probably also set programmatically in javascript
+      (so that e.g. when the content width is updated, this updates also accordingly.)
+    -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+    <meta name="viewport" content="width=874" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="AiiDA common workflows verification"
-    />
+    <meta name="description" content="AiiDA common workflows verification" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a

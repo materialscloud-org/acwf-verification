@@ -56,13 +56,7 @@ class UnifiedGraph extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          border: "1px solid #999",
-          borderRadius: "20px",
-          width: "850px",
-        }}
-      >
+      <div>
         <center>{formatLabel(this.props.element, this.props.crystal)}</center>
         <div
           style={{
@@ -71,13 +65,7 @@ class UnifiedGraph extends React.Component {
             justifyContent: "space-evenly",
           }}
         >
-          <div
-            style={
-              {
-                // border: "1px solid #999",
-              }
-            }
-          >
+          <div>
             <center style={{ marginLeft: "60px" }}>
               Equation of States (EOS)
             </center>

@@ -1,6 +1,6 @@
 /* Variables */
 :root {
-  --element-box-size: 30px;
+  --element-box-size: 34px;
 }
 
 .ptable_outer {
@@ -32,7 +32,7 @@
   /* margin-bottom: -2px; */
   user-select: none; /* don't select text upon clicking */
   position: relative;
-  border-radius: 20%;
+  border-radius: 10%;
   cursor: pointer;
   /*cursor: default; /* don't charge cursor into a bar when hovering over text */
   display: flex;
@@ -115,11 +115,8 @@
 
 /* ----------------------------- */
 
-/* @media screen and (max-width: 800px) {
+/* @media screen and (max-width: 900px) {
   :root {
-    --element-box-size: 26px;
-  }
-  .elem_num {
-    display: none;
+    --element-box-size: 4vw;
   }
 } */

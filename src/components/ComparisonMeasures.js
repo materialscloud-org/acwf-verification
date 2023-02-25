@@ -48,7 +48,7 @@ export function calculateNu(bm_fit1, bm_fit2) {
   var b0_2 = bm_fit2["bulk_modulus_ev_ang3"];
   var b01_2 = bm_fit2["bulk_deriv"];
 
-  var w = [1, 1 / 8, 1 / 64];
+  var w = [1, 1 / 20, 1 / 400];
 
   var nu2 =
     ((w[0] * 2 * (v0_1 - v0_2)) / (v0_1 + v0_2)) ** 2 +

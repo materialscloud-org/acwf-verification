@@ -1,20 +1,11 @@
 import "./App.css";
-import ACWF from "./components/ACWF";
-import MaterialsCloudHeader from "mc-react-header";
+import MainPage from "./components/MainPage";
 
 function App() {
   return (
-    <MaterialsCloudHeader
-      activeSection={"discover"}
-      breadcrumbsPath={[
-        { name: "Discover", link: "https://www.materialscloud.org/discover" },
-        { name: "ACWF verification", link: null },
-      ]}
-    >
-      <div className="App">
-        <ACWF />
-      </div>
-    </MaterialsCloudHeader>
+    <div className="App">
+      <MainPage />
+    </div>
   );
 }
 

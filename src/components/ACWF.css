@@ -9,6 +9,10 @@
   font-size: 16px;
 }
 
+.acwf > * {
+  margin: 0 auto;
+}
+
 /* common to all "containers" */
 .gen_container {
   border: 1px solid #999;

@@ -117,7 +117,7 @@ class ACWF extends React.Component {
     return (
       <div className="acwf">
         <div className="gen_container">
-          <center>Select an element:</center>
+          {/* <center>Select an element:</center> */}
           <PTable
             onElementSelect={this.changeElementSelection}
             selection={sel_elem}

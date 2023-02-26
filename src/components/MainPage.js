@@ -20,17 +20,19 @@ function MainPage() {
     >
       <div className="main-page">
         <AppHeader />
+        <div className="note">
+          NOTE: This is a beta version and preliminary data currently used!
+        </div>
         <div className="description">
-          This interface contains a reference and a verification dataset of
-          equations of states (EoS) calculated with different density functional
-          theory (DFT) codes using the AiiDA common workflows infrastructure.
-          The data is published and discussed in the article:
+          This application contains a reference and a verification dataset of
+          equations of states calculated with different density functional
+          theory codes using the AiiDA common workflows infrastructure. The data
+          is published and discussed in the article:
           <div className="citation">
             E. Bosoni et al., Comprehensive verification of all-electron and
             pseudopotential density functional theory (DFT) codes via universal
             common workflows., in preparation (2023)
           </div>
-          NOTE: preliminary data currently used in this app!
         </div>
         <Tabs defaultActiveKey="use" className="acwf-tabs">
           <Tab eventKey="use" title="Use">

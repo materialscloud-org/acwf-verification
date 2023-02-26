@@ -33,21 +33,24 @@ const allCodes = [
 
 // code display name and associated color (from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12)
 // for fontweight, "bold" seems a bit too strong
+// shortname, if exists, is shown in the heatmap
 const codeFormatting = {
-  fleur: { name: "FLEUR", color: "#a6cee3", fontw: "600" },
-  wien2k: { name: "WIEN2k", color: "#1f78b4", fontw: "600" },
-  abinit: { name: "Abinit", color: "#b2df8a", fontw: "normal" },
-  bigdft: { name: "BigDFT", color: "#33a02c", fontw: "normal" },
-  castep: { name: "CASTEP", color: "#fb9a99", fontw: "normal" },
-  cp2k: { name: "CP2K", color: "#e31a1c", fontw: "normal" },
-  gpaw: { name: "GPAW", color: "#fdbf6f", fontw: "normal" },
+  fleur: { name: "FLEUR", color: "#a6cee3", fontw: "600", ae: true },
+  wien2k: { name: "WIEN2k", color: "#1f78b4", fontw: "600", ae: true },
+  abinit: { name: "Abinit", color: "#b2df8a", fontw: "normal", ae: false },
+  bigdft: { name: "BigDFT", color: "#33a02c", fontw: "normal", ae: false },
+  castep: { name: "CASTEP", color: "#fb9a99", fontw: "normal", ae: false },
+  cp2k: { name: "CP2K", color: "#e31a1c", fontw: "normal", ae: false },
+  gpaw: { name: "GPAW", color: "#fdbf6f", fontw: "normal", ae: false },
   quantum_espresso: {
-    name: "Quantum ESPRESSO",
+    name: "Quantum ESPRESSO (QE) + SSSP",
+    shortname: "QE+SSSP",
     color: "#ff7f00",
     fontw: "normal",
+    ae: false,
   },
-  siesta: { name: "SIESTA", color: "#cab2d6", fontw: "normal" },
-  vasp: { name: "VASP", color: "#6a3d9a", fontw: "normal" },
+  siesta: { name: "SIESTA", color: "#cab2d6", fontw: "normal", ae: false },
+  vasp: { name: "VASP", color: "#6a3d9a", fontw: "normal", ae: false },
 };
 
 // Crystal order.

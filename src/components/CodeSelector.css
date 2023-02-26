@@ -1,0 +1,11 @@
+.code-selector-container {
+  margin: 10px 0px;
+  padding: 5px;
+  background-color: #f2f7fc;
+  border-radius: 20px;
+}
+
+.method-subheading {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}

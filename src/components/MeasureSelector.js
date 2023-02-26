@@ -27,7 +27,11 @@ class MeasureSelector extends React.Component {
           borderRadius: "20px",
         }}
       >
-        <Form.Label>Select comparison measure</Form.Label>
+        <center>
+          <Form.Label>
+            <span style={{ fontWeight: "600" }}>Select comparison measure</span>
+          </Form.Label>
+        </center>
         <Form.Select
           aria-label="Default select example"
           onChange={this.handleChange}

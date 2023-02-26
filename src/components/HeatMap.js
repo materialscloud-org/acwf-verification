@@ -47,14 +47,21 @@ class HeatMap extends React.Component {
     let codeFormat =
       this.props.codeFormatting[this.codeList.slice().reverse()[index]];
     return {
-      name: codeFormat["name"],
+      name:
+        "shortname" in codeFormat
+          ? codeFormat["shortname"]
+          : codeFormat["name"],
       color: codeFormat["color"],
       fontw: codeFormat["fontw"],
     };
   };
 
-  tickFormatX = (v, index, ticks) =>
-    this.props.codeFormatting[this.codeList[index]]["name"];
+  tickFormatX = (v, index, ticks) => {
+    let codeFormat = this.props.codeFormatting[this.codeList[index]];
+    return "shortname" in codeFormat
+      ? codeFormat["shortname"]
+      : codeFormat["name"];
+  };
 
   render() {
     var [dataMatrix, cl] = prepMatrix(

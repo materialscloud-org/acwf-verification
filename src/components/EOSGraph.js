@@ -12,6 +12,8 @@ import {
   Dot,
 } from "recharts";
 
+import "./EOSGraph.css";
+
 // calculate BM energy based on the fit parameters for volume v
 function birch_murnaghan(v, bm_fit) {
   var v0 = bm_fit["min_volume"];
@@ -49,6 +51,40 @@ function tickRange(start, stop, step) {
   return arr;
 }
 
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    console.log(payload);
+    // disable the tooltip on
+    let plSorted = payload.slice(0).sort((a, b) => {
+      return b.value - a.value;
+    });
+    console.log(
+      "PL",
+      payload.map((e) => e.value)
+    );
+    console.log(
+      "PLS",
+      plSorted.map((e) => e.value)
+    );
+    return (
+      <div className="eos-tooltip">
+        {label.toFixed(2)} <br />
+        {plSorted.map((e) => {
+          if (!e.name.endsWith("_dots")) {
+            return (
+              <div>
+                <span style={{ color: e.color }}>{e.name}</span>:{" "}
+                {e.value.toFixed(4)}
+              </div>
+            );
+          }
+        })}
+      </div>
+    );
+  }
+  return null;
+};
+
 class EOSGraph extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +98,27 @@ class EOSGraph extends React.Component {
       left: 15,
       bottom: 25,
     };
+  }
+
+  vLimits() {
+    // go through all datasets to determine v_min and v_max
+    var v_min = Number.MAX_SAFE_INTEGER;
+    var v_max = -Number.MAX_SAFE_INTEGER;
+    for (const code of Object.keys(this.props.processedData)) {
+      if (!this.props.selectedCodes.has(code)) continue;
+      let eos_data = this.props.processedData[code]["eos_data_per_atom"];
+      let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
+      if (eos_data == null || bm_fit == null) continue;
+      let this_v_min = Math.min(...eos_data.map((x) => x[0]));
+      let this_v_max = Math.max(...eos_data.map((x) => x[0]));
+      if (this_v_min < v_min) v_min = this_v_min;
+      if (this_v_max > v_max) v_max = this_v_max;
+    }
+    // round v_min, v_max to 0.1, add some margin
+    v_min = Math.floor(v_min * 10) / 10 - 0.1;
+    v_max = Math.ceil(v_max * 10) / 10 + 0.1;
+
+    return [v_min, v_max];
   }
 
   render() {
@@ -84,22 +141,22 @@ class EOSGraph extends React.Component {
     // code2: ...
     //}
 
-    // go through all datasets to determine v_min and v_max
-    var v_min = Number.MAX_SAFE_INTEGER;
-    var v_max = -Number.MAX_SAFE_INTEGER;
+    const [v_min, v_max] = this.vLimits();
+
+    // find unique eos_data points to also feed to the continuous line
+    // to show the tooltip there as well
+    var all_eos_points = [];
     for (const code of Object.keys(this.props.processedData)) {
       if (!this.props.selectedCodes.has(code)) continue;
       let eos_data = this.props.processedData[code]["eos_data_per_atom"];
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (eos_data == null || bm_fit == null) continue;
-      let this_v_min = Math.min(...eos_data.map((x) => x[0]));
-      let this_v_max = Math.max(...eos_data.map((x) => x[0]));
-      if (this_v_min < v_min) v_min = this_v_min;
-      if (this_v_max > v_max) v_max = this_v_max;
+      all_eos_points.push(...eos_data.map((x) => x[0]));
     }
-    // round v_min, v_max to 0.1, add some margin
-    v_min = Math.floor(v_min * 10) / 10 - 0.1;
-    v_max = Math.ceil(v_max * 10) / 10 + 0.1;
+    all_eos_points.sort();
+    all_eos_points.map((v) => {});
+
+    console.log("EOS", all_eos_points);
 
     var e_max = 0.0;
 
@@ -126,12 +183,14 @@ class EOSGraph extends React.Component {
       if (this_e_max > e_max) e_max = this_e_max;
     }
 
-    //console.log(chartDataAll);
+    console.log(chartDataAll);
 
     // calculate tick positions
     var xticks = tickRange(Math.ceil(v_min), Math.floor(v_max) + 1, 1.0);
     e_max += 0.005;
     var yticks = tickRange(0.0, e_max, 0.01);
+
+    console.log(chartDataAll);
 
     return (
       <div>
@@ -167,19 +226,23 @@ class EOSGraph extends React.Component {
             fontSize={12}
           />
           <Tooltip
-            // content={<CustomTooltip />}
-            formatter={(value, name) => {
-              return value.toFixed(4);
-            }}
-            labelFormatter={(value) => value.toFixed(2)}
-            itemSorter={(item) => {
-              return -item.value;
-            }}
-            itemStyle={{ fontSize: 12 }}
-            labelStyle={{ fontSize: 12 }}
+            content={<CustomTooltip />}
+            // formatter={(value, name) => {
+            //   return value.toFixed(4);
+            // }}
+            // labelFormatter={(value) => value.toFixed(2)}
+            // itemSorter={(item) => {
+            //   return -item.value;
+            // }}
+            // itemStyle={{ fontSize: 12 }}
+            // labelStyle={{ fontSize: 12 }}
           />
 
           {Object.keys(chartDataAll).map(function (key) {
+            let name =
+              "shortname" in this.props.codeFormatting[key]
+                ? this.props.codeFormatting[key]["shortname"]
+                : this.props.codeFormatting[key]["name"];
             return (
               <Line
                 key={key + "-fit"}
@@ -188,19 +251,23 @@ class EOSGraph extends React.Component {
                 dot={false}
                 activeDot={false}
                 stroke={this.props.codeFormatting[key]["color"]}
-                name={this.props.codeFormatting[key]["name"]}
+                name={name}
                 isAnimationActive={false}
                 strokeWidth={2}
               />
             );
           }, this)}
           {Object.keys(chartDataAll).map(function (key) {
+            let name =
+              "shortname" in this.props.codeFormatting[key]
+                ? this.props.codeFormatting[key]["shortname"]
+                : this.props.codeFormatting[key]["name"];
             return (
               <Line
                 key={key + "-points"}
                 data={chartDataAll[key]["points"]}
                 dataKey="e"
-                name={this.props.codeFormatting[key]["name"]}
+                name={name + "_dots"}
                 strokeWidth={0}
                 stroke={this.props.codeFormatting[key]["color"]}
                 dot={{

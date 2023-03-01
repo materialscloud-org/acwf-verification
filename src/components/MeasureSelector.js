@@ -2,6 +2,8 @@ import React from "react";
 
 import Form from "react-bootstrap/Form";
 
+import HelpButton from "./HelpButton";
+
 class MeasureSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -32,14 +34,25 @@ class MeasureSelector extends React.Component {
             <span style={{ fontWeight: "600" }}>Select comparison measure</span>
           </Form.Label>
         </center>
-        <Form.Select
-          aria-label="Default select example"
-          onChange={this.handleChange}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            alignItems: "center",
+          }}
         >
-          <option value="nu">ν</option>
-          <option value="delta">Δ</option>
-          <option value="epsilon">ε </option>
-        </Form.Select>
+          <Form.Select
+            style={{ width: "100px" }}
+            aria-label="Select measure"
+            onChange={this.handleChange}
+          >
+            <option value="nu">ν</option>
+            <option value="delta">Δ</option>
+            <option value="epsilon">ε</option>
+          </Form.Select>
+          <HelpButton />
+        </div>
       </div>
     );
   }

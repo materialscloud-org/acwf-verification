@@ -29,12 +29,19 @@ function birch_murnaghan(v, bm_fit) {
   );
 }
 
-function birch_murnaghan_array(v_min, v_max, bm_fit) {
+function birch_murnaghan_array(v_min, v_max, bm_fit, extra_v) {
   let bm_arr = [];
   let step = (v_max - v_min) / 50;
+  let v_arr = [];
   for (let v = v_min; v < v_max + step; v += step) {
-    bm_arr.push({ v: v, e: birch_murnaghan(v, bm_fit) });
+    v_arr.push(v);
   }
+  v_arr = v_arr.concat(extra_v);
+  v_arr.sort((a, b) => a - b);
+  v_arr.forEach((v) => {
+    bm_arr.push({ v: v, e: birch_murnaghan(v, bm_fit) });
+  });
+
   return bm_arr;
 }
 
@@ -53,26 +60,16 @@ function tickRange(start, stop, step) {
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
-    console.log(payload);
-    // disable the tooltip on
     let plSorted = payload.slice(0).sort((a, b) => {
       return b.value - a.value;
     });
-    console.log(
-      "PL",
-      payload.map((e) => e.value)
-    );
-    console.log(
-      "PLS",
-      plSorted.map((e) => e.value)
-    );
     return (
       <div className="eos-tooltip">
         {label.toFixed(2)} <br />
         {plSorted.map((e) => {
           if (!e.name.endsWith("_dots")) {
             return (
-              <div>
+              <div key={e.name}>
                 <span style={{ color: e.color }}>{e.name}</span>:{" "}
                 {e.value.toFixed(4)}
               </div>
@@ -121,6 +118,26 @@ class EOSGraph extends React.Component {
     return [v_min, v_max];
   }
 
+  uniqueEOSPointsV() {
+    // not all "discrete" points have the same x-axis (v) value
+    // find all the unique ones
+
+    var all_eos_points = [];
+    for (const code of Object.keys(this.props.processedData)) {
+      if (!this.props.selectedCodes.has(code)) continue;
+      let eos_data = this.props.processedData[code]["eos_data_per_atom"];
+      let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
+      if (eos_data == null || bm_fit == null) continue;
+      all_eos_points.push(...eos_data.map((x) => x[0]));
+    }
+    all_eos_points.sort((a, b) => a - b);
+    var unique_eos_points = all_eos_points.filter((v, index, arr) => {
+      return index == 0 || Math.abs(arr[index - 1] - v) > 1e-8;
+    });
+
+    return unique_eos_points;
+  }
+
   render() {
     // if the inputData is empty, don't render anything
     if (Object.keys(this.props.processedData).length === 0)
@@ -145,18 +162,7 @@ class EOSGraph extends React.Component {
 
     // find unique eos_data points to also feed to the continuous line
     // to show the tooltip there as well
-    var all_eos_points = [];
-    for (const code of Object.keys(this.props.processedData)) {
-      if (!this.props.selectedCodes.has(code)) continue;
-      let eos_data = this.props.processedData[code]["eos_data_per_atom"];
-      let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
-      if (eos_data == null || bm_fit == null) continue;
-      all_eos_points.push(...eos_data.map((x) => x[0]));
-    }
-    all_eos_points.sort();
-    all_eos_points.map((v) => {});
-
-    console.log("EOS", all_eos_points);
+    const unique_eos_points = this.uniqueEOSPointsV();
 
     var e_max = 0.0;
 
@@ -174,7 +180,7 @@ class EOSGraph extends React.Component {
 
       chartDataAll[code] = {
         points: eos_points,
-        fit: birch_murnaghan_array(v_min, v_max, bm_fit),
+        fit: birch_murnaghan_array(v_min, v_max, bm_fit, unique_eos_points),
       };
 
       let this_e_max = Math.max(
@@ -183,14 +189,12 @@ class EOSGraph extends React.Component {
       if (this_e_max > e_max) e_max = this_e_max;
     }
 
-    console.log(chartDataAll);
-
     // calculate tick positions
     var xticks = tickRange(Math.ceil(v_min), Math.floor(v_max) + 1, 1.0);
     e_max += 0.005;
     var yticks = tickRange(0.0, e_max, 0.01);
 
-    console.log(chartDataAll);
+    // console.log(chartDataAll);
 
     return (
       <div>
@@ -227,6 +231,7 @@ class EOSGraph extends React.Component {
           />
           <Tooltip
             content={<CustomTooltip />}
+            wrapperStyle={{ outline: "none" }}
             // formatter={(value, name) => {
             //   return value.toFixed(4);
             // }}

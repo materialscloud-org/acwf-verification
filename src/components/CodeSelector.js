@@ -65,7 +65,7 @@ class CodeSelector extends React.Component {
                 );
             })}
           </div>
-          <div className="method-subheading">Other methods:</div>
+          <div className="method-subheading">Pseudopotential methods:</div>
           <div
             style={{
               display: "grid",

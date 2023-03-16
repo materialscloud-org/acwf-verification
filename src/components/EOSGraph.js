@@ -105,9 +105,14 @@ class EOSGraph extends React.Component {
       if (!this.props.selectedCodes.has(code)) continue;
       let eos_data = this.props.processedData[code]["eos_data_per_atom"];
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
-      if (eos_data == null || bm_fit == null) continue;
-      let this_v_min = Math.min(...eos_data.map((x) => x[0]));
-      let this_v_max = Math.max(...eos_data.map((x) => x[0]));
+      if (eos_data != null) {
+        var this_v_min = Math.min(...eos_data.map((x) => x[0]));
+        var this_v_max = Math.max(...eos_data.map((x) => x[0]));
+      } else {
+        let v0 = bm_fit["min_volume"];
+        var this_v_min = 0.94 * v0;
+        var this_v_max = 1.06 * v0;
+      }
       if (this_v_min < v_min) v_min = this_v_min;
       if (this_v_max > v_max) v_max = this_v_max;
     }
@@ -171,17 +176,20 @@ class EOSGraph extends React.Component {
       if (!this.props.selectedCodes.has(code)) continue;
       let eos_data = this.props.processedData[code]["eos_data_per_atom"];
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
-      if (eos_data == null || bm_fit == null) continue;
-
-      var eos_points = eos_data.map((x) => ({
-        v: x[0],
-        e: x[1] - bm_fit["E0"],
-      }));
+      if (bm_fit == null) continue;
 
       chartDataAll[code] = {
-        points: eos_points,
         fit: birch_murnaghan_array(v_min, v_max, bm_fit, unique_eos_points),
       };
+
+      if (eos_data != null) {
+        var eos_points = eos_data.map((x) => ({
+          v: x[0],
+          e: x[1] - bm_fit["E0"],
+        }));
+
+        chartDataAll[code]["points"] = eos_points;
+      }
 
       let this_e_max = Math.max(
         ...chartDataAll[code]["fit"].map((x) => x["e"])
@@ -259,25 +267,27 @@ class EOSGraph extends React.Component {
               />
             );
           }, this)}
-          {Object.keys(chartDataAll).map(function (key) {
+          {Object.keys(chartDataAll).map((key) => {
             let name = this.props.codeFormatting[key]["short_label"];
-            return (
-              <Line
-                key={key + "-points"}
-                data={chartDataAll[key]["points"]}
-                dataKey="e"
-                name={name + "_dots"}
-                strokeWidth={0}
-                stroke={this.props.codeFormatting[key]["color"]}
-                dot={{
-                  stroke: this.props.codeFormatting[key]["color"],
-                  fill: this.props.codeFormatting[key]["color"],
-                  strokeWidth: 1,
-                }}
-                activeDot={false}
-                isAnimationActive={false}
-              />
-            );
+            if ("points" in chartDataAll[key]) {
+              return (
+                <Line
+                  key={key + "-points"}
+                  data={chartDataAll[key]["points"]}
+                  dataKey="e"
+                  name={name + "_dots"}
+                  strokeWidth={0}
+                  stroke={this.props.codeFormatting[key]["color"]}
+                  dot={{
+                    stroke: this.props.codeFormatting[key]["color"],
+                    fill: this.props.codeFormatting[key]["color"],
+                    strokeWidth: 1,
+                  }}
+                  activeDot={false}
+                  isAnimationActive={false}
+                />
+              );
+            }
           }, this)}
         </ComposedChart>
         <center

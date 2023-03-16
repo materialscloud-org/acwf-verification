@@ -7,8 +7,6 @@ import UnifiedGraph from "./UnifiedGraph";
 import CodeSelector from "./CodeSelector";
 import MeasureSelector from "./MeasureSelector";
 
-import Spinner from "react-bootstrap/Spinner";
-
 import {
   genCodeOrderAndInfo,
   calcComparisonMatrices,

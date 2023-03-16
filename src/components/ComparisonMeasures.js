@@ -39,7 +39,7 @@ function gaussian_quadrature_7pt(func, x1, x2) {
  * @param {*} bm_fit2
  * @returns
  */
-export function calculateNu(bm_fit1, bm_fit2) {
+export function calculateNu(bm_fit1, bm_fit2, debug = false) {
   if (bm_fit1 == null || bm_fit2 == null) return -1.0;
   var v0_1 = bm_fit1["min_volume"];
   var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
@@ -82,7 +82,7 @@ function birch_murnaghan(v, bm_fit) {
  * @param {*} bm_fit2
  * @returns
  */
-export function calculateDelta(bm_fit1, bm_fit2) {
+export function calculateDelta(bm_fit1, bm_fit2, debug = false) {
   if (bm_fit1 == null || bm_fit2 == null) return NaN;
 
   // The integration interval is +-6% around the average min. volume,
@@ -100,14 +100,14 @@ export function calculateDelta(bm_fit1, bm_fit2) {
  * Calculate the "new delta" or "epsilon" criterion by Oleg Rubel
  * using gaussian quadrature.
  *
- * multiply by 100 to give [x 100] units.
- *
  * @param {*} bm_fit1
  * @param {*} bm_fit2
  * @returns
  */
-export function calculateEpsilon(bm_fit1, bm_fit2) {
+export function calculateEpsilon(bm_fit1, bm_fit2, debug = false) {
   if (bm_fit1 == null || bm_fit2 == null) return NaN;
+
+  if (debug) console.log(bm_fit1, bm_fit2);
 
   // The integration interval is +-6% around the average min. volume,
   // as in the python implementation
@@ -130,5 +130,5 @@ export function calculateEpsilon(bm_fit1, bm_fit2) {
   let f3 = (v) => (birch_murnaghan(v, bm_fit2) - avg_e2) ** 2;
   let integ3 = gaussian_quadrature_7pt(f3, v1, v2);
 
-  return integ1 / Math.sqrt(integ2 * integ3);
+  return Math.sqrt(integ1 / Math.sqrt(integ2 * integ3));
 }

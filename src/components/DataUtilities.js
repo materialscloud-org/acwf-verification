@@ -10,18 +10,19 @@ import {
 
 // from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12
 const colorList = [
-  "#000000",
   "#a6cee3",
   "#1f78b4",
+  "#000000", // added black to match with AE reference
   "#b2df8a",
   "#33a02c",
   "#fb9a99",
+  "#e31a1c",
   "#fdbf6f",
   "#ff7f00",
   "#cab2d6",
   "#6a3d9a",
-  "#ffff99",
   "#b15928",
+  "#e8e81c", // modified to darker yellow
 ];
 
 /**
@@ -42,7 +43,6 @@ export function genCodeOrderAndInfo(allData) {
 
   allCodes.forEach((code, i) => {
     let info = {
-      color: colorList[i],
       ae: false,
       fontw: "normal",
       short_label: code,
@@ -71,6 +71,10 @@ export function genCodeOrderAndInfo(allData) {
   pseudoCodes.sort();
 
   const orderedCodes = aeCodes.concat(pseudoCodes);
+
+  orderedCodes.forEach((code, i) => {
+    codeInfo[code]["color"] = colorList[i];
+  });
 
   return [orderedCodes, codeInfo];
 }
@@ -105,9 +109,20 @@ export function calcComparisonMatrices(processedData, allCodes) {
             mat[elem][crystal][measure][c1] = {};
             allCodes.forEach((c2) => {
               if (c2 in processedData[elem][crystal]) {
+                // debugging....
+                // let debug =
+                //   elem == "Fr" &&
+                //   crystal == "X2O5" &&
+                //   measure == "epsilon" &&
+                //   c1 == "FLEUR" &&
+                //   c2 == "all-electron average";
+                // if (debug) console.log(c1, c2);
+                let debug = false;
+
                 var value = measureList[measure](
                   processedData[elem][crystal][c1]["bm_fit_per_atom"],
-                  processedData[elem][crystal][c2]["bm_fit_per_atom"]
+                  processedData[elem][crystal][c2]["bm_fit_per_atom"],
+                  debug
                 );
                 mat[elem][crystal][measure][c1][c2] = value;
               }

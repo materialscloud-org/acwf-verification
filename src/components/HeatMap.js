@@ -122,7 +122,7 @@ class HeatMap extends React.Component {
                       textAnchor="middle"
                       dominantBaseline="middle"
                     >
-                      {bin.count.toFixed(2)}
+                      {bin.count.toFixed(1)}
                     </text>
                   </g>
                 ))

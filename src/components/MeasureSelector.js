@@ -48,8 +48,8 @@ class MeasureSelector extends React.Component {
             onChange={this.handleChange}
           >
             <option value="nu">ν</option>
-            <option value="delta">Δ</option>
             <option value="epsilon">ε</option>
+            <option value="delta">Δ</option>
           </Form.Select>
           <HelpButton />
         </div>

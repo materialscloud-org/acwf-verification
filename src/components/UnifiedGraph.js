@@ -36,13 +36,13 @@ function formatLabel(elem, crystalLabel) {
 
 function heatmapTitle(measure) {
   if (measure == "nu") {
-    return "EOS discrepancy: ν × 100";
-  }
-  if (measure == "delta") {
-    return "EOS discrepancy: Δ [meV]";
+    return "EOS discrepancy: ν";
   }
   if (measure == "epsilon") {
-    return "EOS discrepancy: ε × 100";
+    return "EOS discrepancy: ε";
+  }
+  if (measure == "delta") {
+    return "EOS discrepancy: Δ per atom [meV]";
   }
   return "error";
 }

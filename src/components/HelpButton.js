@@ -9,9 +9,9 @@ const popover = (
     <Popover.Header as="h3">Comparison measures</Popover.Header>
     <Popover.Body>
       <ul style={{ listStyle: "none" }}>
-        <li>ν - explanation, possibly formula</li>
-        <li>Δ - ...</li>
+        <li>ν - ...</li>
         <li>ε - ...</li>
+        <li>Δ - ...</li>
       </ul>
       See more details in the About section.
     </Popover.Body>

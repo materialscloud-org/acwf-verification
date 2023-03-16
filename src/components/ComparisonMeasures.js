@@ -43,17 +43,17 @@ export function calculateNu(bm_fit1, bm_fit2) {
   if (bm_fit1 == null || bm_fit2 == null) return -1.0;
   var v0_1 = bm_fit1["min_volume"];
   var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
-  var b01_1 = bm_fit1["bulk_deriv"];
+  var b1_1 = bm_fit1["bulk_deriv"];
   var v0_2 = bm_fit2["min_volume"];
   var b0_2 = bm_fit2["bulk_modulus_ev_ang3"];
-  var b01_2 = bm_fit2["bulk_deriv"];
+  var b1_2 = bm_fit2["bulk_deriv"];
 
   var w = [1, 1 / 20, 1 / 400];
 
   var nu2 =
     ((w[0] * 2 * (v0_1 - v0_2)) / (v0_1 + v0_2)) ** 2 +
     ((w[1] * 2 * (b0_1 - b0_2)) / (b0_1 + b0_2)) ** 2 +
-    ((w[2] * 2 * (b01_1 - b01_2)) / (b01_1 + b01_2)) ** 2;
+    ((w[2] * 2 * (b1_1 - b1_2)) / (b1_1 + b1_2)) ** 2;
 
   return 100 * Math.sqrt(nu2);
 }

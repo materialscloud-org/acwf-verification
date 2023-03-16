@@ -39,7 +39,7 @@ class CodeSelector extends React.Component {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "100px auto",
+              gridTemplateColumns: "auto auto",
               paddingLeft: "10px",
               // marginBottom: "10px",
               // backgroundColor: "#dde8f6",
@@ -57,7 +57,7 @@ class CodeSelector extends React.Component {
                     inline={true}
                     type={"checkbox"}
                     id={code}
-                    label={this.props.codeFormatting[code]["name"]}
+                    label={code}
                     key={code}
                     defaultChecked={true}
                     onChange={this.handleToggle}
@@ -69,7 +69,7 @@ class CodeSelector extends React.Component {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "100px auto",
+              gridTemplateColumns: "auto auto",
               paddingLeft: "10px",
               // marginBottom: "10px",
               // backgroundColor: "#dde8f6",
@@ -87,7 +87,7 @@ class CodeSelector extends React.Component {
                     inline={true}
                     type={"checkbox"}
                     id={code}
-                    label={this.props.codeFormatting[code]["name"]}
+                    label={code}
                     key={code}
                     defaultChecked={true}
                     onChange={this.handleToggle}

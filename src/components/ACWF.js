@@ -9,51 +9,16 @@ import MeasureSelector from "./MeasureSelector";
 
 import Spinner from "react-bootstrap/Spinner";
 
-import { calcComparisonMatrices, calcMatrixMax } from "./DataUtilities";
+import {
+  genCodeOrderAndInfo,
+  calcComparisonMatrices,
+  calcMatrixMax,
+} from "./DataUtilities";
 
 import "./ACWF.css";
 
 import allData from "../data/data.json";
 
-// List of all codes.
-// in principle could be read from data.json, but easier just to define here
-// this also defines the order of the codes in the app (e.g. put AE codes first)
-const allCodes = [
-  "fleur",
-  "wien2k",
-  "abinit",
-  "bigdft",
-  "castep",
-  "cp2k",
-  "gpaw",
-  "quantum_espresso",
-  "siesta",
-  "vasp",
-];
-
-// code display name and associated color (from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12)
-// for fontweight, "bold" seems a bit too strong
-// shortname, if exists, is shown in the heatmap
-const codeFormatting = {
-  fleur: { name: "FLEUR", color: "#a6cee3", fontw: "600", ae: true },
-  wien2k: { name: "WIEN2k", color: "#1f78b4", fontw: "600", ae: true },
-  abinit: { name: "Abinit", color: "#b2df8a", fontw: "normal", ae: false },
-  bigdft: { name: "BigDFT", color: "#33a02c", fontw: "normal", ae: false },
-  castep: { name: "CASTEP", color: "#fb9a99", fontw: "normal", ae: false },
-  cp2k: { name: "CP2K", color: "#e31a1c", fontw: "normal", ae: false },
-  gpaw: { name: "GPAW", color: "#fdbf6f", fontw: "normal", ae: false },
-  quantum_espresso: {
-    name: "Quantum ESPRESSO (QE) + SSSP",
-    shortname: "QE+SSSP",
-    color: "#ff7f00",
-    fontw: "normal",
-    ae: false,
-  },
-  siesta: { name: "SIESTA", color: "#cab2d6", fontw: "normal", ae: false },
-  vasp: { name: "VASP", color: "#6a3d9a", fontw: "normal", ae: false },
-};
-
-// Crystal order.
 const crystalOrder = [
   "X/SC",
   "X/BCC",
@@ -71,11 +36,16 @@ class ACWF extends React.Component {
   constructor(props) {
     super(props);
 
-    this.comparisonMatrices = calcComparisonMatrices(allData["data"], allCodes);
+    [this.orderedCodes, this.codeInfo] = genCodeOrderAndInfo(allData);
+
+    this.comparisonMatrices = calcComparisonMatrices(
+      allData["data"],
+      this.orderedCodes
+    );
     // console.log(this.comparisonMatrices);
 
     this.state = {
-      selectedCodes: new Set(allCodes),
+      selectedCodes: new Set(this.orderedCodes),
       selectedElement: null,
       selectedMeasure: "nu",
     };
@@ -120,7 +90,6 @@ class ACWF extends React.Component {
     return (
       <div className="acwf">
         <div className="gen_container">
-          {/* <center>Select an element:</center> */}
           <PTable
             onElementSelect={this.changeElementSelection}
             selection={sel_elem}
@@ -131,10 +100,10 @@ class ACWF extends React.Component {
           <div>
             <div className="selector_container gen_container">
               <CodeSelector
-                allCodes={allCodes}
+                allCodes={this.orderedCodes}
                 selectedCodes={this.state.selectedCodes}
                 onCodeSelectionChange={this.handleCodeSelectionChange}
-                codeFormatting={codeFormatting}
+                codeFormatting={this.codeInfo}
               />
               <MeasureSelector onMeasureChange={this.handleMeasureChange} />
             </div>
@@ -154,9 +123,9 @@ class ACWF extends React.Component {
                     }
                     matrixMax={matrixMax}
                     crystal={crystal}
-                    allCodes={allCodes}
+                    allCodes={this.orderedCodes}
                     selectedCodes={this.state.selectedCodes}
-                    codeFormatting={codeFormatting}
+                    codeFormatting={this.codeInfo}
                     measure={this.state.selectedMeasure}
                   />
                 </div>

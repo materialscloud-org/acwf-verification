@@ -24,7 +24,7 @@ function MainPage() {
           NOTE: This is a beta version and preliminary data currently used!
         </div>
         <div className="description">
-          This application contains a reference and a verification dataset of
+          This application contains reference and verification datasets of
           equations of states calculated with different density functional
           theory codes using the AiiDA common workflows infrastructure. The data
           is published and discussed in the article:

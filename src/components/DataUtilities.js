@@ -4,15 +4,86 @@ import {
   calculateEpsilon,
 } from "./ComparisonMeasures";
 
+// --------------------------------------------------
+// Routines for processing the initial data
+// --------------------------------------------------
+
+// from https://colorbrewer2.org/#type=qualitative&scheme=Paired&n=12
+const colorList = [
+  "#000000",
+  "#a6cee3",
+  "#1f78b4",
+  "#b2df8a",
+  "#33a02c",
+  "#fb9a99",
+  "#fdbf6f",
+  "#ff7f00",
+  "#cab2d6",
+  "#6a3d9a",
+  "#ffff99",
+  "#b15928",
+];
+
+/**
+ * Orderes codes such that AE are first and the rest are alphabetically after
+ *
+ * @param {*} processedData
+ *
+ * @returns ordered list
+ */
+export function genCodeOrderAndInfo(allData) {
+  let allCodes = Object.keys(allData["metadata"]["methods"]);
+  let aeCodes = [];
+  let pseudoCodes = [];
+
+  const allElectronKeywords = ["wien2k", "fleur", "all-electron"];
+
+  const codeInfo = {};
+
+  allCodes.forEach((code, i) => {
+    let info = {
+      color: colorList[i],
+      ae: false,
+      fontw: "normal",
+      short_label: code,
+    };
+
+    if ("short_label" in allData["metadata"]["methods"][code])
+      info["short_label"] = allData["metadata"]["methods"][code]["short_label"];
+
+    if (allElectronKeywords.some((s) => code.toLowerCase().includes(s))) {
+      aeCodes.push(code);
+      info["ae"] = true;
+      info["fontw"] = "600";
+    } else {
+      pseudoCodes.push(code);
+    }
+    codeInfo[code] = info;
+  });
+
+  // aeCodes.sort((a, b) =>
+  //   a.localeCompare(b, undefined, { sensitivity: "base" })
+  // );
+  // pseudoCodes.sort((a, b) =>
+  //   a.localeCompare(b, undefined, { sensitivity: "base" })
+  // );
+  aeCodes.sort();
+  pseudoCodes.sort();
+
+  const orderedCodes = aeCodes.concat(pseudoCodes);
+
+  return [orderedCodes, codeInfo];
+}
+
+// --------------------------------------------------
+// Routines for calculating the comparison matrix
+// --------------------------------------------------
+
 var measureList = {
   nu: calculateNu,
   delta: calculateDelta,
   epsilon: calculateEpsilon,
 };
-
-// --------------------------------------------------
-// Routines for calculating the comparison matrix
-// --------------------------------------------------
 
 /**
  * Calculates the comparison matrices

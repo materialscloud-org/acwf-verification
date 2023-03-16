@@ -244,10 +244,7 @@ class EOSGraph extends React.Component {
           />
 
           {Object.keys(chartDataAll).map(function (key) {
-            let name =
-              "shortname" in this.props.codeFormatting[key]
-                ? this.props.codeFormatting[key]["shortname"]
-                : this.props.codeFormatting[key]["name"];
+            let name = this.props.codeFormatting[key]["short_label"];
             return (
               <Line
                 key={key + "-fit"}
@@ -263,10 +260,7 @@ class EOSGraph extends React.Component {
             );
           }, this)}
           {Object.keys(chartDataAll).map(function (key) {
-            let name =
-              "shortname" in this.props.codeFormatting[key]
-                ? this.props.codeFormatting[key]["shortname"]
-                : this.props.codeFormatting[key]["name"];
+            let name = this.props.codeFormatting[key]["short_label"];
             return (
               <Line
                 key={key + "-points"}

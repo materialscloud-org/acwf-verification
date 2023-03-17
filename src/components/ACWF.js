@@ -102,6 +102,7 @@ class ACWF extends React.Component {
                 selectedCodes={this.state.selectedCodes}
                 onCodeSelectionChange={this.handleCodeSelectionChange}
                 codeInfo={this.codeInfo}
+                elementData={allData["data"][sel_elem]}
               />
               <MeasureSelector onMeasureChange={this.handleMeasureChange} />
             </div>

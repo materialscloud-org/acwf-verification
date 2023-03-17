@@ -28,6 +28,14 @@ class CodeSelector extends React.Component {
     this.props.onCodeSelectionChange(newSelectedCodes);
   };
 
+  isCodeEnabled(code) {
+    let enabled = false;
+    Object.keys(this.props.elementData).forEach((crystal) => {
+      if (code in this.props.elementData[crystal]) enabled = true;
+    });
+    return enabled;
+  }
+
   codeCheckEntry(code, info) {
     let label = (
       <div
@@ -62,6 +70,7 @@ class CodeSelector extends React.Component {
           label={label}
           defaultChecked={true}
           onChange={this.handleToggle}
+          disabled={!this.isCodeEnabled(code)}
         />
         <div
           style={{

@@ -9,3 +9,16 @@
   margin-top: 4px;
   margin-bottom: 4px;
 }
+
+.code-checkbox {
+  /* margin-left: 100px; */
+  border-radius: 5px;
+  padding: 0px 2px;
+}
+
+.code-checkbox:hover {
+  /* box-shadow: 10px 10px 10px 10px; */
+  /* color: red; */
+  /* padding: 1px; */
+  background-color: rgb(230, 230, 230);
+}

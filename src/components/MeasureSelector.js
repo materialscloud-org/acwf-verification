@@ -31,7 +31,7 @@ class MeasureSelector extends React.Component {
       >
         <center>
           <Form.Label>
-            <span style={{ fontWeight: "600" }}>Select comparison measure</span>
+            <span style={{ fontWeight: "600" }}>Select comparison metric</span>
           </Form.Label>
         </center>
         <div

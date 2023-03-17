@@ -28,6 +28,52 @@ class CodeSelector extends React.Component {
     this.props.onCodeSelectionChange(newSelectedCodes);
   };
 
+  codeCheckEntry(code, info) {
+    let label = (
+      <div
+        className="code-checkbox"
+        // style={{
+        //   background: "green",
+        // }}
+      >
+        {info["short_label"]}
+      </div>
+    );
+    return (
+      <div
+        key={code}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "150px auto",
+          paddingLeft: "10px",
+          fontSize: 14,
+          // background: "red",
+        }}
+      >
+        <Form.Check
+          style={{
+            gridColumnStart: 1,
+            fontWeight: info["fontw"],
+            // background: "red",
+          }}
+          inline={true}
+          type={"checkbox"}
+          id={code}
+          label={label}
+          defaultChecked={true}
+          onChange={this.handleToggle}
+        />
+        <div
+          style={{
+            gridColumnStart: 2,
+          }}
+        >
+          - {code}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="code-selector-container">
@@ -36,65 +82,16 @@ class CodeSelector extends React.Component {
             <span style={{ fontWeight: "600" }}>Select methods</span>
           </center>
           <div className="method-subheading">All-electron reference:</div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "auto auto",
-              paddingLeft: "10px",
-              // marginBottom: "10px",
-              // backgroundColor: "#dde8f6",
-            }}
-          >
-            {/* AE codes */}
-            {this.props.allCodes.map((code, i) => {
-              if (this.props.codeFormatting[code]["ae"])
-                return (
-                  <Form.Check
-                    style={{
-                      gridColumnStart: { i },
-                      fontWeight: this.props.codeFormatting[code]["fontw"],
-                    }}
-                    inline={true}
-                    type={"checkbox"}
-                    id={code}
-                    label={code}
-                    key={code}
-                    defaultChecked={true}
-                    onChange={this.handleToggle}
-                  />
-                );
-            })}
-          </div>
+          {/* AE codes */}
+          {this.props.allCodes.map((code, i) => {
+            if (this.props.codeInfo[code]["ae"])
+              return this.codeCheckEntry(code, this.props.codeInfo[code]);
+          })}
           <div className="method-subheading">Pseudopotential methods:</div>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "auto auto",
-              paddingLeft: "10px",
-              // marginBottom: "10px",
-              // backgroundColor: "#dde8f6",
-            }}
-          >
-            {/* Other codes */}
-            {this.props.allCodes.map((code, i) => {
-              if (!this.props.codeFormatting[code]["ae"])
-                return (
-                  <Form.Check
-                    style={{
-                      gridColumnStart: { i },
-                      fontWeight: this.props.codeFormatting[code]["fontw"],
-                    }}
-                    inline={true}
-                    type={"checkbox"}
-                    id={code}
-                    label={code}
-                    key={code}
-                    defaultChecked={true}
-                    onChange={this.handleToggle}
-                  />
-                );
-            })}
-          </div>
+          {this.props.allCodes.map((code, i) => {
+            if (!this.props.codeInfo[code]["ae"])
+              return this.codeCheckEntry(code, this.props.codeInfo[code]);
+          })}
         </Container>
       </div>
     );

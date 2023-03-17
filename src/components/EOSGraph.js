@@ -39,7 +39,7 @@ function birch_murnaghan_array(v_min, v_max, bm_fit, extra_v) {
   v_arr = v_arr.concat(extra_v);
   v_arr.sort((a, b) => a - b);
   v_arr.forEach((v) => {
-    bm_arr.push({ v: v, e: birch_murnaghan(v, bm_fit) });
+    bm_arr.push({ v: v, e: 1000 * birch_murnaghan(v, bm_fit) });
   });
 
   return bm_arr;
@@ -185,7 +185,7 @@ class EOSGraph extends React.Component {
       if (eos_data != null) {
         var eos_points = eos_data.map((x) => ({
           v: x[0],
-          e: x[1] - bm_fit["E0"],
+          e: 1000 * (x[1] - bm_fit["E0"]),
         }));
 
         chartDataAll[code]["points"] = eos_points;
@@ -225,10 +225,10 @@ class EOSGraph extends React.Component {
           <YAxis
             type="number"
             domain={[-0.004, e_max]}
-            tickFormatter={(value) => value.toFixed(2)}
+            tickFormatter={(value) => value.toFixed(1)}
             ticks={yticks}
             label={{
-              value: "Energy per atom [eV]",
+              value: "Energy per atom [meV]",
               angle: -90,
               position: "left",
               offset: -5,

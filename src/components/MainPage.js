@@ -20,9 +20,7 @@ function MainPage() {
     >
       <div className="main-page">
         <AppHeader />
-        <div className="note">
-          NOTE: This is a beta version and preliminary data currently used!
-        </div>
+        <div className="note">NOTE: This is a beta version!</div>
         <div className="description">
           This application contains reference and verification datasets of
           equations of states calculated with different density functional

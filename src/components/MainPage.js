@@ -9,6 +9,8 @@ import AppHeader from "./AppHeader";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
+import MathJax from "better-react-mathjax/MathJax";
+
 function MainPage() {
   return (
     <MaterialsCloudHeader
@@ -43,7 +45,14 @@ function MainPage() {
             </div>
           </Tab>
           <Tab eventKey="about" title="About">
-            <div className="description">To be added...</div>
+            <div className="description">
+              To be added...
+              <MathJax>$$A=B \sum\limits_i$$</MathJax>
+              <MathJax>
+                Text that includes in inline equation \(A=B \sum\limits_i\) is
+                right here.
+              </MathJax>
+            </div>
           </Tab>
         </Tabs>
       </div>

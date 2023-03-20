@@ -22,3 +22,7 @@
   /* padding: 1px; */
   background-color: rgb(230, 230, 230);
 }
+
+#popover-basic {
+  max-width: 440px;
+}

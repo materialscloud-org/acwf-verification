@@ -8,6 +8,31 @@ import Col from "react-bootstrap/Col";
 
 import "./CodeSelector.css";
 
+import HelpButton from "./HelpButton";
+
+import Popover from "react-bootstrap/Popover";
+
+const helpPopover = (
+  <Popover id="popover-basic">
+    <Popover.Header as="h3">Methods selection</Popover.Header>
+    <Popover.Body>
+      This section contains the selection of computational methods to compare
+      below. Each method is represented by a row with the following format:
+      <div
+        style={{
+          backgroundColor: "#F2F7FC",
+          border: "1px solid #d6d6d6",
+          padding: "6px 12px",
+          margin: "6px 10px",
+        }}
+      >
+        short-name &nbsp; &nbsp; - code-name@basis-set|pseudopotential
+      </div>
+      See more details in the About section
+    </Popover.Body>
+  </Popover>
+);
+
 class CodeSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -87,9 +112,17 @@ class CodeSelector extends React.Component {
     return (
       <div className="code-selector-container">
         <Container>
-          <center>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+              alignItems: "center",
+            }}
+          >
             <span style={{ fontWeight: "600" }}>Select methods</span>
-          </center>
+            <HelpButton popover={helpPopover} />
+          </div>
           <div className="method-subheading">All-electron reference:</div>
           {/* AE codes */}
           {this.props.allCodes.map((code, i) => {

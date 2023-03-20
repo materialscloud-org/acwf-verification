@@ -4,6 +4,22 @@ import Form from "react-bootstrap/Form";
 
 import HelpButton from "./HelpButton";
 
+import Popover from "react-bootstrap/Popover";
+
+const helpPopover = (
+  <Popover id="popover-basic">
+    <Popover.Header as="h3">Comparison metrics</Popover.Header>
+    <Popover.Body>
+      <ul style={{ listStyle: "none" }}>
+        <li>ν - ...</li>
+        <li>ε - ...</li>
+        <li>Δ - ...</li>
+      </ul>
+      See more details in the About section.
+    </Popover.Body>
+  </Popover>
+);
+
 class MeasureSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +67,7 @@ class MeasureSelector extends React.Component {
             <option value="epsilon">ε</option>
             <option value="delta">Δ</option>
           </Form.Select>
-          <HelpButton />
+          <HelpButton popover={helpPopover} />
         </div>
       </div>
     );

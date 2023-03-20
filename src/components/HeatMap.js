@@ -114,6 +114,16 @@ class HeatMap extends React.Component {
                 heatmapBins.map((bin) => {
                   let color = bin.color;
                   let value_text = bin.count.toFixed(1);
+                  // increase precision if less codes are selected
+                  if (dataMatrix.length < 8) {
+                    value_text = bin.count.toFixed(2);
+                  }
+                  if (dataMatrix.length < 6) {
+                    value_text = bin.count.toFixed(3);
+                  }
+                  if (dataMatrix.length < 4) {
+                    value_text = bin.count.toFixed(4);
+                  }
                   // disable diagonal elements
                   if (bin.row == dataMatrix.length - bin.column - 1) {
                     color = "#cccccc";

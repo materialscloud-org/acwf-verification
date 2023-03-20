@@ -1,0 +1,21 @@
+.cite-anchor {
+  text-decoration: none;
+}
+
+.cite-anchor:hover {
+  text-decoration: underline;
+}
+
+.about-h {
+  font-weight: 600;
+  font-size: 20px;
+  padding: 10px 0px 5px;
+}
+
+.ol-space-update {
+  margin: 15px 0px;
+}
+
+.ol-space-update > li {
+  margin: 15px 0px;
+}

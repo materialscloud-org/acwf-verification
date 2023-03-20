@@ -9,6 +9,8 @@
 
 .description {
   padding: 12px 12px;
+  text-align: justify;
+  text-justify: auto;
 }
 
 .note {

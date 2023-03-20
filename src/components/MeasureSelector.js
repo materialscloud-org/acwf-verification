@@ -6,14 +6,26 @@ import HelpButton from "./HelpButton";
 
 import Popover from "react-bootstrap/Popover";
 
+import "./MeasureSelector.css";
+
 const helpPopover = (
   <Popover id="popover-basic">
     <Popover.Header as="h3">Comparison metrics</Popover.Header>
     <Popover.Body>
-      <ul style={{ listStyle: "none" }}>
-        <li>ν - ...</li>
-        <li>ε - ...</li>
-        <li>Δ - ...</li>
+      <ul className="measures-ul">
+        <li>
+          ν - a metric that captures the relative difference of the
+          Birch-Murnaghan fitting parameters with specified weights. An
+          excellent match is {"ν<0.10"}, while a good match is {"ν<0.35"}.
+        </li>
+        <li>
+          ε - a metric that represents the area between the two EOS curves
+          normalized by the average value of the two curves. An excellent match
+          is {"ε<0.06"}, while a good match is {"ε<0.20"}.
+        </li>
+        <li>
+          Δ - a metric that represents the area between the two EOS curves.
+        </li>
       </ul>
       See more details in the About section.
     </Popover.Body>

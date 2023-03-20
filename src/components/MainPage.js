@@ -9,7 +9,7 @@ import AppHeader from "./AppHeader";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
-import MathJax from "better-react-mathjax/MathJax";
+import { aboutText } from "./about";
 
 function MainPage() {
   return (
@@ -45,14 +45,7 @@ function MainPage() {
             </div>
           </Tab>
           <Tab eventKey="about" title="About">
-            <div className="description">
-              To be added...
-              <MathJax>$$A=B \sum\limits_i$$</MathJax>
-              <MathJax>
-                Text that includes in inline equation \(A=B \sum\limits_i\) is
-                right here.
-              </MathJax>
-            </div>
+            <div className="description">{aboutText}</div>
           </Tab>
         </Tabs>
       </div>

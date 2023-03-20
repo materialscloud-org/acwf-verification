@@ -1,0 +1,49 @@
+.archive-doicitation {
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 9px;
+  margin-top: 0px;
+}
+
+.archive-doicitation span.doi-badge {
+  white-space: nowrap;
+  display: inline-block !important;
+}
+.archive-doicitation span.doi-left {
+  border-radius: 0.25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #fff;
+  background-color: #343a40;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  /* font-weight: 500; */
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  display: inline-block !important;
+}
+.archive-doicitation a.doi-right {
+  border-radius: 0.25rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  color: #212529;
+  background-color: #a2cbff;
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  text-decoration: none;
+}
+.archive-doicitation a.doi-right[href]:focus,
+.archive-doicitation a.doi-right[href]:hover {
+  color: #212529;
+  text-decoration: none;
+  background-color: #c0dbff;
+}

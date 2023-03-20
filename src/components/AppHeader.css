@@ -8,6 +8,13 @@
   justify-content: space-between;
 }
 
+.title-and-doi {
+  text-align: left;
+}
+
+.title-span {
+  font-size: 24px;
+}
 .acwf-logo {
   height: 70px;
   float: right;

@@ -24,6 +24,7 @@
 }
 
 .element {
+  background: #a4f8a4;
   background: rgb(163, 215, 245);
   border: 1px solid #999;
   height: var(--element-box-size);

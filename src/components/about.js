@@ -2,6 +2,17 @@ import MathJax from "better-react-mathjax/MathJax";
 
 import "./about.css";
 
+// These are used in
+// * here, in the About section
+// * in the metric selection help toolbar
+// * when determining heatmap colors
+// (should they be defined here?)
+export const qualityThersh = {
+  nu: { exc: 0.1, good: 0.35 },
+  epsilon: { exc: 0.06, good: 0.2 },
+  delta: { exc: 0.3, good: 0.95 },
+};
+
 // string keys stay in insertion order, so use this order to determine the citation number
 const references = {
   main: "E. Bosoni et al., Comprehensive verification of all-electron and pseudopotential density functional theory (DFT) codes via universal common workflows., in preparation (2023)",
@@ -111,8 +122,9 @@ export const aboutText = (
           and {"\\(w_{B_1} = \\frac{1}{400}\\)"} based on each parameter's
           sensitivity to numerical noise in the fitting procedure
           {getRef("main")}. As reported in the publication{getRef("main")}, an
-          excellent agreement is {"\\(\\nu<0.10\\)"}, while a good agreement is{" "}
-          {"\\(\\nu<0.35\\)"}.
+          excellent agreement is{" "}
+          {"\\(\\nu<" + qualityThersh["nu"]["exc"] + "\\)"}, while a good
+          agreement is {"\\(\\nu<" + qualityThersh["nu"]["good"] + "\\)"}.
         </MathJax>
       </li>
       <li>
@@ -130,8 +142,9 @@ export const aboutText = (
           and \(V_M\), \(V_m\) define the considered volume range (\(\pm 6\%\)
           around a central reference volume for our case){getRef("main")}. As
           reported in the publication{getRef("main")}, an excellent agreement is{" "}
-          {"\\(\\varepsilon<0.06\\)"}, while a good agreement is{" "}
-          {"\\(\\varepsilon<0.20\\)"}.
+          {"\\(\\varepsilon<" + qualityThersh["epsilon"]["exc"] + "\\)"}, while
+          a good agreement is{" "}
+          {"\\(\\varepsilon<" + qualityThersh["epsilon"]["good"] + "\\)"}.
         </MathJax>
       </li>
       <li>
@@ -144,7 +157,16 @@ export const aboutText = (
           }
           This metric has the shortcoming of being too sensitive to the value of
           the bulk modulus of the material. In this application, the values are
-          normalized by the number of atoms.
+          normalized by the number of atoms. As reported in the publication
+          {getRef("main")}, an excellent agreement is{" "}
+          {"\\(\\Delta<" +
+            qualityThersh["delta"]["exc"] +
+            "\\ \\text{[meV/atom]}\\)"}
+          , while a good agreement is{" "}
+          {"\\(\\Delta<" +
+            qualityThersh["delta"]["good"] +
+            "\\ \\text{[meV/atom]}\\)"}
+          .
         </MathJax>
       </li>
     </ol>

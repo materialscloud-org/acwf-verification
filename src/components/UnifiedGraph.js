@@ -89,6 +89,7 @@ class UnifiedGraph extends React.Component {
               matrix={this.props.comparisonMatrix}
               selectedCodes={this.props.selectedCodes}
               maxValue={this.props.matrixMax}
+              measure={this.props.measure}
               codeFormatting={this.props.codeFormatting}
             />
           </div>

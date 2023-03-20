@@ -111,28 +111,37 @@ class HeatMap extends React.Component {
           >
             {(heatmap) =>
               heatmap.map((heatmapBins) =>
-                heatmapBins.map((bin) => (
-                  <g key={`heatmap-rect-${bin.row}-${bin.column}`}>
-                    <rect
-                      className="visx-heatmap-rect"
-                      width={bin.width}
-                      height={bin.height}
-                      x={bin.x}
-                      y={bin.y - binHeight}
-                      fill={bin.color}
-                    />
-                    <text
-                      x={bin.x + binWidth / 2}
-                      y={bin.y - binHeight / 2}
-                      fontSize="12"
-                      fill="black"
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                    >
-                      {bin.count.toFixed(1)}
-                    </text>
-                  </g>
-                ))
+                heatmapBins.map((bin) => {
+                  let color = bin.color;
+                  let value_text = bin.count.toFixed(1);
+                  // disable diagonal elements
+                  if (bin.row == dataMatrix.length - bin.column - 1) {
+                    color = "#cccccc";
+                    value_text = "";
+                  }
+                  return (
+                    <g key={`heatmap-rect-${bin.row}-${bin.column}`}>
+                      <rect
+                        className="visx-heatmap-rect"
+                        width={bin.width}
+                        height={bin.height}
+                        x={bin.x}
+                        y={bin.y - binHeight}
+                        fill={color}
+                      />
+                      <text
+                        x={bin.x + binWidth / 2}
+                        y={bin.y - binHeight / 2}
+                        fontSize="12"
+                        fill="black"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        {value_text}
+                      </text>
+                    </g>
+                  );
+                })
               )
             }
           </HeatmapRect>

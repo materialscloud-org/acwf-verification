@@ -40,7 +40,7 @@ function gaussian_quadrature_7pt(func, x1, x2) {
  * @returns
  */
 export function calculateNu(bm_fit1, bm_fit2, debug = false) {
-  if (bm_fit1 == null || bm_fit2 == null) return -1.0;
+  if (bm_fit1 == null || bm_fit2 == null) return NaN;
   var v0_1 = bm_fit1["min_volume"];
   var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
   var b1_1 = bm_fit1["bulk_deriv"];

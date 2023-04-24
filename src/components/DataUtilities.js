@@ -106,9 +106,13 @@ export function calcComparisonMatrices(processedData, allCodes) {
         mat[elem][crystal][measure] = {};
         allCodes.forEach((c1) => {
           if (c1 in processedData[elem][crystal]) {
+            if (processedData[elem][crystal][c1]["bm_fit_per_atom"] == null)
+              return;
             mat[elem][crystal][measure][c1] = {};
             allCodes.forEach((c2) => {
               if (c2 in processedData[elem][crystal]) {
+                if (processedData[elem][crystal][c2]["bm_fit_per_atom"] == null)
+                  return;
                 // debugging....
                 // let debug =
                 //   elem == "Fr" &&

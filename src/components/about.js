@@ -8,7 +8,7 @@ import "./about.css";
 // * when determining heatmap colors
 // (should they be defined here?)
 export const qualityThersh = {
-  nu: { exc: 0.1, good: 0.35 },
+  nu: { exc: 0.1, good: 0.33 },
   epsilon: { exc: 0.06, good: 0.2 },
   delta: { exc: 0.3, good: 0.95 },
 };
@@ -59,11 +59,11 @@ function getRef(key) {
 export const aboutText = (
   <div>
     Density functional theory (DFT) is extensively used in condensed matter
-    physics and materials science. Many different software codes and computational
-    approaches have been developed to perform DFT calculations.
-    This website is part of an effort to
-    systematically assess the precision and evaluate the reliability of many of
-    these computational approaches. It supplements the accompanying publication
+    physics and materials science. Many different software codes and
+    computational approaches have been developed to perform DFT calculations.
+    This website is part of an effort to systematically assess the precision and
+    evaluate the reliability of many of these computational approaches. It
+    supplements the accompanying publication
     {getRef("main")} and interactively visualizes the relevant data. The raw
     data is published on the Materials Cloud Archive{getRef("archive")}.
     <br />
@@ -73,13 +73,13 @@ export const aboutText = (
     {getRef("lejaeghere")}. The website illustrating the results of that project
     is available at {getRef("old_website")}.
     <br />
-    The performance of the computational approaches to solve the DFT equations is assessed, similarly to the previous study, by calculating the EOS curves.
-    For every element in range Z=1 to 96,
-    ten different crystals are calculated. They include 4 unaries (simple cubic,
-    BCC, diamond, FCC) and 6 oxides (X<sub>2</sub>O, XO, X<sub>2</sub>O
-    <sub>3</sub>, XO<sub>2</sub>, X<sub>2</sub>O<sub>5</sub>, XO<sub>3</sub>).
-    The datasets produced by calculating the EOS curves for these 960 crystals
-    can be divided into
+    The performance of the computational approaches to solve the DFT equations
+    is assessed, similarly to the previous study, by calculating the EOS curves.
+    For every element in range Z=1 to 96, ten different crystals are calculated.
+    They include 4 unaries (simple cubic, BCC, diamond, FCC) and 6 oxides (X
+    <sub>2</sub>O, XO, X<sub>2</sub>O<sub>3</sub>, XO<sub>2</sub>, X<sub>2</sub>
+    O<sub>5</sub>, XO<sub>3</sub>). The datasets produced by calculating the EOS
+    curves for these 960 crystals can be divided into
     <ol className="ol-space-update">
       <li>
         A curated reference set of highly converged results using two
@@ -94,7 +94,9 @@ export const aboutText = (
     <br />
     <MathJax>
       The EOS curves are calculated by fitting a variation of the DFT total
-      energy \(E\) (or, more precisely, of the free energy \(E - TS\) including the entropic contribution due to the electronic smearing) versus cell volume \(V\) to the Birch-Murnaghan EOS, given by
+      energy \(E\) (or, more precisely, of the free energy \(E - TS\) including
+      the entropic contribution due to the electronic smearing) versus cell
+      volume \(V\) to the Birch-Murnaghan EOS, given by
       {"$$ E(V) = E_0 + \\frac{9V_0B_0}{16} \\left\\{ " +
         "\\left[ \\left( \\frac{V_0}{V} \\right)^{\\frac{2}{3}} - 1 \\right]^3 B_1 + " +
         "\\left[ \\left( \\frac{V_0}{V} \\right)^{\\frac{2}{3}} - 1 \\right]^2 " +
@@ -105,8 +107,10 @@ export const aboutText = (
       fitting procedure.
     </MathJax>
     <div className="about-h">Comparison metrics</div>
-    In order to conveniently compare the performance of two different codes or computational approaches, we need a single-valued metric to describe the difference between two EOS curves. In this application we consider the following comparison
-    metrics:
+    In order to conveniently compare the performance of two different codes or
+    computational approaches, we need a single-valued metric to describe the
+    difference between two EOS curves. In this application we consider the
+    following comparison metrics:
     <ol className="ol-space-update">
       <li>
         <MathJax>
@@ -118,7 +122,8 @@ export const aboutText = (
           where \((V_0)_a\) indicates the value of \(V_0\) obtained by fitting
           the data of method \(a\), and so on. The values of the weights were
           determined as {"\\(w_{V_0} = 1\\)"}, {"\\(w_{B_0} = \\frac{1}{20}\\)"}{" "}
-          and {"\\(w_{B_1} = \\frac{1}{400}\\)"} based the sensitivity of each parameter to numerical noise in the fitting procedure
+          and {"\\(w_{B_1} = \\frac{1}{400}\\)"} based the sensitivity of each
+          parameter to numerical noise in the fitting procedure
           {getRef("main")}. As reported in the publication{getRef("main")}, an
           excellent agreement is{" "}
           {"\\(\\nu<" + qualityThersh["nu"]["exc"] + "\\)"}, while a good
@@ -156,8 +161,8 @@ export const aboutText = (
           This metric has the shortcoming of being too sensitive to the value of
           the bulk modulus of the material. In this website, the values are
           normalized by the number of atoms. As mentioned in the publication
-          {getRef("main")}, an excellent agreement (when the bulk modulus is
-          not too small) could be considered for{" "}
+          {getRef("main")}, an excellent agreement (when the bulk modulus is not
+          too small) could be considered for{" "}
           {"\\(\\Delta<" +
             qualityThersh["delta"]["exc"] +
             "\\ \\text{[meV/atom]}\\)"}

@@ -29,9 +29,18 @@ function MainPage() {
           (DFT) codes using the AiiDA common workflows (ACWF) infrastructure.
           The data is published and discussed in the article:
           <div className="citation">
-            E. Bosoni et al., Comprehensive verification of all-electron and
-            pseudopotential density functional theory (DFT) codes via universal
-            common workflows., in preparation (2023)
+            E. Bosoni, L. Beal, M. Bercx, P. Blaha, S. Blügel, J. Bröder, M.
+            Callsen, S. Cottenier, A. Degomme, V. Dikan, K. Eimre, E.
+            Flage-Larsen, M. Fornari, A. Garcia, L. Genovese, M. Giantomassi, S.
+            P. Huber, H. Janssen, G. Kastlunger, M. Krack, G. Kresse, T. D.
+            Kühne, K. Lejaeghere, G. K. H. Madsen, M. Marsman, N. Marzar, G.
+            Michalicek, H. Mirhosseini, T. M. A. Müller, G. Petretto, C. J.
+            Pickard, S. Poncé, G.-M. Rignanese, O. Rubel, T. Ruh, M. Sluydts, D.
+            E. P. Vanpoucke, S. Vijay, M. Wolloch, D. Wortmann, A. V.
+            Yakutovich, J. Yu, A. Zadoks, D. Zhu, and G. Pizzi, Comprehensive
+            verification of all-electron and pseudopotential density functional
+            theory (DFT) codes via universal common workflows., in preparation
+            (2023)
           </div>
         </div>
         <Tabs defaultActiveKey="use" className="acwf-tabs">

@@ -8,9 +8,9 @@ import "./about.css";
 // * when determining heatmap colors
 // (should they be defined here?)
 export const qualityThersh = {
-  nu: { exc: 0.1, good: 0.33 },
-  epsilon: { exc: 0.06, good: 0.2 },
-  delta: { exc: 0.3, good: 0.95 },
+  nu: { exc: 0.1, good: 0.33, outlier: 1.65 },
+  epsilon: { exc: 0.06, good: 0.2, outlier: 1.0 },
+  delta: { exc: 0.3, good: 0.95, outlier: 5.0 },
 };
 
 // string keys stay in insertion order, so use this order to determine the citation number

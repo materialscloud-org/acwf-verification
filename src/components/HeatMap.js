@@ -77,12 +77,15 @@ class HeatMap extends React.Component {
       domain: [0, dataMatrix.length],
     });
     const rectColorScale = scaleLinear({
-      range: ["#0cd80c", "#a4f8a4", "white", "red"],
+      //range: ["#0cd80c", "#a4f8a4", "white", "red"],
+      range: ["#0000be", "#3a50de", "#ffff55", "#f53216", "#bf0000", "#bf0000"],
       domain: [
         0,
         qualityThersh[this.props.measure]["exc"],
         qualityThersh[this.props.measure]["good"],
-        3 * qualityThersh[this.props.measure]["good"],
+        qualityThersh[this.props.measure]["outlier"],
+        qualityThersh[this.props.measure]["outlier"] + 0.001,
+        qualityThersh[this.props.measure]["outlier"] + 10000,
       ],
     });
 
@@ -126,7 +129,7 @@ class HeatMap extends React.Component {
                   }
                   // disable diagonal elements
                   if (bin.row == dataMatrix.length - bin.column - 1) {
-                    color = "#cccccc";
+                    color = "#f0f0f0";
                     value_text = "";
                   }
                   return (
@@ -143,7 +146,11 @@ class HeatMap extends React.Component {
                         x={bin.x + binWidth / 2}
                         y={bin.y - binHeight / 2}
                         fontSize="12"
-                        fill="black"
+                        fill={
+                          bin.count < qualityThersh[this.props.measure]["exc"]
+                            ? "#e6e6e6"
+                            : "black"
+                        }
                         textAnchor="middle"
                         dominantBaseline="middle"
                       >

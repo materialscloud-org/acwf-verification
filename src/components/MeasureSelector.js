@@ -23,9 +23,9 @@ const helpPopover = (
         </li>
         <li>
           ε - a metric that represents the area between the two EOS curves
-          normalized by the average variance of the two curves. An excellent match
-          is {"ε<" + qualityThersh["epsilon"]["exc"]}, while a good match is{" "}
-          {"ε<" + qualityThersh["epsilon"]["good"]}.
+          normalized by the average variance of the two curves. An excellent
+          match is {"ε<" + qualityThersh["epsilon"]["exc"]}, while a good match
+          is {"ε<" + qualityThersh["epsilon"]["good"]}.
         </li>
         <li>
           Δ - a metric that represents the area between the two EOS curves. An

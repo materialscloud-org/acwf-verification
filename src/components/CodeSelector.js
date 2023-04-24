@@ -16,8 +16,8 @@ const helpPopover = (
   <Popover id="popover-basic">
     <Popover.Header as="h3">Methods selection</Popover.Header>
     <Popover.Body>
-      This section contains the selection of computational approaches to compare.
-      Each approach is represented by a row with the following format:
+      This section contains the selection of computational approaches to
+      compare. Each approach is represented by a row with the following format:
       <div
         style={{
           backgroundColor: "#F2F7FC",

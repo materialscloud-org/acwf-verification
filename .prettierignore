@@ -4,3 +4,5 @@
 /python
 .vscode
 .ipynb_checkpoints
+
+/src/data/data.json

@@ -21,15 +21,31 @@ const references = {
       https://doi.org/10.24435/materialscloud:tbd
     </a>
   ),
-  lejaeghere:
-    "Lejaeghere, K. et al. Reproducibility in density functional theory calculations of solids. Science 351, aad3000-aad3000, https://doi.org/10.1126/science.aad3000 (2016).",
+  lejaeghere: (
+    <span>
+      Lejaeghere, K. et al. Reproducibility in density functional theory
+      calculations of solids. Science 351, aad3000-aad3000,{" "}
+      <a href="https://doi.org/10.1126/science.aad3000">
+        https://doi.org/10.1126/science.aad3000
+      </a>{" "}
+      (2016).
+    </span>
+  ),
   old_website: (
     <a href="https://molmod.ugent.be/deltacodesdft">
       https://molmod.ugent.be/deltacodesdft
     </a>
   ),
-  acwf_paper:
-    "Huber, S. P. et al. Common workflows for computing material properties using different quantum engines. npj Comput. Mater. 7, 136, https://doi.org/10.1038/s41524-021-00594-6 (2021).",
+  acwf_paper: (
+    <span>
+      Huber, S. P. et al. Common workflows for computing material properties
+      using different quantum engines. npj Comput. Mater. 7, 136,{" "}
+      <a href="https://doi.org/10.1038/s41524-021-00594-6">
+        https://doi.org/10.1038/s41524-021-00594-6
+      </a>{" "}
+      (2021).
+    </span>
+  ),
   acwf_repo: (
     <a href="https://github.com/aiidateam/aiida-common-workflows">
       https://github.com/aiidateam/aiida-common-workflows

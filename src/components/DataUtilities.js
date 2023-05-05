@@ -115,11 +115,11 @@ export function calcComparisonMatrices(processedData, allCodes) {
                   return;
                 // debugging....
                 // let debug =
-                //   elem == "Fr" &&
-                //   crystal == "X2O5" &&
-                //   measure == "epsilon" &&
-                //   c1 == "FLEUR" &&
-                //   c2 == "all-electron average";
+                //   elem == "Sn" &&
+                //   crystal == "X/Diamond" &&
+                //   measure == "delta" &&
+                //   c1 == "WIEN2k@(L)APW+lo+LO" &&
+                //   c2 == "FLEUR@LAPW+LO";
                 // if (debug) console.log(c1, c2);
                 let debug = false;
 

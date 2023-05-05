@@ -93,7 +93,11 @@ export function calculateDelta(bm_fit1, bm_fit2, debug = false) {
     return (birch_murnaghan(v, bm_fit1) - birch_murnaghan(v, bm_fit2)) ** 2;
   };
   let res = gaussian_quadrature_7pt(integ, v1, v2);
-  return 1000 * Math.sqrt(res / (v2 - v1));
+  let delta = 1000 * Math.sqrt(res / (v2 - v1));
+
+  if (debug) console.log(bm_fit1, bm_fit2, delta);
+
+  return delta;
 }
 
 /**

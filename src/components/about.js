@@ -91,8 +91,9 @@ export const aboutText = (
     <br />
     The performance of the computational approaches to solve the DFT equations
     is assessed, similarly to the previous study, by calculating the EOS curves.
-    For every element in range Z=1 to 96, ten different crystals are calculated.
-    They include 4 unaries (simple cubic, BCC, diamond, FCC) and 6 oxides (X
+    For every element in range Z=1 to 96, ten different crystals are calculated
+    using the PBE functional. They include 4 unaries (simple cubic, BCC,
+    diamond, FCC) and 6 oxides (X
     <sub>2</sub>O, XO, X<sub>2</sub>O<sub>3</sub>, XO<sub>2</sub>, X<sub>2</sub>
     O<sub>5</sub>, XO<sub>3</sub>). The datasets produced by calculating the EOS
     curves for these 960 crystals can be divided into
@@ -149,8 +150,8 @@ export const aboutText = (
       <li>
         <MathJax>
           <b>ε</b> (epsilon) - a metric that represents the area between the two
-          EOS curves normalized by the average value of the two curves, and is
-          given by
+          EOS curves normalized by the average variance of the two curves, and
+          is given by
           {"$$ \\varepsilon(a,b) = \\sqrt{\\frac{ \\langle[E_{a}(V) - E_{b}(V)]^2 \\rangle} " +
             "{\\sqrt{\\langle [E_{a}(V) - \\langle E_{a} \\rangle]^2 \\rangle  \\langle " +
             "[ E_{b}(V) - \\langle E_{b} \\rangle]^2 \\rangle}} }, \\tag{3}$$"}

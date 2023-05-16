@@ -37,7 +37,7 @@ function MainPage() {
             Michalicek, H. Mirhosseini, T. M. A. Müller, G. Petretto, C. J.
             Pickard, S. Poncé, G.-M. Rignanese, O. Rubel, T. Ruh, M. Sluydts, D.
             E. P. Vanpoucke, S. Vijay, M. Wolloch, D. Wortmann, A. V.
-            Yakutovich, J. Yu, A. Zadoks, D. Zhu, and G. Pizzi, Comprehensive
+            Yakutovich, J. Yu, A. Zadoks, B. Zhu, and G. Pizzi, Comprehensive
             verification of all-electron and pseudopotential density functional
             theory (DFT) codes via universal common workflows., in preparation
             (2023)

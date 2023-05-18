@@ -163,6 +163,8 @@ class EOSGraph extends React.Component {
     // code2: ...
     //}
 
+    var lineOrder = []; // order lines, such that AE avg is last.
+
     const [v_min, v_max] = this.vLimits();
 
     // find unique eos_data points to also feed to the continuous line
@@ -177,6 +179,8 @@ class EOSGraph extends React.Component {
       let eos_data = this.props.processedData[code]["eos_data_per_atom"];
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (bm_fit == null) continue;
+
+      lineOrder.push(code);
 
       chartDataAll[code] = {
         fit: birch_murnaghan_array(v_min, v_max, bm_fit, unique_eos_points),
@@ -195,6 +199,12 @@ class EOSGraph extends React.Component {
         ...chartDataAll[code]["fit"].map((x) => x["e"])
       );
       if (this_e_max > e_max) e_max = this_e_max;
+    }
+
+    // make sure ae average is last in line order, to make it always visible
+    if (lineOrder.includes("all-electron average")) {
+      lineOrder.splice(lineOrder.indexOf("all-electron average"), 1);
+      lineOrder.push("all-electron average");
     }
 
     // calculate tick positions
@@ -251,36 +261,36 @@ class EOSGraph extends React.Component {
             // labelStyle={{ fontSize: 12 }}
           />
 
-          {Object.keys(chartDataAll).map(function (key) {
-            let name = this.props.codeFormatting[key]["short_label"];
+          {lineOrder.map(function (code) {
+            let name = this.props.codeFormatting[code]["short_label"];
             return (
               <Line
-                key={key + "-fit"}
-                data={chartDataAll[key]["fit"]}
+                key={code + "-fit"}
+                data={chartDataAll[code]["fit"]}
                 dataKey="e"
                 dot={false}
                 activeDot={false}
-                stroke={this.props.codeFormatting[key]["color"]}
+                stroke={this.props.codeFormatting[code]["color"]}
                 name={name}
                 isAnimationActive={false}
                 strokeWidth={2}
               />
             );
           }, this)}
-          {Object.keys(chartDataAll).map((key) => {
-            let name = this.props.codeFormatting[key]["short_label"];
-            if ("points" in chartDataAll[key]) {
+          {lineOrder.map(function (code) {
+            let name = this.props.codeFormatting[code]["short_label"];
+            if ("points" in chartDataAll[code]) {
               return (
                 <Line
-                  key={key + "-points"}
-                  data={chartDataAll[key]["points"]}
+                  key={code + "-points"}
+                  data={chartDataAll[code]["points"]}
                   dataKey="e"
                   name={name + "_dots"}
                   strokeWidth={0}
-                  stroke={this.props.codeFormatting[key]["color"]}
+                  stroke={this.props.codeFormatting[code]["color"]}
                   dot={{
-                    stroke: this.props.codeFormatting[key]["color"],
-                    fill: this.props.codeFormatting[key]["color"],
+                    stroke: this.props.codeFormatting[code]["color"],
+                    fill: this.props.codeFormatting[code]["color"],
                     strokeWidth: 1,
                   }}
                   activeDot={false}

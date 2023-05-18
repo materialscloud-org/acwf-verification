@@ -4,7 +4,7 @@ import { scaleLinear } from "@visx/scale";
 import { HeatmapRect } from "@visx/heatmap";
 import { AxisLeft, AxisBottom } from "@visx/axis";
 
-import { qualityThersh } from "./about";
+import { qualityThersh } from "../about";
 
 import "./HeatMap.css";
 

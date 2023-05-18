@@ -1,17 +1,16 @@
 import React from "react";
 
-import PTable from "./PTable";
+import PeriodicTable from "./PeriodicTable";
 
-import UnifiedGraph from "./UnifiedGraph";
+import EosAndHeatmap from "./EosAndHeatmap";
 
-import CodeSelector from "./CodeSelector";
-import MeasureSelector from "./MeasureSelector";
+import SelectorBox from "./SelectorBox";
 
 import {
   genCodeOrderAndInfo,
   calcComparisonMatrices,
   calcMatrixMax,
-} from "./DataUtilities";
+} from "../utils/dataUtilities";
 
 import "./ACWF.css";
 
@@ -88,7 +87,7 @@ class ACWF extends React.Component {
     return (
       <div className="acwf">
         <div className="gen_container">
-          <PTable
+          <PeriodicTable
             onElementSelect={this.changeElementSelection}
             selection={sel_elem}
             enabledElements={new Set(Object.keys(allData["data"]))}
@@ -96,15 +95,15 @@ class ACWF extends React.Component {
         </div>
         {sel_elem != null ? (
           <div>
-            <div className="selector_container gen_container">
-              <CodeSelector
+            <div className="gen_container">
+              <SelectorBox
                 allCodes={this.orderedCodes}
                 selectedCodes={this.state.selectedCodes}
                 onCodeSelectionChange={this.handleCodeSelectionChange}
                 codeInfo={this.codeInfo}
                 elementData={allData["data"][sel_elem]}
+                onMeasureChange={this.handleMeasureChange}
               />
-              <MeasureSelector onMeasureChange={this.handleMeasureChange} />
             </div>
             {crystalOrder.map((crystal) => {
               return (
@@ -112,7 +111,7 @@ class ACWF extends React.Component {
                   key={sel_elem + crystal}
                   className="gen_container graph_container"
                 >
-                  <UnifiedGraph
+                  <EosAndHeatmap
                     element={sel_elem}
                     processedData={allData["data"][sel_elem][crystal]}
                     comparisonMatrix={

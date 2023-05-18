@@ -2,7 +2,7 @@ import {
   calculateNu,
   calculateDelta,
   calculateEpsilon,
-} from "./ComparisonMeasures";
+} from "./comparisonMeasures";
 
 // --------------------------------------------------
 // Routines for processing the initial data

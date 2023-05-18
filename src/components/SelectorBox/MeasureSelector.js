@@ -2,11 +2,11 @@ import React from "react";
 
 import Form from "react-bootstrap/Form";
 
-import HelpButton from "./HelpButton";
+import HelpButton from "../HelpButton";
 
 import Popover from "react-bootstrap/Popover";
 
-import { qualityThersh } from "./about";
+import { qualityThersh } from "../about";
 
 import "./MeasureSelector.css";
 

@@ -1,0 +1,12 @@
+.selector_container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+.gen_container {
+  border: 1px solid #999;
+  border-radius: 10px;
+  width: 860px;
+  /* max-width: 900px; */
+  margin: 0 auto;
+}

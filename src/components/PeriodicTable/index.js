@@ -38,7 +38,7 @@ class Element extends React.Component {
   }
 }
 
-class PTable extends React.Component {
+class PeriodicTable extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -77,4 +77,4 @@ class PTable extends React.Component {
   }
 }
 
-export default PTable;
+export default PeriodicTable;

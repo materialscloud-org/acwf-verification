@@ -22,12 +22,6 @@
   margin: 0 auto;
 }
 
-.selector_container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-evenly;
-}
-
 .graph_container {
   display: flex;
   align-items: center;

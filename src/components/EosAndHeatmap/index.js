@@ -47,7 +47,7 @@ function heatmapTitle(measure) {
   return "error";
 }
 
-class UnifiedGraph extends React.Component {
+class EosAndHeatmap extends React.Component {
   // Unified graph consisting of the EOS plot and the heatmap
   // Specific to one single crystal
   constructor(props) {
@@ -99,4 +99,4 @@ class UnifiedGraph extends React.Component {
   }
 }
 
-export default UnifiedGraph;
+export default EosAndHeatmap;

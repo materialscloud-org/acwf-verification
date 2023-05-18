@@ -1,3 +1,10 @@
+.measure-selector-container {
+  margin: 5px 0px;
+  padding: 5px 20px 20px;
+  background-color: #f2f7fc;
+  border-radius: 20px;
+}
+
 .measures-ul {
   list-style: none;
   padding: 0px;

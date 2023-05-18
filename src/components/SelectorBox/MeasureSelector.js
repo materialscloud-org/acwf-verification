@@ -52,18 +52,7 @@ class MeasureSelector extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          marginBottom: "10px",
-          marginTop: "10px",
-          paddingTop: "5px",
-          paddingBottom: "20px",
-          paddingLeft: "20px",
-          paddingRight: "20px",
-          backgroundColor: "#f2f7fc",
-          borderRadius: "20px",
-        }}
-      >
+      <div className="measure-selector-container">
         <center>
           <Form.Label>
             <span style={{ fontWeight: "600" }}>Select comparison metric</span>

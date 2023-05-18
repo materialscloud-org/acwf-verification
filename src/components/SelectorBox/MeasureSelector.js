@@ -71,8 +71,8 @@ class MeasureSelector extends React.Component {
             aria-label="Select measure"
             onChange={this.handleChange}
           >
-            <option value="nu">ν</option>
             <option value="epsilon">ε</option>
+            <option value="nu">ν</option>
             <option value="delta">Δ</option>
           </Form.Select>
           <HelpButton popover={helpPopover} />

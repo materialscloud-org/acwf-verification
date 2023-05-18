@@ -44,7 +44,7 @@ class ACWF extends React.Component {
     this.state = {
       selectedCodes: new Set(this.orderedCodes),
       selectedElement: null,
-      selectedMeasure: "nu",
+      selectedMeasure: "epsilon",
     };
 
     this.changeElementSelection = this.changeElementSelection.bind(this);

@@ -6,9 +6,11 @@ import HelpButton from "../HelpButton";
 
 import Popover from "react-bootstrap/Popover";
 
-import { qualityThersh } from "../about";
+import { qualityThersh } from "../../utils/variables";
 
 import "./MeasureSelector.css";
+
+import VisxColorbar from "./VisxColorbar";
 
 const helpPopover = (
   <Popover id="popover-basic">
@@ -35,6 +37,10 @@ const helpPopover = (
         </li>
       </ul>
       See more details in the About section.
+      <br />
+      The color scale used for the comparison matrixes below is chosen to
+      highlight the excellent and good match thresholds, as well as to visualize
+      outliers.
     </Popover.Body>
   </Popover>
 );
@@ -76,6 +82,10 @@ class MeasureSelector extends React.Component {
             <option value="delta">Δ</option>
           </Form.Select>
           <HelpButton popover={helpPopover} />
+        </div>
+        <center style={{ marginTop: "15px" }}>Color scale used below:</center>
+        <div className="cbar-container">
+          <VisxColorbar measure={this.props.selectedMeasure} />
         </div>
       </div>
     );

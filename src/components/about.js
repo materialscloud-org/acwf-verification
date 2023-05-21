@@ -1,17 +1,8 @@
 import MathJax from "better-react-mathjax/MathJax";
 
-import "./about.css";
+import { qualityThersh } from "../utils/variables";
 
-// These are used in
-// * here, in the About section
-// * in the metric selection help toolbar
-// * when determining heatmap colors
-// (should they be defined here?)
-export const qualityThersh = {
-  nu: { exc: 0.1, good: 0.33, outlier: 1.65 },
-  epsilon: { exc: 0.06, good: 0.2, outlier: 1.0 },
-  delta: { exc: 0.3, good: 0.95, outlier: 5.0 },
-};
+import "./about.css";
 
 // string keys stay in insertion order, so use this order to determine the citation number
 const references = {

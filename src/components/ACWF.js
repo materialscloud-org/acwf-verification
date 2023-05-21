@@ -103,6 +103,7 @@ class ACWF extends React.Component {
                 codeInfo={this.codeInfo}
                 elementData={allData["data"][sel_elem]}
                 onMeasureChange={this.handleMeasureChange}
+                selectedMeasure={this.state.selectedMeasure}
               />
             </div>
             {crystalOrder.map((crystal) => {

@@ -13,3 +13,9 @@
 .measures-ul > li {
   padding: 5px 0px 5px 15px;
 }
+
+.cbar-container {
+  display: flex;
+  justify-content: center;
+  /* background-color: red; */
+}

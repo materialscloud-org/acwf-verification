@@ -19,7 +19,10 @@ export default function SelectorBox(props) {
           codeInfo={props.codeInfo}
           elementData={props.elementData}
         />
-        <MeasureSelector onMeasureChange={props.onMeasureChange} />
+        <MeasureSelector
+          onMeasureChange={props.onMeasureChange}
+          selectedMeasure={props.selectedMeasure}
+        />
       </div>
     </div>
   );

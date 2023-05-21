@@ -4,7 +4,7 @@ import { scaleLinear } from "@visx/scale";
 import { HeatmapRect } from "@visx/heatmap";
 import { AxisLeft, AxisBottom } from "@visx/axis";
 
-import { qualityThersh } from "../about";
+import { qualityThersh, colorScale } from "../../utils/variables";
 
 import "./HeatMap.css";
 
@@ -78,7 +78,14 @@ class HeatMap extends React.Component {
     });
     const rectColorScale = scaleLinear({
       //range: ["#0cd80c", "#a4f8a4", "white", "red"],
-      range: ["#0000be", "#3a50de", "#ffff55", "#f53216", "#bf0000", "#bf0000"],
+      range: [
+        colorScale["perfect"],
+        colorScale["exc"],
+        colorScale["good"],
+        colorScale["bad"],
+        colorScale["outlier"],
+        colorScale["outlier"],
+      ],
       domain: [
         0,
         qualityThersh[this.props.measure]["exc"],

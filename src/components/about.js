@@ -122,24 +122,6 @@ export const aboutText = (
     <ol className="ol-space-update">
       <li>
         <MathJax>
-          <b>ν</b> (nu) - a metric that captures the relative difference of
-          \(V_0\), \(B_0\) and \(B_1\) with specified weights. The metric is
-          calculated by
-          {"$$ \\nu_{w_{V_0},w_{B_0},w_{B_1}}(a,b) = 100 \\sqrt{ \\sum_{Y=V_0,B_0,B_1} " +
-            "\\left[ w_{Y} \\cdot \\frac{Y_{a}-Y_{b}}{(Y_{a}+Y_{b})/2} \\right] ^2}, \\tag{2}$$"}
-          where \((V_0)_a\) indicates the value of \(V_0\) obtained by fitting
-          the data of method \(a\), and so on. The values of the weights were
-          determined as {"\\(w_{V_0} = 1\\)"}, {"\\(w_{B_0} = \\frac{1}{20}\\)"}{" "}
-          and {"\\(w_{B_1} = \\frac{1}{400}\\)"} based the sensitivity of each
-          parameter to numerical noise in the fitting procedure
-          {getRef("main")}. As reported in the publication{getRef("main")}, an
-          excellent agreement is{" "}
-          {"\\(\\nu<" + qualityThersh["nu"]["exc"] + "\\)"}, while a good
-          agreement is {"\\(\\nu<" + qualityThersh["nu"]["good"] + "\\)"}.
-        </MathJax>
-      </li>
-      <li>
-        <MathJax>
           <b>ε</b> (epsilon) - a metric that represents the area between the two
           EOS curves normalized by the average variance of the two curves, and
           is given by
@@ -156,6 +138,24 @@ export const aboutText = (
           {"\\(\\varepsilon<" + qualityThersh["epsilon"]["exc"] + "\\)"}, while
           a good agreement is{" "}
           {"\\(\\varepsilon<" + qualityThersh["epsilon"]["good"] + "\\)"}.
+        </MathJax>
+      </li>
+      <li>
+        <MathJax>
+          <b>ν</b> (nu) - a metric that captures the relative difference of
+          \(V_0\), \(B_0\) and \(B_1\) with specified weights. The metric is
+          calculated by
+          {"$$ \\nu_{w_{V_0},w_{B_0},w_{B_1}}(a,b) = 100 \\sqrt{ \\sum_{Y=V_0,B_0,B_1} " +
+            "\\left[ w_{Y} \\cdot \\frac{Y_{a}-Y_{b}}{(Y_{a}+Y_{b})/2} \\right] ^2}, \\tag{2}$$"}
+          where \((V_0)_a\) indicates the value of \(V_0\) obtained by fitting
+          the data of method \(a\), and so on. The values of the weights were
+          determined as {"\\(w_{V_0} = 1\\)"}, {"\\(w_{B_0} = \\frac{1}{20}\\)"}{" "}
+          and {"\\(w_{B_1} = \\frac{1}{400}\\)"} based the sensitivity of each
+          parameter to numerical noise in the fitting procedure
+          {getRef("main")}. As reported in the publication{getRef("main")}, an
+          excellent agreement is{" "}
+          {"\\(\\nu<" + qualityThersh["nu"]["exc"] + "\\)"}, while a good
+          agreement is {"\\(\\nu<" + qualityThersh["nu"]["good"] + "\\)"}.
         </MathJax>
       </li>
       <li>

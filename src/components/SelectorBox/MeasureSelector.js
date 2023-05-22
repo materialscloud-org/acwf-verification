@@ -18,20 +18,20 @@ const helpPopover = (
     <Popover.Body>
       <ul className="measures-ul">
         <li>
-          ν - a metric that captures the relative difference of the
+          <b>ε</b> - a metric that represents the area between the two EOS
+          curves normalized by the average variance of the two curves. An
+          excellent match is {"ε<" + qualityThersh["epsilon"]["exc"]}, while a
+          good match is {"ε<" + qualityThersh["epsilon"]["good"]}.
+        </li>
+        <li>
+          <b>ν</b> - a metric that captures the relative difference of the
           Birch-Murnaghan fitting parameters with specified weights. An
           excellent match is {"ν<" + qualityThersh["nu"]["exc"]}, while a good
           match is {"ν<" + qualityThersh["nu"]["good"]}.
         </li>
         <li>
-          ε - a metric that represents the area between the two EOS curves
-          normalized by the average variance of the two curves. An excellent
-          match is {"ε<" + qualityThersh["epsilon"]["exc"]}, while a good match
-          is {"ε<" + qualityThersh["epsilon"]["good"]}.
-        </li>
-        <li>
-          Δ - a metric that represents the area between the two EOS curves. An
-          excellent match is{" "}
+          <b>Δ</b> - a metric that represents the area between the two EOS
+          curves. An excellent match is{" "}
           {"Δ<" + qualityThersh["delta"]["exc"] + " [meV/atom]"}, while a good
           match is {"Δ<" + qualityThersh["delta"]["good"] + " [meV/atom]"}.
         </li>

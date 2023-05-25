@@ -17,7 +17,10 @@ function MainPage() {
       activeSection={"discover"}
       breadcrumbsPath={[
         { name: "Discover", link: "https://www.materialscloud.org/discover" },
-        { name: "ACWF verification", link: null },
+        {
+          name: "Verification of the precision of DFT implementations via AiiDA common workflows",
+          link: null,
+        },
       ]}
     >
       <div className="main-page">

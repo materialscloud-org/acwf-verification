@@ -1,6 +1,6 @@
 {
   "short_name": "ACWF",
-  "name": "AiiDA common workflows verification",
+  "name": "Verification of the precision of DFT implementations via AiiDA common workflows",
   "icons": [
     {
       "src": "favicon.ico",

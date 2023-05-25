@@ -1,6 +1,6 @@
-# AiiDA common workflows web application
+# Verification of the precision of DFT implementations via AiiDA common workflows
 
-Built with React, using
+Web application built with React, using
 
 - react-bootstrap
 - recharts

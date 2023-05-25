@@ -36,14 +36,13 @@ function MainPage() {
             Callsen, S. Cottenier, A. Degomme, V. Dikan, K. Eimre, E.
             Flage-Larsen, M. Fornari, A. Garcia, L. Genovese, M. Giantomassi, S.
             P. Huber, H. Janssen, G. Kastlunger, M. Krack, G. Kresse, T. D.
-            Kühne, K. Lejaeghere, G. K. H. Madsen, M. Marsman, N. Marzar, G.
+            Kühne, K. Lejaeghere, G. K. H. Madsen, M. Marsman, N. Marzari, G.
             Michalicek, H. Mirhosseini, T. M. A. Müller, G. Petretto, C. J.
-            Pickard, S. Poncé, G.-M. Rignanese, O. Rubel, T. Ruh, M. Sluydts, D.
-            E. P. Vanpoucke, S. Vijay, M. Wolloch, D. Wortmann, A. V.
-            Yakutovich, J. Yu, A. Zadoks, B. Zhu, and G. Pizzi, Comprehensive
-            verification of all-electron and pseudopotential density functional
-            theory (DFT) codes via universal common workflows., in preparation
-            (2023)
+            Pickard, S. Poncé, G. Rignanese, O. Rubel, T. Ruh, M. Sluydts, D. E.
+            P. Vanpoucke, S. Vijay, M. Wolloch, D. Wortmann, A. V. Yakutovich,
+            J. Yu, A. Zadoks, B. Zhu, and G. Pizzi, How to verify the precision
+            of density-functional-theory implementations via reproducible and
+            universal workflows., in preparation (2023)
           </div>
         </div>
         <Tabs defaultActiveKey="use" className="acwf-tabs">

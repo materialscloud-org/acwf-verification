@@ -6,10 +6,10 @@ import "./about.css";
 
 // string keys stay in insertion order, so use this order to determine the citation number
 const references = {
-  main: "E. Bosoni et al., Comprehensive verification of all-electron and pseudopotential density functional theory (DFT) codes via universal common workflows., in preparation (2023)",
+  main: "E. Bosoni et al., How to verify the precision of density-functional-theory implementations via reproducible and universal workflows., in preparation (2023)",
   archive: (
-    <a href="https://doi.org/10.24435/materialscloud:tbd">
-      https://doi.org/10.24435/materialscloud:tbd
+    <a href="https://doi.org/10.24435/materialscloud:s4-3h">
+      https://doi.org/10.24435/materialscloud:s4-3h
     </a>
   ),
   lejaeghere: (

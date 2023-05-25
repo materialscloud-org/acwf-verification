@@ -8,11 +8,11 @@ export default function DoiBadge() {
       <span className="doi-badge">
         <span className="doi-left">DOI</span>
         <a
-          href="https://doi.org/10.24435/materialscloud:tbd"
+          href="https://doi.org/10.24435/materialscloud:s4-3h"
           className="doi-right"
           target="_blank"
         >
-          10.24435/materialscloud:tbd
+          10.24435/materialscloud:s4-3h
         </a>
       </span>
     </div>

@@ -26,7 +26,7 @@ const helpPopover = (
       >
         short-name &nbsp; &nbsp; - code-name@basis-set|pseudopotential
       </div>
-      See more details in the About section
+      See more details in the About section.
     </Popover.Body>
   </Popover>
 );

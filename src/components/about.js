@@ -27,6 +27,16 @@ const references = {
       https://molmod.ugent.be/deltacodesdft
     </a>
   ),
+  pbe: (
+    <span>
+      Perdew, J. P., Burke, K., Ernzerhof, M., Generalized Gradient
+      Approximation Made Simple. PRL 77, 18,{" "}
+      <a href="https://doi.org/10.1103/PhysRevLett.77.3865">
+        https://doi.org/10.1103/PhysRevLett.77.3865
+      </a>{" "}
+      (1996).
+    </span>
+  ),
   acwf_paper: (
     <span>
       Huber, S. P. et al. Common workflows for computing material properties
@@ -83,8 +93,8 @@ export const aboutText = (
     The performance of the computational approaches to solve the DFT equations
     is assessed, similarly to the previous study, by calculating the EOS curves.
     For every element in range Z=1 to 96, ten different crystals are calculated
-    using the PBE functional. They include 4 unaries (simple cubic, BCC,
-    diamond, FCC) and 6 oxides (X
+    using the PBE functional{getRef("pbe")}. They include 4 unaries (simple
+    cubic, BCC, diamond, FCC) and 6 oxides (X
     <sub>2</sub>O, XO, X<sub>2</sub>O<sub>3</sub>, XO<sub>2</sub>, X<sub>2</sub>
     O<sub>5</sub>, XO<sub>3</sub>). The datasets produced by calculating the EOS
     curves for these 960 crystals can be divided into

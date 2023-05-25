@@ -51,7 +51,7 @@ function MainPage() {
               Select an element to show the equation-of-state (EOS) curves for
               various reference structures containing it (unaries and oxides)
               and to compare results among multiple codes and computational
-              approaches.
+              approaches. Note: the PBE functional is used for the current data.
             </div>
             <div style={{ marginTop: "6px" }}>
               <ACWF />

@@ -28,7 +28,7 @@ function MainPage() {
         {/* <div className="note">NOTE: This is a beta version!</div> */}
         <div className="description">
           This section contains reference and verification datasets of equations
-          of states (EOS) calculated with different density functional theory
+          of state (EOS) calculated with different density functional theory
           (DFT) codes using the AiiDA common workflows (ACWF) infrastructure.
           The data is published and discussed in the article:
           <div className="citation">
@@ -48,7 +48,7 @@ function MainPage() {
         <Tabs defaultActiveKey="use" className="acwf-tabs">
           <Tab eventKey="use" title="Use">
             <div className="description">
-              Select an element to show the equation-of-state (EOS) curves for
+              Select an element to show the equation of state (EOS) curves for
               various reference structures containing it (unaries and oxides)
               and to compare results among multiple codes and computational
               approaches. Note: the PBE functional is used for the current data.

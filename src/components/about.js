@@ -152,9 +152,10 @@ export const aboutText = (
       </li>
       <li>
         <MathJax>
-          <b>ν</b> (nu) - a metric that captures the relative difference of
-          \(V_0\), \(B_0\) and \(B_1\) with specified weights. The metric is
-          calculated by
+          <b>ν</b> (nu) - a metric that captures the relative difference of the
+          equilibrium volume (\(V_0\)), bulk modulus (\(B_0\)) and its
+          derivative w.r.t. pressure (\(B_1\)) with specified weights. The
+          metric is calculated by
           {"$$ \\nu_{w_{V_0},w_{B_0},w_{B_1}}(a,b) = 100 \\sqrt{ \\sum_{Y=V_0,B_0,B_1} " +
             "\\left[ w_{Y} \\cdot \\frac{Y_{a}-Y_{b}}{(Y_{a}+Y_{b})/2} \\right] ^2}, \\tag{2}$$"}
           where \((V_0)_a\) indicates the value of \(V_0\) obtained by fitting

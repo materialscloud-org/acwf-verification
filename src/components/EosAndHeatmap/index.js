@@ -67,7 +67,7 @@ class EosAndHeatmap extends React.Component {
         >
           <div>
             <center style={{ marginLeft: "60px" }}>
-              Equation of States (EOS)
+              Equation of state (EOS)
             </center>
             <EOSGraph
               processedData={this.props.processedData}

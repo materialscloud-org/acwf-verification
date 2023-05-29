@@ -8,9 +8,15 @@ import "./about.css";
 const references = {
   main: "E. Bosoni et al., How to verify the precision of density-functional-theory implementations via reproducible and universal workflows., in preparation (2023)",
   archive: (
-    <a href="https://doi.org/10.24435/materialscloud:s4-3h">
-      https://doi.org/10.24435/materialscloud:s4-3h
-    </a>
+    <span>
+      Bosoni, E. et al. How to verify the precision of density-functional-theory
+      implementations via reproducible and universal workflows. Materials Cloud
+      Archive 2023.81,{" "}
+      <a href="https://doi.org/10.24435/materialscloud:s4-3h">
+        https://doi.org/10.24435/materialscloud:s4-3h
+      </a>{" "}
+      (2023).
+    </span>
   ),
   lejaeghere: (
     <span>

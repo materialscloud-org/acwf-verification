@@ -61,3 +61,16 @@
   border-right: 1px solid #999 !important;
   /* border-bottom: 1px solid #999 !important; */
 }
+
+.custom-bold {
+  font-weight: 500;
+}
+
+.citation-link {
+  color: black;
+  text-decoration: underline;
+}
+
+.citation-link:hover {
+  color: rgb(60, 60, 60);
+}

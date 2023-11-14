@@ -6,26 +6,39 @@ import "./about.css";
 
 // string keys stay in insertion order, so use this order to determine the citation number
 const references = {
-  main: "E. Bosoni et al., How to verify the precision of density-functional-theory implementations via reproducible and universal workflows., in preparation (2023)",
+  main: (
+    <span>
+      E. Bosoni et al. How to verify the precision of density-functional-theory
+      implementations via reproducible and universal workflows. Nat. Rev. Phys.
+      (2023),{" "}
+      <a href="https://doi.org/10.1038/s42254-023-00655-3">
+        https://doi.org/10.1038/s42254-023-00655-3
+      </a>
+      .{" "}
+      <a href="https://doi.org/10.48550/arXiv.2305.17274">
+        [open-access arXiv version]
+      </a>
+    </span>
+  ),
   archive: (
     <span>
-      Bosoni, E. et al. How to verify the precision of density-functional-theory
+      E. Bosoni et al. How to verify the precision of density-functional-theory
       implementations via reproducible and universal workflows. Materials Cloud
-      Archive 2023.81,{" "}
+      Archive 2023.81 (2023),{" "}
       <a href="https://doi.org/10.24435/materialscloud:s4-3h">
         https://doi.org/10.24435/materialscloud:s4-3h
-      </a>{" "}
-      (2023).
+      </a>
+      .
     </span>
   ),
   lejaeghere: (
     <span>
-      Lejaeghere, K. et al. Reproducibility in density functional theory
-      calculations of solids. Science 351, aad3000-aad3000,{" "}
+      K. Lejaeghere et al. Reproducibility in density functional theory
+      calculations of solids. Science 351, aad3000-aad3000 (2016),{" "}
       <a href="https://doi.org/10.1126/science.aad3000">
         https://doi.org/10.1126/science.aad3000
-      </a>{" "}
-      (2016).
+      </a>
+      .
     </span>
   ),
   old_website: (
@@ -35,22 +48,22 @@ const references = {
   ),
   pbe: (
     <span>
-      Perdew, J. P., Burke, K., Ernzerhof, M., Generalized Gradient
-      Approximation Made Simple. PRL 77, 18,{" "}
+      J. P. Perdew, K. Burke, M. Ernzerhof, Generalized Gradient Approximation
+      Made Simple. PRL 77, 18 (1996),{" "}
       <a href="https://doi.org/10.1103/PhysRevLett.77.3865">
         https://doi.org/10.1103/PhysRevLett.77.3865
-      </a>{" "}
-      (1996).
+      </a>
+      .
     </span>
   ),
   acwf_paper: (
     <span>
-      Huber, S. P. et al. Common workflows for computing material properties
-      using different quantum engines. npj Comput. Mater. 7, 136,{" "}
+      S. P. Huber et al. Common workflows for computing material properties
+      using different quantum engines. npj Comput. Mater. 7, 136 (2021),{" "}
       <a href="https://doi.org/10.1038/s41524-021-00594-6">
         https://doi.org/10.1038/s41524-021-00594-6
-      </a>{" "}
-      (2021).
+      </a>
+      .
     </span>
   ),
   acwf_repo: (

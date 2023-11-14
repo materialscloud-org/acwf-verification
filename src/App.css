@@ -7,3 +7,13 @@
   align-items: center; */
   /* background-color: brown; */
 }
+
+/* bootstrap overrides */
+body a {
+  color: #36c;
+  text-decoration: none;
+}
+body a:hover {
+  color: #1a0dab;
+  text-decoration: underline;
+}

@@ -10,14 +10,15 @@ const references = {
     <span>
       E. Bosoni et al. How to verify the precision of density-functional-theory
       implementations via reproducible and universal workflows. Nat. Rev. Phys.
-      (2023),{" "}
+      6, 45-58 (2024),{" "}
       <a href="https://doi.org/10.1038/s42254-023-00655-3">
         https://doi.org/10.1038/s42254-023-00655-3
       </a>
-      .{" "}
+      . [
       <a href="https://doi.org/10.48550/arXiv.2305.17274">
-        [open-access arXiv version]
+        open-access arXiv version
       </a>
+      ]
     </span>
   ),
   archive: (

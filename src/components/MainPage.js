@@ -50,7 +50,8 @@ function MainPage() {
               href="https://doi.org/10.1038/s42254-023-00655-3"
               className="citation-link"
             >
-              <span className="custom-bold">Nat. Rev. Phys.</span> (2023)
+              <span className="custom-bold">Nat. Rev. Phys. 6</span>, 45-58
+              (2024)
             </a>
           </div>
         </div>

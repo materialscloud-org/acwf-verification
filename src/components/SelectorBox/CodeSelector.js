@@ -118,7 +118,15 @@ class CodeSelector extends React.Component {
               alignItems: "center",
             }}
           >
-            <span style={{ fontWeight: "600" }}>Select methods</span>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <span style={{ fontWeight: "600" }}>Select methods</span>
+              <span style={{ textAlign: "center" }}>Functional: PBE</span>
+            </div>
             <HelpButton popover={helpPopover} />
           </div>
           <div className="method-subheading">All-electron reference:</div>

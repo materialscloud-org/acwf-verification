@@ -32,7 +32,7 @@ function MainPage() {
           (DFT) codes using the AiiDA common workflows (ACWF) infrastructure.
           The data is published and discussed in the article:
           <div className="citation">
-            E. Bosoni, L. Beal, M. Bercx, P. Blaha, S. Blügel, J. Bröder, M.
+            {/* E. Bosoni, L. Beal, M. Bercx, P. Blaha, S. Blügel, J. Bröder, M.
             Callsen, S. Cottenier, A. Degomme, V. Dikan, K. Eimre, E.
             Flage-Larsen, M. Fornari, A. Garcia, L. Genovese, M. Giantomassi, S.
             P. Huber, H. Janssen, G. Kastlunger, M. Krack, G. Kresse, T. D.
@@ -40,7 +40,8 @@ function MainPage() {
             Michalicek, H. Mirhosseini, T. M. A. Müller, G. Petretto, C. J.
             Pickard, S. Poncé, G. Rignanese, O. Rubel, T. Ruh, M. Sluydts, D. E.
             P. Vanpoucke, S. Vijay, M. Wolloch, D. Wortmann, A. V. Yakutovich,
-            J. Yu, A. Zadoks, B. Zhu, and G. Pizzi,{" "}
+            J. Yu, A. Zadoks, B. Zhu, and G. Pizzi,{" "} */}
+            E. Bosoni et al.,{" "}
             <i>
               How to verify the precision of density-functional-theory
               implementations via reproducible and universal workflows
@@ -56,7 +57,7 @@ function MainPage() {
           </div>
         </div>
         <Tabs defaultActiveKey="use" className="acwf-tabs">
-          <Tab eventKey="use" title="Use">
+          <Tab eventKey="use" title="Use" className="acwf-tab">
             <div className="description">
               Select an element to show the equation of state (EOS) curves for
               various reference structures containing it (unaries and oxides)

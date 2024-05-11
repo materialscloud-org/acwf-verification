@@ -15,11 +15,12 @@
 
 /* common to all "containers" */
 .gen_container {
-  border: 1px solid #999;
-  border-radius: 10px;
+  /* border: 1px solid #999; */
+  /* border-radius: 10px; */
   width: 930px;
   /* max-width: 900px; */
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 .graph_container {

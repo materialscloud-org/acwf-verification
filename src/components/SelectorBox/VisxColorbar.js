@@ -7,7 +7,7 @@ import { qualityThersh, colorScale } from "../../utils/variables";
 
 const VisxColorbar = (props) => {
   const width = 20; // Width of the colorbar
-  const height = 255; // Height of the colorbar
+  const height = 280; // Height of the colorbar
 
   var qts = qualityThersh[props.measure];
 
@@ -20,7 +20,7 @@ const VisxColorbar = (props) => {
   });
 
   return (
-    <svg width={58} height={275}>
+    <svg width={58} height={299}>
       <LinearGradient id="colorbar-gradient">
         <stop
           offset={`${100 * (1 - qts["outlier"] / scaleMax)}%`}

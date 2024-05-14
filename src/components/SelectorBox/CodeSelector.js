@@ -24,7 +24,7 @@ const helpPopover = (
           margin: "6px 10px",
         }}
       >
-        short-name &nbsp; &nbsp; - code-name@basis-set|pseudopotential
+        short-name &nbsp; - code-name@basis-set|pseudopotential
       </div>
       See more details in the About section.
     </Popover.Body>

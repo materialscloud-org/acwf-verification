@@ -131,7 +131,7 @@ class CodeSelector extends React.Component {
           <div className="method-subheading">All-electron reference:</div>
           {this.props.codeOrder.map((code) => {
             let format = this.props.codeFormatting[code];
-            if (format["type"] == "ae") {
+            if (format["type"] == "methods-ae") {
               return this.codeCheckEntry(
                 code,
                 format["shortLabel"],
@@ -143,7 +143,7 @@ class CodeSelector extends React.Component {
           <div className="method-subheading">Pseudopotential methods:</div>
           {this.props.codeOrder.map((code) => {
             let format = this.props.codeFormatting[code];
-            if (format["type"] == "pp-main") {
+            if (format["type"] == "methods-pp-main") {
               return this.codeCheckEntry(
                 code,
                 format["shortLabel"],
@@ -157,7 +157,7 @@ class CodeSelector extends React.Component {
           </div>
           {this.props.codeOrder.map((code) => {
             let format = this.props.codeFormatting[code];
-            if (format["type"] == "pp-contrib") {
+            if (format["type"] == "methods-pp-contrib") {
               return this.codeCheckEntry(
                 code,
                 format["shortLabel"],

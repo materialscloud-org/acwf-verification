@@ -182,7 +182,7 @@ class EOSGraph extends React.Component {
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (bm_fit == null) continue;
 
-      lineOrder.push(code);
+      if (code != "all-electron average") lineOrder.push(code);
 
       chartDataAll[code] = {
         fit: birch_murnaghan_array(v_min, v_max, bm_fit, unique_eos_points),
@@ -202,6 +202,9 @@ class EOSGraph extends React.Component {
       );
       if (this_e_max > e_max) e_max = this_e_max;
     }
+
+    // make sure ae average is shown on top
+    lineOrder.push("all-electron average");
 
     // calculate tick positions
     var xticks = tickRange(Math.ceil(v_min), Math.floor(v_max) + 1, 1.0);

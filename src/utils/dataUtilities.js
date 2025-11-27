@@ -35,40 +35,34 @@ export function getCodeOrderAndFormatting(metadata) {
 
   let codeOrder = [...aeCodes, ...pseudoCodes, ...contribCodes];
 
-  console.log(codeOrder);
-
   let formatting = {};
 
   let color_counter = 0;
 
-  Object.entries(metadata["methods-ae"]).forEach(([key, value]) => {
-    formatting[key] = {
-      shortLabel: value["short_label"],
-      type: "ae",
-      fontStyle: { fontWeight: "600" },
-      color: colorList[color_counter],
-    };
-    color_counter += 1;
-  });
+  codeOrder.forEach((code) => {
+    for (const type of [
+      "methods-ae",
+      "methods-pp-main",
+      "methods-pp-contrib",
+    ]) {
+      if (code in metadata[type]) {
+        let meta = metadata[type][code];
+        let fontStyle = {};
+        if (type === "methods-ae") {
+          fontStyle = { fontWeight: "600" };
+        } else if (type === "methods-pp-contrib") {
+          fontStyle = { fontStyle: "italic" };
+        }
 
-  Object.entries(metadata["methods-pp-main"]).forEach(([key, value]) => {
-    formatting[key] = {
-      shortLabel: value["short_label"],
-      type: "pp-main",
-      fontStyle: {},
-      color: colorList[color_counter],
-    };
-    color_counter += 1;
-  });
-
-  Object.entries(metadata["methods-pp-contrib"]).forEach(([key, value]) => {
-    formatting[key] = {
-      shortLabel: value["short_label"],
-      type: "pp-contrib",
-      fontStyle: { fontStyle: "italic" },
-      color: colorList[color_counter],
-    };
-    color_counter += 1;
+        formatting[code] = {
+          shortLabel: meta["short_label"],
+          type: type,
+          fontStyle: fontStyle,
+          color: colorList[color_counter],
+        };
+        color_counter += 1;
+      }
+    }
   });
 
   return [codeOrder, formatting];

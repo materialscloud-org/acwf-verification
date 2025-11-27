@@ -8,10 +8,10 @@ export default function SelectorBox(props) {
     <div>
       <div className="selector_container">
         <CodeSelector
-          allCodes={props.allCodes}
+          codeOrder={props.codeOrder}
+          codeFormatting={props.codeFormatting}
           selectedCodes={props.selectedCodes}
           onCodeSelectionChange={props.onCodeSelectionChange}
-          codeInfo={props.codeInfo}
           elementData={props.elementData}
         />
         <MeasureSelector

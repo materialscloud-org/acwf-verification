@@ -59,7 +59,7 @@ class CodeSelector extends React.Component {
     return enabled;
   }
 
-  codeCheckEntry(code, info) {
+  codeCheckEntry(code, shortLabel, fontStyle) {
     let label = (
       <div
         className="code-checkbox"
@@ -67,7 +67,7 @@ class CodeSelector extends React.Component {
         //   background: "green",
         // }}
       >
-        {info["short_label"]}
+        {shortLabel}
       </div>
     );
     return (
@@ -84,8 +84,7 @@ class CodeSelector extends React.Component {
         <Form.Check
           style={{
             gridColumnStart: 1,
-            fontWeight: info["fontw"],
-            // background: "red",
+            ...fontStyle,
           }}
           inline={true}
           type={"checkbox"}
@@ -130,15 +129,41 @@ class CodeSelector extends React.Component {
             <HelpButton popover={helpPopover} />
           </div>
           <div className="method-subheading">All-electron reference:</div>
-          {/* AE codes */}
-          {this.props.allCodes.map((code, i) => {
-            if (this.props.codeInfo[code]["ae"])
-              return this.codeCheckEntry(code, this.props.codeInfo[code]);
+          {this.props.codeOrder.map((code) => {
+            let format = this.props.codeFormatting[code];
+            if (format["type"] == "ae") {
+              return this.codeCheckEntry(
+                code,
+                format["shortLabel"],
+                format["fontStyle"]
+              );
+            }
           })}
+
           <div className="method-subheading">Pseudopotential methods:</div>
-          {this.props.allCodes.map((code, i) => {
-            if (!this.props.codeInfo[code]["ae"])
-              return this.codeCheckEntry(code, this.props.codeInfo[code]);
+          {this.props.codeOrder.map((code) => {
+            let format = this.props.codeFormatting[code];
+            if (format["type"] == "pp-main") {
+              return this.codeCheckEntry(
+                code,
+                format["shortLabel"],
+                format["fontStyle"]
+              );
+            }
+          })}
+
+          <div className="method-subheading">
+            Contributed pseudopotential methods:
+          </div>
+          {this.props.codeOrder.map((code) => {
+            let format = this.props.codeFormatting[code];
+            if (format["type"] == "pp-contrib") {
+              return this.codeCheckEntry(
+                code,
+                format["shortLabel"],
+                format["fontStyle"]
+              );
+            }
           })}
         </Container>
       </div>

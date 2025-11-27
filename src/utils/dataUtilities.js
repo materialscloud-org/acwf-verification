@@ -27,56 +27,51 @@ const colorList = [
 
 /**
  * Orderes codes such that AE are first and the rest are alphabetically after
- *
- * @param {*} processedData
- *
- * @returns ordered list
  */
-export function genCodeOrderAndInfo(allData) {
-  let allCodes = Object.keys(allData["metadata"]["methods"]);
-  let aeCodes = [];
-  let pseudoCodes = [];
+export function getCodeOrderAndFormatting(metadata) {
+  let aeCodes = Object.keys(metadata["methods-ae"]).sort();
+  let pseudoCodes = Object.keys(metadata["methods-pp-main"]).sort();
+  let contribCodes = Object.keys(metadata["methods-pp-contrib"]).sort();
 
-  const allElectronKeywords = ["wien2k", "fleur", "all-electron"];
+  let codeOrder = [...aeCodes, ...pseudoCodes, ...contribCodes];
 
-  const codeInfo = {};
+  console.log(codeOrder);
 
-  allCodes.forEach((code, i) => {
-    let info = {
-      ae: false,
-      fontw: "normal",
-      short_label: code,
+  let formatting = {};
+
+  let color_counter = 0;
+
+  Object.entries(metadata["methods-ae"]).forEach(([key, value]) => {
+    formatting[key] = {
+      shortLabel: value["short_label"],
+      type: "ae",
+      fontStyle: { fontWeight: "600" },
+      color: colorList[color_counter],
     };
-
-    if ("short_label" in allData["metadata"]["methods"][code])
-      info["short_label"] = allData["metadata"]["methods"][code]["short_label"];
-
-    if (allElectronKeywords.some((s) => code.toLowerCase().includes(s))) {
-      aeCodes.push(code);
-      info["ae"] = true;
-      info["fontw"] = "600";
-    } else {
-      pseudoCodes.push(code);
-    }
-    codeInfo[code] = info;
+    color_counter += 1;
   });
 
-  // aeCodes.sort((a, b) =>
-  //   a.localeCompare(b, undefined, { sensitivity: "base" })
-  // );
-  // pseudoCodes.sort((a, b) =>
-  //   a.localeCompare(b, undefined, { sensitivity: "base" })
-  // );
-  aeCodes.sort();
-  pseudoCodes.sort();
-
-  const orderedCodes = aeCodes.concat(pseudoCodes);
-
-  orderedCodes.forEach((code, i) => {
-    codeInfo[code]["color"] = colorList[i];
+  Object.entries(metadata["methods-pp-main"]).forEach(([key, value]) => {
+    formatting[key] = {
+      shortLabel: value["short_label"],
+      type: "pp-main",
+      fontStyle: {},
+      color: colorList[color_counter],
+    };
+    color_counter += 1;
   });
 
-  return [orderedCodes, codeInfo];
+  Object.entries(metadata["methods-pp-contrib"]).forEach(([key, value]) => {
+    formatting[key] = {
+      shortLabel: value["short_label"],
+      type: "pp-contrib",
+      fontStyle: { fontStyle: "italic" },
+      color: colorList[color_counter],
+    };
+    color_counter += 1;
+  });
+
+  return [codeOrder, formatting];
 }
 
 // --------------------------------------------------

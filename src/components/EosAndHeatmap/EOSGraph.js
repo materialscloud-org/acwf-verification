@@ -128,8 +128,9 @@ class EOSGraph extends React.Component {
     // find all the unique ones
 
     var all_eos_points = [];
-    for (const code of Object.keys(this.props.processedData)) {
+    for (const code of this.props.codeOrder) {
       if (!this.props.selectedCodes.has(code)) continue;
+      if (!(code in this.props.processedData)) continue;
       let eos_data = this.props.processedData[code]["eos_data_per_atom"];
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (eos_data == null || bm_fit == null) continue;
@@ -163,7 +164,7 @@ class EOSGraph extends React.Component {
     // code2: ...
     //}
 
-    var lineOrder = []; // order lines, such that AE avg is last.
+    var lineOrder = [];
 
     const [v_min, v_max] = this.vLimits();
 
@@ -174,8 +175,9 @@ class EOSGraph extends React.Component {
     var e_max = 0.0;
 
     // go through all datasets and prepare the plotting data
-    for (const code of Object.keys(this.props.processedData)) {
+    for (const code of this.props.codeOrder) {
       if (!this.props.selectedCodes.has(code)) continue;
+      if (!(code in this.props.processedData)) continue;
       let eos_data = this.props.processedData[code]["eos_data_per_atom"];
       let bm_fit = this.props.processedData[code]["bm_fit_per_atom"];
       if (bm_fit == null) continue;
@@ -199,12 +201,6 @@ class EOSGraph extends React.Component {
         ...chartDataAll[code]["fit"].map((x) => x["e"])
       );
       if (this_e_max > e_max) e_max = this_e_max;
-    }
-
-    // make sure ae average is last in line order, to make it always visible
-    if (lineOrder.includes("all-electron average")) {
-      lineOrder.splice(lineOrder.indexOf("all-electron average"), 1);
-      lineOrder.push("all-electron average");
     }
 
     // calculate tick positions
@@ -250,19 +246,10 @@ class EOSGraph extends React.Component {
           <Tooltip
             content={<CustomTooltip />}
             wrapperStyle={{ outline: "none" }}
-            // formatter={(value, name) => {
-            //   return value.toFixed(4);
-            // }}
-            // labelFormatter={(value) => value.toFixed(2)}
-            // itemSorter={(item) => {
-            //   return -item.value;
-            // }}
-            // itemStyle={{ fontSize: 12 }}
-            // labelStyle={{ fontSize: 12 }}
           />
 
           {lineOrder.map(function (code) {
-            let name = this.props.codeFormatting[code]["short_label"];
+            let name = this.props.codeFormatting[code]["shortLabel"];
             return (
               <Line
                 key={code + "-fit"}
@@ -278,7 +265,7 @@ class EOSGraph extends React.Component {
             );
           }, this)}
           {lineOrder.map(function (code) {
-            let name = this.props.codeFormatting[code]["short_label"];
+            let name = this.props.codeFormatting[code]["shortLabel"];
             if ("points" in chartDataAll[code]) {
               return (
                 <Line

@@ -49,15 +49,15 @@ class HeatMap extends React.Component {
     let codeFormat =
       this.props.codeFormatting[this.codeList.slice().reverse()[index]];
     return {
-      name: codeFormat["short_label"],
+      name: codeFormat["shortLabel"],
       color: codeFormat["color"],
-      fontw: codeFormat["fontw"],
+      ...codeFormat["fontStyle"],
     };
   };
 
   tickFormatX = (v, index, ticks) => {
     let codeFormat = this.props.codeFormatting[this.codeList[index]];
-    return codeFormat["short_label"];
+    return codeFormat["shortLabel"];
   };
 
   render() {
@@ -181,8 +181,7 @@ class HeatMap extends React.Component {
               textAnchor: "end",
               scaleToFit: "shrink-only",
               fontSize: 12,
-              fontWeight:
-                this.props.codeFormatting[this.codeList[index]]["fontw"],
+              ...this.props.codeFormatting[this.codeList[index]]["fontStyle"],
             })}
           />
           <AxisLeft
@@ -206,7 +205,8 @@ class HeatMap extends React.Component {
                   x={x - 110} // or 4 & textAnchor={"end"}
                   y={y + 1}
                   fontSize={12}
-                  fontWeight={formattedValue.fontw}
+                  fontWeight={formattedValue.fontWeight}
+                  fontStyle={formattedValue.fontStyle}
                   textAnchor={"start"}
                   dominantBaseline={"middle"}
                 >

@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 
 import PeriodicTable from "./PeriodicTable";
-
 import EosAndHeatmap from "./EosAndHeatmap";
-
 import SelectorBox from "./SelectorBox";
 
 import {
-  genCodeOrderAndInfo,
+  getCodeOrderAndFormatting,
   calcComparisonMatrices,
   calcMatrixMax,
 } from "../utils/dataUtilities";
@@ -29,112 +27,105 @@ const crystalOrder = [
   "XO3",
 ];
 
-class ACWF extends React.Component {
-  constructor(props) {
-    super(props);
-
-    [this.orderedCodes, this.codeInfo] = genCodeOrderAndInfo(allData);
-
-    this.comparisonMatrices = calcComparisonMatrices(
-      allData["data"],
-      this.orderedCodes
-    );
-    // console.log(this.comparisonMatrices);
-
-    this.state = {
-      selectedCodes: new Set(this.orderedCodes),
-      selectedElement: null,
-      selectedMeasure: "epsilon",
+const ACWF = () => {
+  // 1. Initial Data Calculation (mimicking constructor logic)
+  // We use useMemo with an empty dependency array [] so this only calculates once on mount.
+  const { codeOrder, codeFormatting, comparisonMatrices } = useMemo(() => {
+    const [order, formatting] = getCodeOrderAndFormatting(allData["metadata"]);
+    const matrices = calcComparisonMatrices(allData["data"], order);
+    return {
+      codeOrder: order,
+      codeFormatting: formatting,
+      comparisonMatrices: matrices,
     };
+  }, []);
 
-    this.changeElementSelection = this.changeElementSelection.bind(this);
-    this.handleCodeSelectionChange = this.handleCodeSelectionChange.bind(this);
-    this.handleMeasureChange = this.handleMeasureChange.bind(this);
-  }
+  // 2. State Management
+  const [selectedCodes, setSelectedCodes] = useState(new Set(codeOrder));
+  const [selectedElement, setSelectedElement] = useState(null);
+  const [selectedMeasure, setSelectedMeasure] = useState("epsilon");
 
-  handleCodeSelectionChange(newSelectedCodes) {
-    if (newSelectedCodes !== this.state.selectedCodes) {
-      this.setState({ selectedCodes: newSelectedCodes });
+  // 3. Handlers
+  const handleCodeSelectionChange = (newSelectedCodes) => {
+    if (newSelectedCodes !== selectedCodes) {
+      setSelectedCodes(newSelectedCodes);
     }
-  }
+  };
 
-  handleMeasureChange(newMeasure) {
-    if (newMeasure !== this.state.selectedMeasure) {
-      this.setState({ selectedMeasure: newMeasure });
+  const handleMeasureChange = (newMeasure) => {
+    if (newMeasure !== selectedMeasure) {
+      setSelectedMeasure(newMeasure);
     }
-  }
+  };
 
-  changeElementSelection(newElement) {
-    this.setState({
-      selectedElement: newElement,
-    });
-  }
+  const changeElementSelection = (newElement) => {
+    setSelectedElement(newElement);
+  };
 
-  render() {
-    // calculate the matrix maxvalue across all the crystals of the current element
-    var matrixMax = null;
-    if (this.state.selectedElement != null) {
-      matrixMax = calcMatrixMax(
-        this.comparisonMatrices,
-        this.state.selectedElement,
-        this.state.selectedMeasure,
-        this.state.selectedCodes
+  // 4. Derived Data (Render Logic)
+  // Calculate matrixMax only when dependencies change
+  const matrixMax = useMemo(() => {
+    if (selectedElement != null) {
+      return calcMatrixMax(
+        comparisonMatrices,
+        selectedElement,
+        selectedMeasure,
+        selectedCodes
       );
     }
+    return null;
+  }, [selectedElement, selectedMeasure, selectedCodes, comparisonMatrices]);
 
-    var sel_elem = this.state.selectedElement;
-
-    return (
-      <div className="acwf">
-        <div className="gen_container">
-          <PeriodicTable
-            onElementSelect={this.changeElementSelection}
-            selection={sel_elem}
-            enabledElements={new Set(Object.keys(allData["data"]))}
-          />
-        </div>
-        {sel_elem != null ? (
-          <div>
-            <div className="gen_container">
-              <SelectorBox
-                allCodes={this.orderedCodes}
-                selectedCodes={this.state.selectedCodes}
-                onCodeSelectionChange={this.handleCodeSelectionChange}
-                codeInfo={this.codeInfo}
-                elementData={allData["data"][sel_elem]}
-                onMeasureChange={this.handleMeasureChange}
-                selectedMeasure={this.state.selectedMeasure}
-              />
-            </div>
-            {crystalOrder.map((crystal) => {
-              return (
-                <div
-                  key={sel_elem + crystal}
-                  className="gen_container graph_container"
-                >
-                  <EosAndHeatmap
-                    element={sel_elem}
-                    processedData={allData["data"][sel_elem][crystal]}
-                    comparisonMatrix={
-                      this.comparisonMatrices[sel_elem][crystal][
-                        this.state.selectedMeasure
-                      ]
-                    }
-                    matrixMax={matrixMax}
-                    crystal={crystal}
-                    allCodes={this.orderedCodes}
-                    selectedCodes={this.state.selectedCodes}
-                    codeFormatting={this.codeInfo}
-                    measure={this.state.selectedMeasure}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        ) : null}
+  return (
+    <div className="acwf">
+      <div className="gen_container">
+        <PeriodicTable
+          onElementSelect={changeElementSelection}
+          selection={selectedElement}
+          enabledElements={new Set(Object.keys(allData["data"]))}
+        />
       </div>
-    );
-  }
-}
+      {selectedElement != null ? (
+        <div>
+          <div className="gen_container">
+            <SelectorBox
+              codeOrder={codeOrder}
+              codeFormatting={codeFormatting}
+              selectedCodes={selectedCodes}
+              onCodeSelectionChange={handleCodeSelectionChange}
+              elementData={allData["data"][selectedElement]}
+              onMeasureChange={handleMeasureChange}
+              selectedMeasure={selectedMeasure}
+            />
+          </div>
+          {crystalOrder.map((crystal) => {
+            return (
+              <div
+                key={selectedElement + crystal}
+                className="gen_container graph_container"
+              >
+                <EosAndHeatmap
+                  codeOrder={codeOrder}
+                  codeFormatting={codeFormatting}
+                  element={selectedElement}
+                  processedData={allData["data"][selectedElement][crystal]}
+                  comparisonMatrix={
+                    comparisonMatrices[selectedElement][crystal][
+                      selectedMeasure
+                    ]
+                  }
+                  matrixMax={matrixMax}
+                  crystal={crystal}
+                  selectedCodes={selectedCodes}
+                  measure={selectedMeasure}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 export default ACWF;

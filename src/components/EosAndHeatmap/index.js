@@ -70,9 +70,10 @@ class EosAndHeatmap extends React.Component {
               Equation of state (EOS)
             </center>
             <EOSGraph
+              codeOrder={this.props.codeOrder}
+              codeFormatting={this.props.codeFormatting}
               processedData={this.props.processedData}
               selectedCodes={this.props.selectedCodes}
-              codeFormatting={this.props.codeFormatting}
             />
           </div>
           <div
@@ -86,11 +87,12 @@ class EosAndHeatmap extends React.Component {
               {heatmapTitle(this.props.measure)}
             </center>
             <HeatMap
+              codeOrder={this.props.codeOrder}
+              codeFormatting={this.props.codeFormatting}
               matrix={this.props.comparisonMatrix}
               selectedCodes={this.props.selectedCodes}
               maxValue={this.props.matrixMax}
               measure={this.props.measure}
-              codeFormatting={this.props.codeFormatting}
             />
           </div>
         </div>

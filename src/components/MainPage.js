@@ -13,16 +13,17 @@ import { aboutText } from "./about";
 
 function MainPage() {
   return (
-    <MaterialsCloudHeader
-      activeSection={"discover"}
-      breadcrumbsPath={[
-        { name: "Discover", link: "https://www.materialscloud.org/discover" },
-        {
-          name: "Verification of the precision of DFT implementations via AiiDA common workflows",
-          link: null,
-        },
-      ]}
-    >
+    <>
+      <MaterialsCloudHeader
+        activeSection={"discover"}
+        breadcrumbsPath={[
+          { name: "Discover", link: "https://www.materialscloud.org/discover" },
+          {
+            name: "Verification of the precision of DFT implementations via AiiDA common workflows",
+            link: null,
+          },
+        ]}
+      ></MaterialsCloudHeader>
       <div className="main-page">
         <AppHeader />
         {/* <div className="note">NOTE: This is a beta version!</div> */}
@@ -73,7 +74,7 @@ function MainPage() {
           </Tab>
         </Tabs>
       </div>
-    </MaterialsCloudHeader>
+    </>
   );
 }
 

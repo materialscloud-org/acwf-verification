@@ -214,7 +214,7 @@ export const aboutText = (
       </li>
     </ol>
     <div className="about-h">Contributed datasets</div>
-    <table class="contributed-table">
+    <table className="contributed-table">
       <thead>
         <tr>
           <th>Dataset label</th>

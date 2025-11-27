@@ -16,7 +16,7 @@
     "@visx/shape": "^2.12.2",
     "better-react-mathjax": "^2.0.2",
     "bootstrap": "^5.2.2",
-    "mc-react-header": "^0.2.1",
+    "mc-react-header": "^0.4.4",
     "react": "^18.1.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.1.0",

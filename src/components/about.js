@@ -213,6 +213,25 @@ export const aboutText = (
         </MathJax>
       </li>
     </ol>
+    <div className="about-h">Contributed datasets</div>
+    <table class="contributed-table">
+      <thead>
+        <tr>
+          <th>Dataset label</th>
+          <th>Source link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ABACUS@PW|PseudoDojo-v0.4</td>
+          <td>
+            <a href="https://doi.org/10.24435/materialscloud:gx-vc">
+              doi.org/10.24435/materialscloud:gx-vc
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>{" "}
     <div className="about-h">References</div>
     {Object.keys(references).map((key) => {
       let nr = refNr(key);

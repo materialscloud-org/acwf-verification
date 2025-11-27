@@ -19,3 +19,21 @@
 .ol-space-update > li {
   margin: 15px 0px;
 }
+
+.contributed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  border: 1px solid #333;
+}
+
+.contributed-table th,
+.contributed-table td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: left;
+}
+
+.contributed-table thead tr {
+  background-color: #f2f2f2;
+}

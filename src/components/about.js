@@ -230,6 +230,14 @@ export const aboutText = (
             </a>
           </td>
         </tr>
+        <tr>
+          <td>DFTK@PW|PseudoDojo-v0.5</td>
+          <td>
+            <a href="https://doi.org/10.24435/materialscloud:zr-09">
+              doi.org/10.24435/materialscloud:zr-09
+            </a>
+          </td>
+        </tr>
       </tbody>
     </table>{" "}
     <div className="about-h">References</div>

@@ -23,6 +23,18 @@ const colorList = [
   "#6a3d9a",
   "#b15928",
   "#e8e81c", // modified to darker yellow
+  // extended colors:
+  "#17becf", // cyan
+  "#2ca02c", // strong green
+  "#9467bd", // muted purple
+  "#d62728", // deep red
+  "#8c564b", // brown
+  "#7f7f7f", // neutral gray
+  "#bcbd22", // olive
+  "#ff1493", // deep pink / magenta
+  "#00a087", // teal
+  "#4d4dff", // vivid blue
+  "#ffcc00", // bright gold
 ];
 
 /**

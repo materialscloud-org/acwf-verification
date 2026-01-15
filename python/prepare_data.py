@@ -53,7 +53,7 @@ ALL_ELECTRON_METHODS = ["all-electron average", "FLEUR@LAPW+LO", "WIEN2k@(L)APW+
 
 # The contributed methods are added to the "methods-supplementary" key in the original file,
 # together with datasets that are not published. Therefore we need an explicit list on what to pick.
-CONTRIBUTED_METHODS = ["ABACUS@PW|PseudoDojo-v0.4"]
+CONTRIBUTED_METHODS = ["ABACUS@PW|PseudoDojo-v0.4", "DFTK@PW|PseudoDojo-v0.5"]
 
 
 def nested_dict():

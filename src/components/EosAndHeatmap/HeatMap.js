@@ -14,7 +14,7 @@ const cool1 = "#122549";
 const cool2 = "#b4fbde";
 export const background = "#28272c";
 
-const width = 440;
+const width = 500;
 const height = 400;
 
 const margin = { top: 10, left: 140, right: 10, bottom: 105 };
@@ -108,7 +108,11 @@ class HeatMap extends React.Component {
     }
 
     return (
-      <svg width={width} height={height}>
+      <svg
+        className="heatmap-svg"
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="xMidYMid meet"
+      >
         <Group top={margin.top} bottom={margin.bottom} left={margin.left}>
           <HeatmapRect
             data={dataMatrix}

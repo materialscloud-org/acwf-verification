@@ -1,0 +1,26 @@
+.eos-heatmap {
+  width: 100%;
+}
+
+.eos-heatmap-title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.eos-heatmap-panels {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.eos-heatmap-panel {
+  flex: 1 1 420px;
+  min-width: 320px;
+}
+
+.eos-heatmap-panel-title {
+  text-align: center;
+  margin-bottom: 6px;
+}

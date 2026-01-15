@@ -10,6 +10,7 @@ import {
   Legend,
   Scatter,
   Dot,
+  ResponsiveContainer,
 } from "recharts";
 
 import "./EOSGraph.css";
@@ -87,7 +88,7 @@ class EOSGraph extends React.Component {
     super(props);
     // this.props.processedData[code] = { eos_data_per_atom, bm_fit_per_atom }
 
-    this.width = 400;
+    this.width = 450;
     this.height = 380;
     this.margins = {
       top: 5,
@@ -148,11 +149,11 @@ class EOSGraph extends React.Component {
     // if the inputData is empty, don't render anything
     if (Object.keys(this.props.processedData).length === 0)
       return (
-        <ComposedChart
-          width={this.width}
-          height={this.height}
-          margin={this.margins}
-        ></ComposedChart>
+        <div className="eos-graph">
+          <ResponsiveContainer width="100%" height={this.height}>
+            <ComposedChart margin={this.margins}></ComposedChart>
+          </ResponsiveContainer>
+        </div>
       );
 
     // console.log(this.props.processedData);
@@ -214,12 +215,9 @@ class EOSGraph extends React.Component {
     // console.log(chartDataAll);
 
     return (
-      <div>
-        <ComposedChart
-          width={this.width}
-          height={this.height}
-          margin={this.margins}
-        >
+      <div className="eos-graph">
+        <ResponsiveContainer width="100%" height={this.height}>
+          <ComposedChart margin={this.margins}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="v"
@@ -289,12 +287,11 @@ class EOSGraph extends React.Component {
               );
             }
           }, this)}
-        </ComposedChart>
-        <center
-          style={{ fontSize: 14, marginTop: "-25px", marginLeft: "45px" }}
-        >
+          </ComposedChart>
+        </ResponsiveContainer>
+        <div className="eos-graph-xlabel">
           Cell volume per atom [Å<sup>3</sup>]
-        </center>
+        </div>
       </div>
     );
   }

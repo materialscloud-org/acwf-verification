@@ -17,10 +17,12 @@
 .gen_container {
   /* border: 1px solid #999; */
   /* border-radius: 10px; */
-  width: 930px;
+  width: 100%;
+  max-width: 1200px;
   /* max-width: 900px; */
   margin: 0 auto;
   margin-top: 20px;
+  box-sizing: border-box;
 }
 
 .graph_container {

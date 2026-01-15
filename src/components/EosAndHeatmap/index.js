@@ -4,6 +4,7 @@ import EOSGraph from "./EOSGraph";
 
 import HeatMap from "./HeatMap";
 
+import "./EosAndHeatmap.css";
 function isCharNum(c) {
   return c >= "0" && c <= "9";
 }
@@ -56,19 +57,15 @@ class EosAndHeatmap extends React.Component {
 
   render() {
     return (
-      <div>
-        <center>{formatLabel(this.props.element, this.props.crystal)}</center>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "top",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <div>
-            <center style={{ marginLeft: "60px" }}>
+      <div className="eos-heatmap">
+        <div className="eos-heatmap-title">
+          {formatLabel(this.props.element, this.props.crystal)}
+        </div>
+        <div className="eos-heatmap-panels">
+          <div className="eos-heatmap-panel">
+            <div className="eos-heatmap-panel-title">
               Equation of state (EOS)
-            </center>
+            </div>
             <EOSGraph
               codeOrder={this.props.codeOrder}
               codeFormatting={this.props.codeFormatting}
@@ -76,16 +73,10 @@ class EosAndHeatmap extends React.Component {
               selectedCodes={this.props.selectedCodes}
             />
           </div>
-          <div
-            style={
-              {
-                // border: "1px solid #999",
-              }
-            }
-          >
-            <center style={{ marginLeft: "125px" }}>
+          <div className="eos-heatmap-panel">
+            <div className="eos-heatmap-panel-title">
               {heatmapTitle(this.props.measure)}
-            </center>
+            </div>
             <HeatMap
               codeOrder={this.props.codeOrder}
               codeFormatting={this.props.codeFormatting}

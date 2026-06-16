@@ -1,8 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 
 import PeriodicTable from "./PeriodicTable";
 import EosAndHeatmap from "./EosAndHeatmap";
 import SelectorBox from "./SelectorBox";
+
+import { PTableWrapper } from "./PTableWrapper";
+import { symbols } from "mc-periodic-table";
 
 import {
   getCodeOrderAndFormatting,
@@ -44,6 +47,7 @@ const ACWF = () => {
   const [selectedCodes, setSelectedCodes] = useState(new Set(codeOrder));
   const [selectedElement, setSelectedElement] = useState(null);
   const [selectedMeasure, setSelectedMeasure] = useState("epsilon");
+  const tableRef = useRef(null);
 
   // 3. Handlers
   const handleCodeSelectionChange = (newSelectedCodes) => {
@@ -70,21 +74,50 @@ const ACWF = () => {
         comparisonMatrices,
         selectedElement,
         selectedMeasure,
-        selectedCodes
+        selectedCodes,
       );
     }
     return null;
   }, [selectedElement, selectedMeasure, selectedCodes, comparisonMatrices]);
 
+  const noInteractArray = useMemo(() => {
+    const enabledSymbols = new Set(Object.keys(allData.data));
+
+    const disabledAtomicNumbers = [];
+
+    for (let atomicNumber = 1; atomicNumber < symbols.length; atomicNumber++) {
+      const symbol = symbols[atomicNumber];
+
+      if (symbol && !enabledSymbols.has(symbol)) {
+        disabledAtomicNumbers.push(atomicNumber);
+      }
+    }
+
+    return disabledAtomicNumbers;
+  }, []);
+
+  console.log(selectedElement);
+
   return (
     <div className="acwf">
-      <div className="gen_container">
-        <PeriodicTable
-          onElementSelect={changeElementSelection}
-          selection={selectedElement}
-          enabledElements={new Set(Object.keys(allData["data"]))}
-        />
-      </div>
+      <PTableWrapper
+        ref={tableRef}
+        noInteractArray={noInteractArray}
+        onChange={(detail) => {
+          const activeKey = Object.entries(detail).find(
+            ([, v]) => v === 1,
+          )?.[0];
+
+          if (!activeKey) return;
+
+          const atomicNumber = Number(activeKey);
+          const symbol = symbols[atomicNumber];
+
+          setSelectedElement(symbol);
+        }}
+        singleMode={true}
+      />
+
       {selectedElement != null ? (
         <div>
           <div className="gen_container">

@@ -1,0 +1,6 @@
+allowBuilds:
+  core-js: true
+  core-js-pure: true
+minimumReleaseAgeExclude:
+  - mc-periodic-table@0.0.3
+  - mc-periodic-table@0.0.4

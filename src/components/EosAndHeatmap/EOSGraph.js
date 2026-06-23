@@ -83,10 +83,12 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-class EOSGraph extends React.Component {
+class EOSGraph extends React.PureComponent {
   constructor(props) {
     super(props);
     // this.props.processedData[code] = { eos_data_per_atom, bm_fit_per_atom }
+
+    this.curveCache = new Map();
 
     this.width = 450;
     this.height = 380;
@@ -96,6 +98,21 @@ class EOSGraph extends React.Component {
       left: 15,
       bottom: 25,
     };
+  }
+
+  getFitCurve(code, v_min, v_max, bm_fit, unique_eos_points) {
+    const key = `${code}:${v_min}:${v_max}`;
+
+    // cache values for free perf win.
+    let curve = this.curveCache.get(key);
+
+    if (!curve) {
+      curve = birch_murnaghan_array(v_min, v_max, bm_fit, unique_eos_points);
+
+      this.curveCache.set(key, curve);
+    }
+
+    return curve;
   }
 
   vLimits() {
@@ -186,7 +203,7 @@ class EOSGraph extends React.Component {
       if (code != "all-electron average") lineOrder.push(code);
 
       chartDataAll[code] = {
-        fit: birch_murnaghan_array(v_min, v_max, bm_fit, unique_eos_points),
+        fit: this.getFitCurve(code, v_min, v_max, bm_fit, unique_eos_points),
       };
 
       if (eos_data != null) {
@@ -198,14 +215,17 @@ class EOSGraph extends React.Component {
         chartDataAll[code]["points"] = eos_points;
       }
 
-      let this_e_max = Math.max(
-        ...chartDataAll[code]["fit"].map((x) => x["e"])
-      );
+      let this_e_max = -Infinity;
+      for (const p of chartDataAll[code].fit) {
+        if (p.e > this_e_max) this_e_max = p.e;
+      }
       if (this_e_max > e_max) e_max = this_e_max;
     }
 
     // make sure ae average is shown on top
-    lineOrder.push("all-electron average");
+    if (chartDataAll["all-electron average"]) {
+      lineOrder.push("all-electron average");
+    }
 
     // calculate tick positions
     var xticks = tickRange(Math.ceil(v_min), Math.floor(v_max) + 1, 1.0);

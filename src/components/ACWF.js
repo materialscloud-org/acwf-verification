@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
 
-import PeriodicTable from "./PeriodicTable";
 import EosAndHeatmap from "./EosAndHeatmap";
 import SelectorBox from "./SelectorBox";
 

@@ -4,3 +4,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - mc-periodic-table@0.0.3
   - mc-periodic-table@0.0.4
+  - vite@8.1.0

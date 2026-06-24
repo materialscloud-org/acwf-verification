@@ -14,7 +14,7 @@ import {
 
 import "./ACWF.css";
 
-import allData from "../data/data.json";
+import allData from "../data/data_rounded.json";
 
 const crystalOrder = [
   "X/SC",

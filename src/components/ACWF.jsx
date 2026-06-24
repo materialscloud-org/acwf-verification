@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef } from "react";
 
 import EosAndHeatmap from "./EosAndHeatmap";
 import SelectorBox from "./SelectorBox";
@@ -94,8 +94,6 @@ const ACWF = () => {
 
     return disabledAtomicNumbers;
   }, []);
-
-  console.log(selectedElement);
 
   return (
     <div className="acwf">

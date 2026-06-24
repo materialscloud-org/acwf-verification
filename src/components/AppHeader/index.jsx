@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./AppHeader.css";
 
 import DoiBadge from "./DoiBadge";

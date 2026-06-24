@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./DoiBadge.css";
 
 export default function DoiBadge() {

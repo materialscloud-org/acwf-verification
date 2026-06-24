@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ComposedChart,
-  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -238,75 +237,75 @@ class EOSGraph extends React.PureComponent {
       <div className="eos-graph">
         <ResponsiveContainer width="100%" height={this.height}>
           <ComposedChart margin={this.margins}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="v"
-            type="number"
-            domain={[v_min, v_max]}
-            tickFormatter={(value) => value.toFixed(1)}
-            allowDuplicatedCategory={false}
-            ticks={xticks}
-            // label={{ value: "Cell volume [Å]", position: "bottom", fontSize: 14 }}
-            fontSize={12}
-          />
-          <YAxis
-            type="number"
-            domain={[-0.004, e_max]}
-            tickFormatter={(value) => value.toFixed(1)}
-            ticks={yticks}
-            label={{
-              value: "Energy per atom [meV]",
-              angle: -90,
-              position: "left",
-              offset: -5,
-              style: { textAnchor: "middle" },
-              fontSize: 14,
-            }}
-            fontSize={12}
-          />
-          <Tooltip
-            content={<CustomTooltip />}
-            wrapperStyle={{ outline: "none" }}
-          />
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="v"
+              type="number"
+              domain={[v_min, v_max]}
+              tickFormatter={(value) => value.toFixed(1)}
+              allowDuplicatedCategory={false}
+              ticks={xticks}
+              // label={{ value: "Cell volume [Å]", position: "bottom", fontSize: 14 }}
+              fontSize={12}
+            />
+            <YAxis
+              type="number"
+              domain={[-0.004, e_max]}
+              tickFormatter={(value) => value.toFixed(1)}
+              ticks={yticks}
+              label={{
+                value: "Energy per atom [meV]",
+                angle: -90,
+                position: "left",
+                offset: -5,
+                style: { textAnchor: "middle" },
+                fontSize: 14,
+              }}
+              fontSize={12}
+            />
+            <Tooltip
+              content={<CustomTooltip />}
+              wrapperStyle={{ outline: "none" }}
+            />
 
-          {lineOrder.map(function (code) {
-            let name = this.props.codeFormatting[code]["shortLabel"];
-            return (
-              <Line
-                key={code + "-fit"}
-                data={chartDataAll[code]["fit"]}
-                dataKey="e"
-                dot={false}
-                activeDot={false}
-                stroke={this.props.codeFormatting[code]["color"]}
-                name={name}
-                isAnimationActive={false}
-                strokeWidth={2}
-              />
-            );
-          }, this)}
-          {lineOrder.map(function (code) {
-            let name = this.props.codeFormatting[code]["shortLabel"];
-            if ("points" in chartDataAll[code]) {
+            {lineOrder.map(function (code) {
+              let name = this.props.codeFormatting[code]["shortLabel"];
               return (
                 <Line
-                  key={code + "-points"}
-                  data={chartDataAll[code]["points"]}
+                  key={code + "-fit"}
+                  data={chartDataAll[code]["fit"]}
                   dataKey="e"
-                  name={name + "_dots"}
-                  strokeWidth={0}
-                  stroke={this.props.codeFormatting[code]["color"]}
-                  dot={{
-                    stroke: this.props.codeFormatting[code]["color"],
-                    fill: this.props.codeFormatting[code]["color"],
-                    strokeWidth: 1,
-                  }}
+                  dot={false}
                   activeDot={false}
+                  stroke={this.props.codeFormatting[code]["color"]}
+                  name={name}
                   isAnimationActive={false}
+                  strokeWidth={2}
                 />
               );
-            }
-          }, this)}
+            }, this)}
+            {lineOrder.map(function (code) {
+              let name = this.props.codeFormatting[code]["shortLabel"];
+              if ("points" in chartDataAll[code]) {
+                return (
+                  <Line
+                    key={code + "-points"}
+                    data={chartDataAll[code]["points"]}
+                    dataKey="e"
+                    name={name + "_dots"}
+                    strokeWidth={0}
+                    stroke={this.props.codeFormatting[code]["color"]}
+                    dot={{
+                      stroke: this.props.codeFormatting[code]["color"],
+                      fill: this.props.codeFormatting[code]["color"],
+                      strokeWidth: 1,
+                    }}
+                    activeDot={false}
+                    isAnimationActive={false}
+                  />
+                );
+              }
+            }, this)}
           </ComposedChart>
         </ResponsiveContainer>
         <div className="eos-graph-xlabel">

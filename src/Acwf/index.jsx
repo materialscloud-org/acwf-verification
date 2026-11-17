@@ -10,11 +10,11 @@ import {
   getCodeOrderAndFormatting,
   calcComparisonMatrices,
   calcMatrixMax,
-} from "../utils/dataUtilities";
+} from "./dataUtilities";
 
-import "./ACWF.css";
+import "./Acwf.css";
 
-import allData from "../data/data.json";
+import allData from "./data.json";
 
 const crystalOrder = [
   "X/SC",

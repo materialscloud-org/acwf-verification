@@ -2,7 +2,7 @@ import React from "react";
 
 import { HelpButton } from "mc-react-library";
 
-import { qualityThersh } from "../../utils/variables";
+import { qualityThersh } from "../variables";
 
 import "./MeasureSelector.css";
 

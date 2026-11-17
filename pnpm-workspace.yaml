@@ -4,6 +4,7 @@ allowBuilds:
   core-js-pure: true
 minimumReleaseAgeExclude:
   - matsci-parse
+  - mc-react-header
   - mc-react-library
   - mc-periodic-table@0.0.3
   - mc-periodic-table@0.0.4

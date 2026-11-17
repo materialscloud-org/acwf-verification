@@ -1,8 +1,11 @@
+// Content of the page's text: the introduction above the tabs and the
+// "About" tab (the method, the comparison metrics, the references).
+
 import MathJax from "better-react-mathjax/MathJax";
 
-import { qualityThersh } from "../utils/variables";
+import { qualityThersh } from "./Acwf/variables";
 
-import "./about.css";
+import "./AboutContent.css";
 
 // string keys stay in insertion order, so use this order to determine the citation number
 const references = {
@@ -83,17 +86,31 @@ function refNr(key) {
   return Object.keys(references).indexOf(key) + 1;
 }
 
+// Flash the reference a citation jumps to (restarting the animation, so it
+// also flashes when the same citation is clicked again)
+function flashRef(nr) {
+  const el = document.getElementById("ref" + nr);
+  if (!el) return;
+  el.classList.remove("ref-flash");
+  void el.offsetWidth;
+  el.classList.add("ref-flash");
+}
+
 function getRef(key) {
   return (
     <sup>
-      <a className="cite-anchor" href={"#ref" + refNr(key)}>
+      <a
+        className="cite-anchor"
+        href={"#ref" + refNr(key)}
+        onClick={() => flashRef(refNr(key))}
+      >
         [{refNr(key)}]
       </a>
     </sup>
   );
 }
 
-export const aboutText = (
+const theoryText = (
   <div>
     Density functional theory (DFT) is extensively used in condensed matter
     physics and materials science. Many different software codes and
@@ -251,3 +268,34 @@ export const aboutText = (
     })}
   </div>
 );
+
+/** The introduction above the tabs, with the paper to cite. */
+export function Introduction() {
+  return (
+    <div className="description">
+      This section contains reference and verification datasets of equations of
+      state (EOS) calculated with different density functional theory (DFT)
+      codes using the AiiDA common workflows (ACWF) infrastructure. The data is
+      published and discussed in the article:
+      <div className="citation">
+        E. Bosoni et al.,{" "}
+        <i>
+          How to verify the precision of density-functional-theory
+          implementations via reproducible and universal workflows
+        </i>
+        ,{" "}
+        <a
+          href="https://doi.org/10.1038/s42254-023-00655-3"
+          className="citation-link"
+        >
+          <span className="custom-bold">Nat. Rev. Phys. 6</span>, 45-58 (2024)
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/** The "About" tab. */
+export default function About() {
+  return <div className="description">{theoryText}</div>;
+}

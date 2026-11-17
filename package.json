@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "homepage": "https://acwf-verification.materialscloud.org",
+  "packageManager": "pnpm@11.5.3",
   "dependencies": {
     "@visx/axis": "^2.14.0",
     "@visx/gradient": "^3.0.0",
@@ -14,7 +15,7 @@
     "better-react-mathjax": "^2.0.2",
     "matsci-parse": "0.18.23",
     "mc-periodic-table": "0.0.4",
-    "mc-react-header": "0.7.2",
+    "mc-react-header": "0.7.3",
     "mc-react-library": "^0.7.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,9 +25,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.16",

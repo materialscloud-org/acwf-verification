@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { birch_murnaghan } from "../../utils/comparisonMeasures";
+import { birch_murnaghan } from "../comparisonMeasures";
 
 import "./EOSGraph.css";
 

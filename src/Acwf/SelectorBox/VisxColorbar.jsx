@@ -3,7 +3,7 @@ import { AxisRight } from "@visx/axis";
 import { LinearGradient } from "@visx/gradient";
 import { Group } from "@visx/group";
 
-import { qualityThersh, colorScale } from "../../utils/variables";
+import { qualityThersh, colorScale } from "../variables";
 
 const VisxColorbar = (props) => {
   const width = 20; // Width of the colorbar

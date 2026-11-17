@@ -1,5 +1,13 @@
 import { birchMurnaghan } from "matsci-parse";
 
+// TODO: potential to move to matsci-parse (next to fitEos / birchMurnaghan):
+// the Gauss-Legendre quadrature and the Δ, ε and ν comparisons of two
+// equations of state are generic, not ACWF-specific. They would take
+// matsci-parse's EosParameters ({ e0, v0, b0, b1 }); the ACWF field names
+// (min_volume, bulk_modulus_ev_ang3, bulk_deriv) and the thresholds in
+// variables.js stay here. Keep the 8-digit quadrature nodes/weights for
+// results identical to the Python reference scripts.
+
 /**
  * Gauss-Legendre quadrature to integrate a function.
  * 7 points means that the result is exact for a polynomial up to a degree of 13

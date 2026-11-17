@@ -36,8 +36,8 @@ importers:
         specifier: 0.18.23
         version: 0.18.23
       mc-periodic-table:
-        specifier: 0.0.4
-        version: 0.0.4
+        specifier: 0.2.1
+        version: 0.2.1
       mc-react-header:
         specifier: 0.7.3
         version: 0.7.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1224,11 +1224,14 @@ packages:
     resolution: {integrity: sha512-+LfG9Fik+OuI8SLwsiR02IVdjcnRCy5MufYLi0C3TdMT56L/pjB0alMVGgoWJF8pN9Rc7FESycZB9BMNWIid5w==}
     deprecated: Version 4 replaces this package with the scoped package @mathjax/src
 
+  matsci-parse@0.17.0:
+    resolution: {integrity: sha512-cDlkagfENI0HrPjfvfqWqTWzHmCJB7kMfo57GT20xOWgcJCLDEwp5GZ2bBegVs8PdpatNoBSeFNHypV1p+pe/A==}
+
   matsci-parse@0.18.23:
     resolution: {integrity: sha512-uMjkszF+WOl3N1jFCp5njDRG9rKZOBVa2WpQBn0HeWaeJmIGcqbdKnwyY1riA1gXPFeg41GMlQ6zhTaoRBjqEg==}
 
-  mc-periodic-table@0.0.4:
-    resolution: {integrity: sha512-he4yo8Px4aM6aRgxYjsBpxVmcN+Tp4YBza4O4X8LeDr+KQ/YC8PstS7Be8VrhNnmndipvrcnwvldNSZzQSSaCg==}
+  mc-periodic-table@0.2.1:
+    resolution: {integrity: sha512-KFwhlJOZflKePMw2rccXQ+ssg6H/hOR8XBpuZqUZ7LLUNm58I7dbLZYc6GhbFb9dMMtVU5k3HpnP47RDDZkv+w==}
 
   mc-react-header@0.7.3:
     resolution: {integrity: sha512-0Sd4rUVfaHiP68L0e0GDBD0om7J2Dc6zjG/NZXEpx5GBPPEKGEb9iFIC6JqzYWSLypxBQ96zNO9FVgeOTFBwqA==}
@@ -2471,12 +2474,19 @@ snapshots:
       mj-context-menu: 0.6.1
       speech-rule-engine: 4.1.4
 
+  matsci-parse@0.17.0:
+    dependencies:
+      '@spglib/moyo-wasm': 0.21.0
+      txml: 6.0.3
+
   matsci-parse@0.18.23:
     dependencies:
       '@spglib/moyo-wasm': 0.21.0
       txml: 6.0.3
 
-  mc-periodic-table@0.0.4: {}
+  mc-periodic-table@0.2.1:
+    dependencies:
+      matsci-parse: 0.17.0
 
   mc-react-header@0.7.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

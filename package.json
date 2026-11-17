@@ -14,7 +14,7 @@
     "@visx/shape": "^2.12.2",
     "better-react-mathjax": "^2.0.2",
     "matsci-parse": "0.18.23",
-    "mc-periodic-table": "0.0.4",
+    "mc-periodic-table": "0.2.1",
     "mc-react-header": "0.7.3",
     "mc-react-library": "^0.7.12",
     "react": "^18.2.0",

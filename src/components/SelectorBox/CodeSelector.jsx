@@ -1,34 +1,31 @@
 import React from "react";
 
-import Form from "react-bootstrap/Form";
-
-import Container from "react-bootstrap/Container";
-
 import "./CodeSelector.css";
 
-import HelpButton from "../HelpButton";
-
-import Popover from "react-bootstrap/Popover";
+import { HelpButton } from "mc-react-library";
 
 const helpPopover = (
-  <Popover id="popover-basic">
-    <Popover.Header as="h3">Methods selection</Popover.Header>
-    <Popover.Body>
-      This section contains the selection of computational approaches to
-      compare. Each approach is represented by a row with the following format:
-      <div
-        style={{
-          backgroundColor: "#F2F7FC",
-          border: "1px solid #d6d6d6",
-          padding: "6px 12px",
-          margin: "6px 10px",
-        }}
-      >
-        short-name &nbsp; - code-name@basis-set|pseudopotential
-      </div>
-      See more details in the About section.
-    </Popover.Body>
-  </Popover>
+  <HelpButton
+    content={
+      <>
+        <div className="mb-2 text-base font-medium">Methods selection</div>
+        This section contains the selection of computational approaches to
+        compare. Each approach is represented by a row with the following
+        format:
+        <div
+          style={{
+            backgroundColor: "#F2F7FC",
+            border: "1px solid #d6d6d6",
+            padding: "6px 12px",
+            margin: "6px 10px",
+          }}
+        >
+          short-name &nbsp; - code-name@basis-set|pseudopotential
+        </div>
+        See more details in the About section.
+      </>
+    }
+  />
 );
 
 class CodeSelector extends React.Component {
@@ -81,19 +78,29 @@ class CodeSelector extends React.Component {
           // background: "red",
         }}
       >
-        <Form.Check
+        {/* As Bootstrap's inline form-check */}
+        <div
+          className="mr-4 mb-0.5 inline-block min-h-6 pl-[1.5em]"
           style={{
             gridColumnStart: 1,
             ...fontStyle,
           }}
-          inline={true}
-          type={"checkbox"}
-          id={code}
-          label={label}
-          defaultChecked={true}
-          onChange={this.handleToggle}
-          disabled={!this.isCodeEnabled(code)}
-        />
+        >
+          <input
+            className="float-left -ml-[1.5em] mt-[0.25em] h-[1em] w-[1em] align-top accent-[#0d6efd] disabled:opacity-50"
+            type="checkbox"
+            id={code}
+            defaultChecked={true}
+            onChange={this.handleToggle}
+            disabled={!this.isCodeEnabled(code)}
+          />
+          <label
+            htmlFor={code}
+            className={this.isCodeEnabled(code) ? undefined : "opacity-50"}
+          >
+            {label}
+          </label>
+        </div>
         <div
           style={{
             gridColumnStart: 2,
@@ -108,7 +115,7 @@ class CodeSelector extends React.Component {
   render() {
     return (
       <div className="code-selector-container">
-        <Container>
+        <div className="mx-auto w-full px-3">
           <div
             style={{
               display: "flex",
@@ -126,7 +133,7 @@ class CodeSelector extends React.Component {
               <span style={{ fontWeight: "600" }}>Select methods</span>
               <span style={{ textAlign: "center" }}>Functional: PBE</span>
             </div>
-            <HelpButton popover={helpPopover} />
+            {helpPopover}
           </div>
           <div className="method-subheading">All-electron reference:</div>
           {this.props.codeOrder.map((code) => {
@@ -165,7 +172,7 @@ class CodeSelector extends React.Component {
               );
             }
           })}
-        </Container>
+        </div>
       </div>
     );
   }

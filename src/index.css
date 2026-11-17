@@ -1,13 +1,49 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "tailwindcss";
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@layer base {
+  /* The Materials Cloud logo (mc-react-header 0.7.2 sizes it by its height
+     attribute only, which Tailwind's img { height: auto } overrides) */
+  .mc-navbrand img {
+    max-height: 50px;
+  }
+
+  body {
+    margin: 0;
+    color: #212529;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+
+  /* What Bootstrap's reboot gave the app's content (it used Bootstrap until
+     it moved to Tailwind): numbered/bulleted lists, inline images and SVGs
+     (e.g. MathJax), smooth scrolling to the references. */
+  .main-page ol,
+  .main-page ul {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  .main-page ol {
+    list-style: decimal;
+  }
+  .main-page ul {
+    list-style: disc;
+  }
+  .main-page img,
+  .main-page svg {
+    display: inline;
+    vertical-align: middle;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
 }

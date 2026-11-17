@@ -1,7 +1,13 @@
 allowBuilds:
+  esbuild: true
   core-js: true
   core-js-pure: true
 minimumReleaseAgeExclude:
+  - matsci-parse
+  - mc-react-library
   - mc-periodic-table@0.0.3
   - mc-periodic-table@0.0.4
-  - vite@8.1.0
+# matsci-parse imports moyo-wasm, which vite.config excludes from pre-bundling.
+# Vite resolves that import from the app root, so link it there too.
+publicHoistPattern:
+  - "@spglib/moyo-wasm"

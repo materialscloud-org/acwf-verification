@@ -12,22 +12,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import { birch_murnaghan } from "../../utils/comparisonMeasures";
+
 import "./EOSGraph.css";
 
 // calculate BM energy based on the fit parameters for volume v
-function birch_murnaghan(v, bm_fit) {
-  var v0 = bm_fit["min_volume"];
-  var b0 = bm_fit["bulk_modulus_ev_ang3"];
-  var b01 = bm_fit["bulk_deriv"];
-  var e0 = bm_fit["E0"];
-  var r = (v0 / v) ** (2.0 / 3.0);
-  return (
-    (9.0 / 16.0) *
-    b0 *
-    v0 *
-    ((r - 1.0) ** 3 * b01 + (r - 1.0) ** 2 * (6.0 - 4.0 * r))
-  );
-}
 
 function birch_murnaghan_array(v_min, v_max, bm_fit, extra_v) {
   let bm_arr = [];

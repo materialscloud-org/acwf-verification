@@ -12,26 +12,29 @@
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",
     "better-react-mathjax": "^2.0.2",
-    "bootstrap": "^5.2.2",
+    "matsci-parse": "0.18.23",
     "mc-periodic-table": "0.0.4",
-    "mc-react-header": "^0.4.4",
-    "react": "^18.1.0",
-    "react-bootstrap": "^2.5.0",
-    "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
+    "mc-react-header": "0.7.2",
+    "mc-react-library": "^0.7.12",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "recharts": "^2.1.15"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "lint": "oxlint",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.0.2",
+    "@tailwindcss/vite": "^4.1.16",
+    "@vitejs/plugin-react": "^5.0.0",
     "gh-pages": "^4.0.0",
+    "oxlint": "^1.89.0",
     "prettier": "2.8.8",
-    "vite": "^8.1.0"
+    "tailwindcss": "^4.1.16",
+    "vite": "^7.1.2"
   }
 }

@@ -58,7 +58,7 @@ const VisxColorbar = (props) => {
           // hideTicks
           // hideAxisLine
           tickValues={[0.0, qts["exc"], qts["good"], qts["outlier"]]}
-          tickLabelProps={(value, index) => ({
+          tickLabelProps={() => ({
             fontSize: "0.9em",
             dy: "0.33em",
             dx: "0.33em",

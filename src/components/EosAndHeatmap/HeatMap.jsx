@@ -1,4 +1,4 @@
-import React, { version } from "react";
+import React from "react";
 import { Group } from "@visx/group";
 import { scaleLinear } from "@visx/scale";
 import { HeatmapRect } from "@visx/heatmap";
@@ -8,10 +8,6 @@ import { qualityThersh, colorScale } from "../../utils/variables";
 
 import "./HeatMap.css";
 
-const hot1 = "#77312f";
-const hot2 = "#f33d15";
-const cool1 = "#122549";
-const cool2 = "#b4fbde";
 export const background = "#28272c";
 
 const width = 500;
@@ -29,7 +25,7 @@ function prepMatrix(inpMatrix, selectedCodes) {
     if (!selectedCodes.has(c1)) return;
     codeList.push(c1);
     var el = { bin: { i1 }, bins: [] };
-    matCodesRev.forEach((c2, i2) => {
+    matCodesRev.forEach((c2, _i2) => {
       if (!selectedCodes.has(c2)) return;
       el["bins"].push({
         count: inpMatrix[c1][c2],
@@ -45,7 +41,7 @@ class HeatMap extends React.Component {
     super(props);
   }
 
-  tickFormatY = (v, index, ticks) => {
+  tickFormatY = (v, index) => {
     let codeFormat =
       this.props.codeFormatting[this.codeList.slice().reverse()[index]];
     return {
@@ -55,7 +51,7 @@ class HeatMap extends React.Component {
     };
   };
 
-  tickFormatX = (v, index, ticks) => {
+  tickFormatX = (v, index) => {
     let codeFormat = this.props.codeFormatting[this.codeList[index]];
     return codeFormat["shortLabel"];
   };

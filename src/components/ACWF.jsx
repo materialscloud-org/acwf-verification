@@ -61,10 +61,6 @@ const ACWF = () => {
     }
   };
 
-  const changeElementSelection = (newElement) => {
-    setSelectedElement(newElement);
-  };
-
   // 4. Derived Data (Render Logic)
   // Calculate matrixMax only when dependencies change
   const matrixMax = useMemo(() => {
@@ -73,7 +69,7 @@ const ACWF = () => {
         comparisonMatrices,
         selectedElement,
         selectedMeasure,
-        selectedCodes,
+        selectedCodes
       );
     }
     return null;
@@ -102,7 +98,7 @@ const ACWF = () => {
         noInteractArray={noInteractArray}
         onChange={(detail) => {
           const activeKey = Object.entries(detail).find(
-            ([, v]) => v === 1,
+            ([, v]) => v === 1
           )?.[0];
 
           if (!activeKey) return;

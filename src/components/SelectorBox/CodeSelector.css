@@ -23,6 +23,7 @@
   background-color: rgb(230, 230, 230);
 }
 
-#popover-basic {
+/* the help popovers (mc-react-library HelpButton) of both selectors */
+.selector_container .help-button__popover {
   max-width: 440px;
 }

@@ -1,13 +1,59 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+
+@layer base {
+  body {
+    margin: 0;
+    color: #212529;
+    background-color: aliceblue;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+
+  /* links */
+  a {
+    color: #36c;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #1a0dab;
+    text-decoration: underline;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+
+  /* What Bootstrap's reboot gave the app's content (it used Bootstrap until
+     it moved to Tailwind): numbered/bulleted lists, inline images and SVGs
+     (e.g. MathJax), smooth scrolling to the references. */
+  .main-page ol,
+  .main-page ul {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+  }
+  .main-page ol {
+    list-style: decimal;
+  }
+  .main-page ul {
+    list-style: disc;
+  }
+  .main-page img,
+  .main-page svg {
+    display: inline;
+    vertical-align: middle;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* justified text blocks (the intro, the "Theory" text) */
+.description {
+  padding: 12px 12px 6px;
+  text-align: justify;
+  text-justify: auto;
 }

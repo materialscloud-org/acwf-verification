@@ -1,8 +1,9 @@
 # Verification of the precision of DFT implementations via AiiDA common workflows
 
-Web application built with React, using
+Web application built with React (Vite), using
 
-- react-bootstrap
+- Tailwind CSS, with the Materials Cloud header (mc-react-header) and
+  components (mc-react-library)
 - recharts
 - visx
 
@@ -15,12 +16,14 @@ Published via GitHub pages to https://acwf-verification.materialscloud.org
 For local development:
 
 ```
-> npm install
-> npm start
+> pnpm install
+> pnpm dev     # development server
+> pnpm lint    # oxlint
+> pnpm build   # production build in dist/
 ```
 
 To publish a new version to GitHub pages:
 
 ```
-> npm run deploy
+> pnpm run deploy
 ```

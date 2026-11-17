@@ -1,4 +1,4 @@
-import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
+import { useRef, useEffect } from "react";
 import { symbols, names } from "mc-periodic-table";
 
 export function PTableWrapper({

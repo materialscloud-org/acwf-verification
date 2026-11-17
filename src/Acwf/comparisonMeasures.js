@@ -1,3 +1,13 @@
+import { birchMurnaghan } from "matsci-parse";
+
+// TODO: potential to move to matsci-parse (next to fitEos / birchMurnaghan):
+// the Gauss-Legendre quadrature and the Δ, ε and ν comparisons of two
+// equations of state are generic, not ACWF-specific. They would take
+// matsci-parse's EosParameters ({ e0, v0, b0, b1 }); the ACWF field names
+// (min_volume, bulk_modulus_ev_ang3, bulk_deriv) and the thresholds in
+// variables.js stay here. Keep the 8-digit quadrature nodes/weights for
+// results identical to the Python reference scripts.
+
 /**
  * Gauss-Legendre quadrature to integrate a function.
  * 7 points means that the result is exact for a polynomial up to a degree of 13
@@ -39,7 +49,7 @@ function gaussian_quadrature_7pt(func, x1, x2) {
  * @param {*} bm_fit2
  * @returns
  */
-export function calculateNu(bm_fit1, bm_fit2, debug = false) {
+export function calculateNu(bm_fit1, bm_fit2, _debug = false) {
   if (bm_fit1 == null || bm_fit2 == null) return NaN;
   var v0_1 = bm_fit1["min_volume"];
   var b0_1 = bm_fit1["bulk_modulus_ev_ang3"];
@@ -58,18 +68,17 @@ export function calculateNu(bm_fit1, bm_fit2, debug = false) {
   return 100 * Math.sqrt(nu2);
 }
 
-function birch_murnaghan(v, bm_fit) {
-  var v0 = bm_fit["min_volume"];
-  var b0 = bm_fit["bulk_modulus_ev_ang3"];
-  var b01 = bm_fit["bulk_deriv"];
-  var e0 = bm_fit["E0"];
-  var r = (v0 / v) ** (2.0 / 3.0);
-  return (
-    (9.0 / 16.0) *
-    b0 *
-    v0 *
-    ((r - 1.0) ** 3 * b01 + (r - 1.0) ** 2 * (6.0 - 4.0 * r))
-  );
+/**
+ * Birch-Murnaghan energy at volume v of a fit, relative to its E0: the codes'
+ * curves are compared with their minima aligned (as the Δ gauge does).
+ */
+export function birch_murnaghan(v, bm_fit) {
+  return birchMurnaghan.energy(v, {
+    e0: 0,
+    v0: bm_fit["min_volume"],
+    b0: bm_fit["bulk_modulus_ev_ang3"],
+    b1: bm_fit["bulk_deriv"],
+  });
 }
 
 /**

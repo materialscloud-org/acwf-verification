@@ -3,7 +3,7 @@ import { AxisRight } from "@visx/axis";
 import { LinearGradient } from "@visx/gradient";
 import { Group } from "@visx/group";
 
-import { qualityThersh, colorScale } from "../../utils/variables";
+import { qualityThersh, colorScale } from "../variables";
 
 const VisxColorbar = (props) => {
   const width = 20; // Width of the colorbar
@@ -58,7 +58,7 @@ const VisxColorbar = (props) => {
           // hideTicks
           // hideAxisLine
           tickValues={[0.0, qts["exc"], qts["good"], qts["outlier"]]}
-          tickLabelProps={(value, index) => ({
+          tickLabelProps={() => ({
             fontSize: "0.9em",
             dy: "0.33em",
             dx: "0.33em",
